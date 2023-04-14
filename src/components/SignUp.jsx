@@ -3,7 +3,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 
-const SignUp = ({ app }) => {
+const SignUp = ({ app, setSignInOrSignUp }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,6 +71,14 @@ const SignUp = ({ app }) => {
             }}
           >
             Sign Up
+          </button>
+          <button
+            className="btn login-button-in-signup"
+            onClick={() => {
+              setSignInOrSignUp(false);
+            }}
+          >
+            I have an account!
           </button>
         </div>
       </div>

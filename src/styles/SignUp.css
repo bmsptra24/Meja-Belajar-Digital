@@ -1,5 +1,5 @@
 .login-container {
-  height: 500px;
+  height: 530px;
   width: 400px;
   background-color: #ffffff;
   display: flex;
@@ -20,4 +20,9 @@
 
 .form-loginpage {
   width: 89%;
+}
+
+button.login-button-in-signup {
+  margin-top: 7px;
+  margin-bottom: 10px;
 }

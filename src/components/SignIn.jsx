@@ -3,7 +3,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import "../styles/SignIn.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const Login = () => {
+const Login = ({ setSignInOrSignUp }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -58,7 +58,12 @@ const Login = () => {
           >
             Sign In
           </button>
-          <button className="btn mt-n4 btn-sign-up" onClick={() => {}}>
+          <button
+            className="btn mt-n4 btn-sign-up"
+            onClick={() => {
+              setSignInOrSignUp(true);
+            }}
+          >
             Don't have any account!
           </button>
         </div>

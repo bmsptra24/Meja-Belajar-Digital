@@ -5,7 +5,7 @@ import "../styles/ToDoList.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 //bug: harus disepasi dulu baru tampilan berubah, klik sampah tampilan hilang tapi didata tidak hilang
 
-const Home = () => {
+const ToDoList = () => {
   const [tasks, setTasks] = useState(["Memasak", "buat pr", "ngoding"]);
   const [inputValue, setInputValue] = useState("");
 
@@ -82,4 +82,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default ToDoList;
