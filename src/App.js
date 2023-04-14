@@ -10,12 +10,12 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 function App() {
   //key
   const firebaseConfig = {
-    apiKey: 'AIzaSyANfxb3MTLBsJTPiBPmB216rxdDSMNjtjE',
-    authDomain: 'todolist-6d439.firebaseapp.com',
-    projectId: 'todolist-6d439',
-    storageBucket: 'todolist-6d439.appspot.com',
-    messagingSenderId: '9887849788',
-    appId: '1:9887849788:web:800342db8b6a14ff8a1239',
+    apiKey: 'AIzaSyBijZbCu2wicrtWe-_wruls44th-xFnnzI',
+    authDomain: 'meja-belajar-digital.firebaseapp.com',
+    projectId: 'meja-belajar-digital',
+    storageBucket: 'meja-belajar-digital.appspot.com',
+    messagingSenderId: '1050472517471',
+    appId: '1:1050472517471:web:8c489f422f6d94576b70ea',
   }
   // Initialize Firebase
   const app = initializeApp(firebaseConfig)
