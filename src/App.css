@@ -1,0 +1,39 @@
+/* https://colorhunt.co/palette/f9f7f7dbe2ef3f72af112d4e */
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+:root {
+  --white-light: #f9f7f7;
+  --white-dark: #dbe2ef;
+  --blue-light: #b1d4ff;
+  --blue-light-2: #7fb5ff;
+  --blue: #5393e1;
+  --blue-dark: #112d4e;
+  --clr-footer: #001d6e;
+  --clr-bg: #e1eeff;
+  --poppin: "Poppins", sans-serif;
+}
+
+.App {
+  position: absolute;
+  background-color: var(--clr-bg);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--poppin);
+}
+
+.mt-n1 {
+  margin-top: -0.25rem !important;
+}
+.mt-n2 {
+  margin-top: -0.5rem !important;
+}
+.mt-n3 {
+  margin-top: -0.75rem !important;
+}
+.mt-n4 {
+  margin-top: -1rem !important;
+}

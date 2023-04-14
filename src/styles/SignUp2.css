@@ -1,0 +1,79 @@
+html,
+body {
+  height: 100%;
+  background-color: #e1eeff !important;
+}
+
+.global-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #48e248;
+  padding: 0px;
+}
+.login-form {
+  width: 380px;
+  height: 450px;
+  padding: 19px;
+  background: #7fb5ff !important;
+  border-radius: 10px !important;
+  border: 3px solid black;
+  padding-bottom: 600px;
+  padding-top: 40px;
+}
+
+input[type="email"],
+input[type="password"] {
+  background: #ffffff;
+  color: black;
+  border: 2px solid #000000;
+  border-radius: 9px;
+  padding: 10px;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border: none;
+  background: #e1eeff;
+  color: black;
+  margin: none;
+}
+
+.card-title {
+  font-weight: 64px;
+  padding-top: 5px;
+  font-family: "Montserrat";
+  color: #000000;
+}
+.card-title1 {
+  font-weight: 64px;
+  padding-top: 5px;
+  padding-bottom: 35px;
+}
+
+.btn {
+  background-color: #c4ddff !important;
+  color: black !important;
+  transform: translateY(10px);
+  font-size: 14px;
+  border-radius: 10px !important;
+  border-color: black;
+  margin: 2px;
+}
+.form-control {
+  margin-top: -35px;
+}
+
+.belakang {
+  width: 380px;
+  height: 450px;
+  padding: 19px;
+  background: #c4ddff !important;
+  border-radius: 10px !important;
+  border: 3px solid black;
+  padding-bottom: 600px;
+  padding-top: 15px;
+  padding-left: 30px;
+}

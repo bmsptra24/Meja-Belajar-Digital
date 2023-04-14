@@ -1,0 +1,81 @@
+import "../styles/SignUp.css";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useState } from "react";
+
+const SignUp = ({ app }) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const createUser = () => {
+    const auth = getAuth(app);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorCode, errorMessage);
+      });
+  };
+
+  return (
+    <div className="App">
+      <div className="belakang">
+        <div className="login-container rounded-3">
+          <h2 className="fw-bold fs-1">Sign Up Account</h2>
+          <p className="p-4 mt-n4">
+            Hey, enter your detail to get sign up to your account!
+          </p>
+          <input
+            type="text"
+            className="form-control form-loginpage mt-n4"
+            placeholder="Your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            type="email"
+            className="form-control form-loginpage mt-2"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            className="form-control form-loginpage mt-2"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="password"
+            className="form-control form-loginpage mt-2"
+            placeholder="Confirm Your Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <button
+            className="btn"
+            onClick={() => {
+              if (password === confirmPassword) {
+                createUser();
+              } else {
+                alert("Cek kembali password anda!");
+              }
+            }}
+          >
+            Sign Up
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SignUp;

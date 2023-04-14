@@ -1,0 +1,112 @@
+.login-container {
+  height: 400px;
+  width: 300px;
+  background-color: var(--blue-light-2) !important;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  border-style: solid;
+}
+
+.login-container > button {
+  background-color: var(--blue-light);
+  border-color: #000000;
+  border-width: 2px;
+  border-style: solid;
+  width: 89%;
+  margin-top: 32px;
+}
+
+div > .login-container > button:hover {
+  border-color: var(--blue);
+  background-color: var(--blue);
+}
+
+.form-loginpage {
+  width: 89%;
+}
+div > .login-container > .btn-sign-up {
+  background-color: var(--white-dark);
+}
+
+div > .login-container > .btn-sign-up:hover {
+  background-color: var(--white-light);
+}
+
+/* paul css  */
+/* .global-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #48e248;
+  padding: 0px;
+}
+
+.login-form {
+  width: 380px;
+  height: 450px;
+  padding: 19px;
+  background: #7fb5ff !important;
+  border-radius: 10px !important;
+  border: 3px solid black;
+  padding-bottom: 490px;
+  padding-top: 40px;
+} */
+
+input[type="email"],
+input[type="text"],
+input[type="password"] {
+  background: #ffffff;
+  color: black;
+  border: 2px solid #000000;
+  border-radius: 9px;
+  padding: 10px;
+}
+
+input[type="email"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border: none;
+  background: #e1eeff;
+  color: black;
+  margin: none;
+}
+
+.card-title {
+  font-weight: 64px;
+  padding-top: 5px;
+  font-family: "Montserrat";
+  color: #000000;
+}
+.card-title1 {
+  font-weight: 64px;
+  padding-top: 5px;
+  padding-bottom: 35px;
+}
+
+.btn {
+  background-color: #c4ddff !important;
+  color: black !important;
+  transform: translateY(10px);
+  font-size: 14px;
+  border-radius: 10px !important;
+  border-color: black;
+  margin: 2px;
+}
+
+/* .form-control {
+  margin-top: -35px;
+} */
+
+.belakang {
+  height: 500px;
+  width: 400px;
+  padding: 20px;
+  background: #c4ddff !important;
+  border-radius: 10px !important;
+  border: 3px solid black;
+}
