@@ -35,27 +35,6 @@ div > .login-container > .btn-sign-up:hover {
   background-color: var(--white-light);
 }
 
-/* paul css  */
-/* .global-container {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #48e248;
-  padding: 0px;
-}
-
-.login-form {
-  width: 380px;
-  height: 450px;
-  padding: 19px;
-  background: #7fb5ff !important;
-  border-radius: 10px !important;
-  border: 3px solid black;
-  padding-bottom: 490px;
-  padding-top: 40px;
-} */
-
 input[type="email"],
 input[type="text"],
 input[type="password"] {
@@ -97,10 +76,6 @@ input[type="password"]:focus {
   border-color: black;
   margin: 2px;
 }
-
-/* .form-control {
-  margin-top: -35px;
-} */
 
 .belakang {
   height: 500px;
