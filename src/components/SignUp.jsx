@@ -3,19 +3,21 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 
-const SignUp = ({ app, setSignInOrSignUp }) => {
+const SignUp = ({ app, setSignInOrSignUp, writeUserData }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  // create new account user
   const createUser = () => {
     const auth = getAuth(app);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
+        // write user data to database
+        writeUserData(user.uid, name, email);
       })
       .catch((error) => {
         const errorCode = error.code;

@@ -40,7 +40,7 @@
 }
 
 .selected {
-  color: rgb(0, 118, 164);
+  color: rgb(118, 150, 163);
 }
 
 .unselected {
@@ -62,4 +62,8 @@ svg > .bi-box-arrow-left:hover {
   background: #c4ddff !important;
   border-radius: 10px !important;
   border: 3px solid black;
+}
+
+.bi-trash {
+  min-width: 20px;
 }

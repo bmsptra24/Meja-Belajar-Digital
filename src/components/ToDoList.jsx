@@ -3,10 +3,54 @@ import Task from "./Task";
 import { useState } from "react";
 import "../styles/ToDoList.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  getDataUser,
+  writeNewTask,
+  updateTask,
+  deleteTask,
+} from "../Store/Database";
+
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../Store/Firebase";
+// import { set } from "firebase/database";
+
 //bug: harus disepasi dulu baru tampilan berubah, klik sampah tampilan hilang tapi didata tidak hilang
+// function debug(params) {
+//   console.log(params);
+// }
+
+const getDataTasks = async (user, select) => {
+  let data = await getDataUser(user);
+
+  if (data.tasks) {
+    if (select === "value") {
+      data = Object.entries(data.tasks).map((e, ind) => {
+        return e[1];
+      });
+    } else if (select === "key") {
+      data = Object.entries(data.tasks).map((e, ind) => {
+        // console.log(data);
+        return e[0];
+      });
+    }
+    return data ? data : ["Tidak ada data!"];
+  }
+};
 
 const ToDoList = () => {
-  const [tasks, setTasks] = useState(["Memasak", "buat pr", "ngoding"]);
+  const [user] = useAuthState(auth);
+
+  // membuat state tasks
+  const [tasks, setTasks] = useState([]);
+  // const [key, setKey] = useState([]);
+
+  getDataTasks(user, "value") // diisi dari sini
+    .then((result) => {
+      // karena resultnya masih promise, jadi pkk then
+      setTasks(result); // result dimasukan ke state
+    })
+    .catch((error) => console.log(error));
+
   const [inputValue, setInputValue] = useState("");
 
   const getInputValue = (event) => {
@@ -24,6 +68,46 @@ const ToDoList = () => {
         // An error happened.
         alert(error);
       });
+  };
+
+  const setCheckedFunction = (index) => {
+    // jika item checked di object tasks index ke x = true
+
+    // ambil data key
+    getDataTasks(user, "key") // state key diisi dari sini
+      .then((result) => {
+        // karena resultnya masih promise, jadi pkk then
+        const key = result; // result dimasukan ke state
+
+        // mengganti status check
+        if (key !== undefined) {
+          tasks.map((task, idx) => {
+            if (idx === index) {
+              if (task.checked) {
+                updateTask(user, key[idx], { ...task, checked: false }); // ubah didatabase
+              } else {
+                updateTask(user, key[idx], { ...task, checked: true });
+              }
+            }
+          });
+          // setTasks(() => {
+          //   return tasks.map((task, idx) => {
+          //     if (idx === index) {
+          //       if (task.checked) {
+          //         updateTask(user, key[idx], { ...task, checked: false }); // ubah didatabase
+          //         return { ...task, checked: false }; // ubah ke false (ditampilan)
+          //       } else {
+          //         updateTask(user, key[idx], { ...task, checked: true });
+          //         return { ...task, checked: true }; // begitupun sebaliknya
+          //       }
+          //     } else {
+          //       return task;
+          //     }
+          //   });
+          // });
+        }
+      })
+      .catch((error) => alert(error));
   };
 
   return (
@@ -51,21 +135,36 @@ const ToDoList = () => {
           </svg>
         </div>
         <div className="container">
-          {tasks.map((e, index) => (
-            <Task task={e} index={index} key={index} />
-          ))}
+          {tasks !== undefined
+            ? tasks.map((e, index) => (
+                <Task
+                  tasks={tasks}
+                  setCheckedFunction={setCheckedFunction}
+                  index={index}
+                  deleteTask={deleteTask}
+                  user={user}
+                  getDataTasks={getDataTasks}
+                  key={index}
+                />
+              ))
+            : "Tidak ada task..."}
         </div>
         <div className="new-task-container d-flex justify-content-evenly align-items-center">
           <input
             type="text"
             className="form-control input-task"
             placeholder="New Task"
+            // setiap perubahan langsung disimpan ke state
             onChange={getInputValue}
+            // valuenya langsung dari state
+            value={inputValue}
           />
           <svg
-            onClick={() => {
-              tasks.push(inputValue);
-              console.log(tasks);
+            onClick={(event) => {
+              // ubah isi tasks di database
+              writeNewTask(user, inputValue);
+              // kosongkan value state inputValue
+              setInputValue("");
             }}
             xmlns="http://www.w3.org/2000/svg"
             width="27"

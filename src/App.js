@@ -1,29 +1,23 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
-import SignIn from './Pages/SignIn'
-import SignUp from './Pages/SignUp'
+import SignInAndSignUp from './Pages/SignInAndSignUp'
 import Home from './Pages/Home'
-import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from './Store/Firebase'
 
 function App() {
-  //key
-  const firebaseConfig = {
-    apiKey: 'AIzaSyBijZbCu2wicrtWe-_wruls44th-xFnnzI',
-    authDomain: 'meja-belajar-digital.firebaseapp.com',
-    projectId: 'meja-belajar-digital',
-    storageBucket: 'meja-belajar-digital.appspot.com',
-    messagingSenderId: '1050472517471',
-    appId: '1:1050472517471:web:8c489f422f6d94576b70ea',
-  }
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig)
-  const auth = getAuth(app)
+  // state
+  // const [dataUser, setDataUser] = useState()
+
   const [user] = useAuthState(auth)
 
+  // useEffect(() => {
+  //   if (user) {
+  //     getDataUser()
+  //   }
+  // }, user)
+
   // kalo user login maka ke home, selain itu ke signin
-  return <section>{user ? <Home /> : <SignIn />}</section>
+  return <section>{user ? <Home /> : <SignInAndSignUp />}</section>
 }
 
 export default App
