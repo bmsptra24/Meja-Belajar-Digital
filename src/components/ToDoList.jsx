@@ -20,6 +20,7 @@ import { auth } from "../Store/Firebase";
 // }
 
 const getDataTasks = async (user, select) => {
+  // get data
   let data = await getDataUser(user);
 
   if (data.tasks) {
