@@ -1,0 +1,28 @@
+.full-size {
+  background-color: var(--blue-light-2);
+  width: 85vw;
+  height: 80vh;
+  margin-bottom: 75px;
+  border-radius: 10px;
+  border: 3px solid black;
+}
+
+.shadow {
+  background-color: var(--blue-light);
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.bg-white {
+  background-color: var(--white-light);
+}
+.bg-white-dark {
+  background-color: var(--blue-shadow);
+}
+
+.content-1 {
+  height: 74.8vh;
+}
+.content-2 {
+  height: 49.1%;
+}

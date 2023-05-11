@@ -1,9 +1,15 @@
 import "../styles/SignUp.css";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
+import { writeUserData } from "../Store/Database";
+import validator from "validator";
 
-const SignUp = ({ app, setSignInOrSignUp, writeUserData }) => {
+const SignUp = ({ app, setSignInOrSignUp }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,6 +24,14 @@ const SignUp = ({ app, setSignInOrSignUp, writeUserData }) => {
         const user = userCredential.user;
         // write user data to database
         writeUserData(user.uid, name, email);
+        // sending email verification
+        sendEmailVerification(auth.currentUser).then(() => {
+          // Email verification sent!
+          alert("An email verification link has been sent to " + user.email);
+        });
+
+        // Log out first, cause have to verificated first
+        auth.signOut();
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -65,10 +79,18 @@ const SignUp = ({ app, setSignInOrSignUp, writeUserData }) => {
           <button
             className="btn"
             onClick={() => {
-              if (password === confirmPassword) {
-                createUser();
+              if (!validator.isEmpty(name, { ignore_whitespace: true })) {
+                if (validator.isEmail(email)) {
+                  if (password === confirmPassword) {
+                    createUser();
+                  } else {
+                    alert("Cek kembali password anda!");
+                  }
+                } else {
+                  alert("Email not valid!");
+                }
               } else {
-                alert("Cek kembali password anda!");
+                alert("Nama tidak boleh kosong! ");
               }
             }}
           >

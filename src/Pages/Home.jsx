@@ -1,5 +1,5 @@
 // inport module
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import "../styles/Home.css";
 import Footer from "../components/Footer";
 import ToDoList from "../components/ToDoList";
@@ -11,7 +11,19 @@ import Search from "../components/Search";
 import Pomodoro from "../components/Pomodoro";
 
 const Home = () => {
-  // declaration state
+  // const auth = getAuth();
+  // const [user] = useAuthState(auth);
+
+  // auth.onAuthStateChanged(() => {
+  //   if (user) {
+  //     if (!user.emailVerified) {
+  //       console.log("email status : " + user.emailVerified);
+  //       return auth.signOut();
+  //     }
+  //   }
+  // });
+
+  // declaration state switch display component
   const [toDoList, setToDoList] = useState(false);
   const [blurting, setBlurting] = useState(false);
   const [flashCard, setFlashCard] = useState(false);

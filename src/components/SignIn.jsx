@@ -9,15 +9,22 @@ const Login = ({ setSignInOrSignUp }) => {
 
   const signIn = () => {
     if (password === "") {
-      return alert("Passwprd Empty!");
+      return alert("Password Empty!");
     }
+
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user;
-        alert("Login success");
-        // ...
+        let user = userCredential.user;
+        if (user) {
+          if (!user.emailVerified) {
+            auth.signOut();
+            return alert("Email is not verified");
+          } else {
+            // alert("Login success");
+          }
+        }
       })
       .catch((error) => {
         const errorCode = error.code;

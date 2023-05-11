@@ -2,7 +2,7 @@ import { useState } from "react";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 
-const Pages = ({ writeUserData }) => {
+const Pages = () => {
   // state for switch bitween sign in and sign up
   const [signInOrSignUp, setSignInOrSignUp] = useState(false);
 
@@ -10,10 +10,7 @@ const Pages = ({ writeUserData }) => {
   return signInOrSignUp === false ? (
     <SignIn setSignInOrSignUp={setSignInOrSignUp} />
   ) : (
-    <SignUp
-      setSignInOrSignUp={setSignInOrSignUp}
-      writeUserData={writeUserData}
-    />
+    <SignUp setSignInOrSignUp={setSignInOrSignUp} />
   );
 };
 

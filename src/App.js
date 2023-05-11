@@ -15,7 +15,6 @@ function App() {
   //     getDataUser()
   //   }
   // }, user)
-
   // kalo user login maka ke home, selain itu ke signin
   return <section>{user ? <Home /> : <SignInAndSignUp />}</section>
 }
