@@ -14,11 +14,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
 // import { set } from "firebase/database";
 
-//bug: harus disepasi dulu baru tampilan berubah, klik sampah tampilan hilang tapi didata tidak hilang
-// function debug(params) {
-//   console.log(params);
-// }
-
 const getDataTasks = async (user, select) => {
   // get data
   let data = await getDataUser(user);

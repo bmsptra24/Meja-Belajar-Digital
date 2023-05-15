@@ -3,8 +3,12 @@ import SignInAndSignUp from './Pages/SignInAndSignUp'
 import Home from './Pages/Home'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from './Store/Firebase'
+import { useEffect } from 'react'
 
 function App() {
+  useEffect(() => {
+    document.body.style.zoom = '100%'
+  }, [])
   // state
   // const [dataUser, setDataUser] = useState()
 
