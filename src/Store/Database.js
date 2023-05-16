@@ -6,7 +6,6 @@ import {
   child,
   push,
   update,
-  onValue,
 } from 'firebase/database'
 
 // let dataModul
@@ -83,7 +82,7 @@ export const writeNewData = (user, data, category) => {
   const updates = {}
   updates['users/' + user.uid + '/' + category + '/' + newPostKey] = data
 
-  console.log('data berhasil dibuat')
+  // console.log('data berhasil dibuat')
 
   return update(ref(db), updates)
 }
@@ -116,7 +115,7 @@ export const writeNewTask = (user, task) => {
   // Write the new post's data simultaneously in the posts list and the user's post list.
   const updates = {}
   updates['users/' + user.uid + '/tasks/' + newPostKey] = postData
-  console.log('data berhasil dibuat')
+  // console.log('data berhasil dibuat')
   return update(ref(db), updates)
 }
 

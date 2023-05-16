@@ -3,6 +3,7 @@ import { useState } from "react";
 import "../styles/Home.css";
 import Footer from "../components/Footer";
 import ToDoList from "../components/ToDoList";
+import Note from "../components/Note";
 import Blurting from "../components/Blurting";
 import FlashCard from "../components/FlashCard";
 import FeynMan from "../components/FeynMan";
@@ -25,6 +26,7 @@ const Home = () => {
 
   // declaration state switch display component
   const [toDoList, setToDoList] = useState(false);
+  const [note, setNote] = useState(false);
   const [blurting, setBlurting] = useState(false);
   const [flashCard, setFlashCard] = useState(false);
   const [feynman, setFeynman] = useState(false);
@@ -36,6 +38,7 @@ const Home = () => {
     <div className="home">
       {/* if the state is true so display component  */}
       {toDoList === true && <ToDoList />}
+      {note === true && <Note />}
       {blurting === true && <Blurting />}
       {flashCard === true && <FlashCard />}
       {feynman === true && <FeynMan />}
@@ -47,6 +50,8 @@ const Home = () => {
         //passing state to child
         setToDoList={setToDoList}
         toDoList={toDoList}
+        setNote={setNote}
+        note={note}
         setBlurting={setBlurting}
         blurting={blurting}
         flashCard={flashCard}

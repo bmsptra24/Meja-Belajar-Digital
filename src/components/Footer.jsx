@@ -1,18 +1,23 @@
+import {
+  FaClipboardList,
+  FaChalkboardTeacher,
+  FaRegStickyNote,
+} from "react-icons/fa";
+import {
+  BsCircle,
+  BsFire,
+  BsCardHeading,
+  BsSoundwave,
+  BsSearch,
+} from "react-icons/bs";
 import "../styles/Icon.css";
 import "../styles/Footer.css";
-
-//Path icons
-import todolistIcon from "../assets/icon/todolist.png";
-import blurtingIcon from "../assets/icon/blurting.png";
-import flashcardIcon from "../assets/icon/flashcard.png";
-import feynmanIcon from "../assets/icon/feynman.png";
-import homeIcon from "../assets/icon/home.png";
-import searchIcon from "../assets/icon/search.png";
-import musicIcon from "../assets/icon/music.png";
 
 const Footer = ({
   setToDoList,
   toDoList,
+  setNote,
+  note,
   setBlurting,
   blurting,
   setFlashCard,
@@ -26,16 +31,17 @@ const Footer = ({
   setPomodoro,
   pomodoro,
 }) => {
-  const Icon = ({ path, section }) => {
+  const Icon = ({ section }) => {
     return (
       <div
-        className="icon"
+        className="icon user-select-none"
         onClick={() => {
           // saat on click, dicari komponen mana yg terklik (dari sectionnya)
           switch (section) {
             case "home":
               // jika klik home maka semua state pengontrol di hide (false)
               setToDoList(false);
+              setNote(false);
               setBlurting(false);
               setFeynman(false);
               setFlashCard(false);
@@ -47,6 +53,19 @@ const Footer = ({
             case "todolist":
               toDoList === false ? setToDoList(true) : setToDoList(false);
               // hide component sebelumnya
+              setNote(false);
+              setBlurting(false);
+              setFeynman(false);
+              setFlashCard(false);
+              setMusic(false);
+              setSearch(false);
+              setPomodoro(false);
+              break;
+
+            case "note":
+              music === false ? setNote(true) : setNote(false);
+              // hide component sebelumnya
+              setToDoList(false);
               setBlurting(false);
               setFeynman(false);
               setFlashCard(false);
@@ -59,6 +78,7 @@ const Footer = ({
               blurting === false ? setBlurting(true) : setBlurting(false);
               // hide component sebelumnya
               setToDoList(false);
+              setNote(false);
               setFeynman(false);
               setFlashCard(false);
               setMusic(false);
@@ -70,6 +90,7 @@ const Footer = ({
               flashCard === false ? setFlashCard(true) : setFlashCard(false);
               // hide component sebelumnya
               setToDoList(false);
+              setNote(false);
               setBlurting(false);
               setFeynman(false);
               setMusic(false);
@@ -81,6 +102,7 @@ const Footer = ({
               feynman === false ? setFeynman(true) : setFeynman(false);
               // hide component sebelumnya
               setToDoList(false);
+              setNote(false);
               setBlurting(false);
               setFlashCard(false);
               setMusic(false);
@@ -92,6 +114,7 @@ const Footer = ({
               music === false ? setMusic(true) : setMusic(false);
               // hide component sebelumnya
               setToDoList(false);
+              setNote(false);
               setBlurting(false);
               setFeynman(false);
               setFlashCard(false);
@@ -103,6 +126,7 @@ const Footer = ({
               search === false ? setSearch(true) : setSearch(false);
               // hide component sebelumnya
               setToDoList(false);
+              setNote(false);
               setBlurting(false);
               setFeynman(false);
               setFlashCard(false);
@@ -115,7 +139,23 @@ const Footer = ({
           }
         }}
       >
-        <img src={path} />
+        {section === "home" ? (
+          <BsCircle className="icon-size" />
+        ) : section === "todolist" ? (
+          <FaClipboardList className="icon-size" />
+        ) : section === "note" ? (
+          <FaRegStickyNote className="icon-size" />
+        ) : section === "blurting" ? (
+          <BsFire className="icon-size" />
+        ) : section === "flashcard" ? (
+          <BsCardHeading className="icon-size" />
+        ) : section === "feynman" ? (
+          <FaChalkboardTeacher className="icon-size" />
+        ) : section === "music" ? (
+          <BsSoundwave className="icon-size" />
+        ) : section === "search" ? (
+          <BsSearch className="icon-size" />
+        ) : null}
       </div>
     );
   };
@@ -124,17 +164,18 @@ const Footer = ({
     <div className="footer-container">
       <div className="icon-container">
         <div className="left">
-          <Icon path={homeIcon} section={"home"} />
+          <Icon section={"home"} />
         </div>
         <div className="center">
-          <Icon path={todolistIcon} section={"todolist"} />
-          <Icon path={blurtingIcon} section={"blurting"} />
-          <Icon path={flashcardIcon} section={"flashcard"} />
-          <Icon path={feynmanIcon} section={"feynman"} />
-          <Icon path={musicIcon} section={"music"} />
+          <Icon section={"todolist"} />
+          <Icon section={"note"} />
+          <Icon section={"blurting"} />
+          <Icon section={"flashcard"} />
+          <Icon section={"feynman"} />
+          <Icon section={"music"} />
         </div>
         <div className="right">
-          <Icon path={searchIcon} section={"search"} />
+          <Icon section={"search"} />
           <div
             className="pomodoro"
             onClick={() => {
@@ -147,7 +188,7 @@ const Footer = ({
               setSearch(false);
             }}
           >
-            25:00
+            <div className="user-select-none">25:00</div>
           </div>
         </div>
       </div>
