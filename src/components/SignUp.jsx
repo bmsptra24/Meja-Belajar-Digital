@@ -6,7 +6,7 @@ import {
 } from "firebase/auth";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import { writeUserData } from "../Store/Database";
+import { updateData } from "../Store/Database";
 import validator from "validator";
 
 const SignUp = ({ app, setSignInOrSignUp }) => {
@@ -23,7 +23,16 @@ const SignUp = ({ app, setSignInOrSignUp }) => {
         // Signed in
         const user = userCredential.user;
         // write user data to database
-        writeUserData(user.uid, name, email);
+        // writeUserData(user.uid, name, email);
+        updateData("users/" + user.uid, {
+          email: email,
+          feynman: null,
+          moduls: null,
+          notes: null,
+          search: null,
+          tasks: null,
+          username: name,
+        });
         // sending email verification
         sendEmailVerification(auth.currentUser).then(() => {
           // Email verification sent!
@@ -32,6 +41,7 @@ const SignUp = ({ app, setSignInOrSignUp }) => {
 
         // Log out first, cause have to verificated first
         auth.signOut();
+        setSignInOrSignUp(false);
       })
       .catch((error) => {
         const errorCode = error.code;

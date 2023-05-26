@@ -9,6 +9,10 @@
   margin-top: 15px;
 }
 
+.icon-plus-todolist:focus {
+  border-color: var(--blue-light-2);
+}
+
 .new-task-container {
   position: absolute;
   bottom: 0;

@@ -63,7 +63,7 @@ const Footer = ({
               break;
 
             case "note":
-              music === false ? setNote(true) : setNote(false);
+              note === false ? setNote(true) : setNote(false);
               // hide component sebelumnya
               setToDoList(false);
               setBlurting(false);

@@ -39,3 +39,6 @@
 .mt-n4 {
   margin-top: -1rem !important;
 }
+.bg-loading {
+  background-color: var(--clr-bg);
+}

@@ -16,10 +16,12 @@ const DataRealtime = (path, callback) => {
 
   const dbRef = ref(getDatabase(), path);
   onValue(dbRef, (snapshot) => {
-    let result = Object.entries(snapshot.val()).map((e, ind) => {
-      return e;
-    });
-    transferData(result);
+    if (snapshot.val()) {
+      let result = Object.entries(snapshot.val()).map((e, ind) => {
+        return e;
+      });
+      transferData(result);
+    }
   });
 };
 
@@ -277,7 +279,7 @@ const Blurting = () => {
                       maxLength={10000}
                       rows={5}
                     ></textarea>
-                    <label htmlFor="floatingTextarea2">Hal yang diingat</label>
+                    <label htmlFor="floatingTextarea2">Hal yang dilupa</label>
                   </div>
                 ) : (
                   <div>...</div>
