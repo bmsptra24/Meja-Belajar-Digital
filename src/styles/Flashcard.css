@@ -1,0 +1,33 @@
+.btn-search {
+  background-color: var(--white-light);
+  border: 1px solid var(--blue-light);
+  border-radius: 7px;
+}
+
+.log > div {
+  width: 100%;
+  display: block;
+  /* border: 1px solid var(--blue-light); */
+}
+
+.massage > div {
+  background-color: var(--white-light);
+}
+
+.ai-massage > div {
+  background-color: var(--white-light);
+}
+
+::-webkit-scrollbar {
+  /* background-color: var(--blue-light); */
+  border-radius: 5px;
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--blue-light);
+  border-radius: 5px;
+}
+
+div > .search-box {
+  box-shadow: 0px -30px 50px var(--blue-light);
+}
