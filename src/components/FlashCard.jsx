@@ -4,7 +4,14 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect, useRef, useState } from "react";
-import { BsTrash, BsPlusLg, BsPlayFill } from "react-icons/bs";
+import {
+  BsTrash,
+  BsPlusLg,
+  BsPlayFill,
+  BsFillArrowRightSquareFill,
+  BsFillArrowLeftSquareFill,
+  BsArrowClockwise,
+} from "react-icons/bs";
 
 // add new note
 const addCardModule = async (user, setCards, key = newKey("flashcard")) => {
@@ -67,6 +74,11 @@ const Note = () => {
   const [lastOpen, setLastOpen] = useState(0);
   const [currentKeyCard, setCurrentKeyCard] = useState([]);
   const [isPlay, setIsPlay] = useState(false);
+  const [isStart, setIsStart] = useState(false);
+  const [isSeeAnswer, setIsSeeAnswer] = useState(false);
+  const [randomNumber, setRandomNumber] = useState(0);
+  const [checkPoint, setCheckPoint] = useState(0);
+  let randNumbers = [];
 
   const refTitle = useRef(null);
   // change state
@@ -157,7 +169,22 @@ const Note = () => {
       setLastOpen(-1);
     }
   }, [data]);
-
+  // Function to shuffle an array using Fisher-Yates algorithm
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+  // Function to generate an array of numbers from 1 to maxNumber
+  function generateNumberArray(maxNumber) {
+    const numberArray = [];
+    for (let i = 1; i <= maxNumber; i++) {
+      numberArray.push(i);
+    }
+    return numberArray;
+  }
   // set the note
   useEffect(() => {
     if (lastOpen >= 0 && data.length !== 0) {
@@ -168,6 +195,7 @@ const Note = () => {
         setCards(Object.entries(data[lastOpen][1].cards));
       } else {
         setCards([]);
+        setRandomNumber(-1);
       }
       setCurrentKeyCard(data[lastOpen][0]);
     }
@@ -177,11 +205,16 @@ const Note = () => {
     refTitle.current.focus();
   };
 
-  // console.log(currentKeyCard);
+  useEffect(() => {
+    console.log(randNumbers[checkPoint]);
+    setRandomNumber(randNumbers[checkPoint]);
+  }, [checkPoint]);
+
+  console.log(randomNumber);
   return (
     <div className="regular-size shadow">
-      <div className="regular-size">
-        <div className="row d-flex justify-content-between p-3 ps-4 pe-4">
+      <div className="regular-size position-relative">
+        <div className=" align-items-center row d-flex justify-content-center p-3 ps-4 pe-4">
           {!isPlay && (
             <>
               <div className="d-flex justify-content-between flex-column col-3 rounded-3 border border-2 border-black bg-white-dark content-1 p-2">
@@ -378,16 +411,52 @@ const Note = () => {
           )}
           {isPlay && (
             <>
-              <div className="d-flex justify-content-center align-items-center rounded-3 border border-2 border-black bg-white content-1 p-3 pt-2">
+              <div className="d-flex w-100 justify-content-center flex-column align-items-center rounded-3 border border-2 border-black bg-white content-1 p-3 pt-2">
                 <div>
-                  <div className="btn">
-                    {/* 🤠 */}
-                    <p className="fs-1 fw-bolder mx-4 mt-2">START</p>
-                  </div>
+                  {!isStart && (
+                    <div
+                      className="btn"
+                      onClick={() => {
+                        // generate random number
+                        randNumbers = shuffleArray(
+                          generateNumberArray(cards.length)
+                        );
+                        setIsStart((e) => !e);
+                      }}
+                    >
+                      <p className="fs-1 fw-bolder mx-4 mt-2">START</p>
+                    </div>
+                  )}
+                  {isStart && (
+                    <div>
+                      {!isSeeAnswer ? (
+                        <p className="fs-3 mx-4 mt-2">
+                          {cards && cards[randomNumber][1].question}
+                        </p>
+                      ) : (
+                        <p className="fs-3 mx-4 mt-2">
+                          {cards && cards[randomNumber][1].answer}
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </>
           )}
+        </div>
+        <div
+          className="d-flex justify-content-center"
+          style={{ marginTop: "-10vh" }}
+        >
+          <BsFillArrowLeftSquareFill className="fs-1 me-4" />
+          <BsArrowClockwise className="fs-1 me-4" />
+          <BsFillArrowRightSquareFill
+            className="fs-1"
+            onClick={() => {
+              setCheckPoint((e) => e + 1);
+            }}
+          />
         </div>
       </div>
     </div>
