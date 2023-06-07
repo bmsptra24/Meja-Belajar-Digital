@@ -76,9 +76,13 @@ const Note = () => {
   const [isPlay, setIsPlay] = useState(false);
   const [isStart, setIsStart] = useState(false);
   const [isSeeAnswer, setIsSeeAnswer] = useState(false);
-  const [randomNumber, setRandomNumber] = useState(0);
-  const [checkPoint, setCheckPoint] = useState(0);
-  let randNumbers = [];
+  // const [randomNumber, setRandomNumber] = useState(0);
+  // const [randomNumbers, setRandomNumbers] = useState(
+  //   shuffleArray(generateNumberArray(cards.length))
+  // );
+  const [checkPoint, setCheckPoint] = useState(-1);
+  // let checkPoint = 0;
+  // let randomNumbers = [];
 
   const refTitle = useRef(null);
   // change state
@@ -170,21 +174,21 @@ const Note = () => {
     }
   }, [data]);
   // Function to shuffle an array using Fisher-Yates algorithm
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
+  // function shuffleArray(array) {
+  //   for (let i = array.length - 1; i > 0; i--) {
+  //     const j = Math.floor(Math.random() * (i + 1));
+  //     [array[i], array[j]] = [array[j], array[i]];
+  //   }
+  //   return array;
+  // }
   // Function to generate an array of numbers from 1 to maxNumber
-  function generateNumberArray(maxNumber) {
-    const numberArray = [];
-    for (let i = 1; i <= maxNumber; i++) {
-      numberArray.push(i);
-    }
-    return numberArray;
-  }
+  // function generateNumberArray(maxNumber) {
+  //   const numberArray = [];
+  //   for (let i = 1; i <= maxNumber; i++) {
+  //     numberArray.push(i);
+  //   }
+  //   return numberArray;
+  // }
   // set the note
   useEffect(() => {
     if (lastOpen >= 0 && data.length !== 0) {
@@ -195,7 +199,7 @@ const Note = () => {
         setCards(Object.entries(data[lastOpen][1].cards));
       } else {
         setCards([]);
-        setRandomNumber(-1);
+        // setRandomNumber(0);
       }
       setCurrentKeyCard(data[lastOpen][0]);
     }
@@ -205,12 +209,13 @@ const Note = () => {
     refTitle.current.focus();
   };
 
-  useEffect(() => {
-    console.log(randNumbers[checkPoint]);
-    setRandomNumber(randNumbers[checkPoint]);
-  }, [checkPoint]);
+  // useEffect(() => {
+  //   if (randomNumbers) {
+  //     setRandomNumber(randomNumbers[checkPoint] - 1);
+  //   }
+  // }, [checkPoint]);
 
-  console.log(randomNumber);
+  // console.log(randomNumber);
   return (
     <div className="regular-size shadow">
       <div className="regular-size position-relative">
@@ -417,11 +422,23 @@ const Note = () => {
                     <div
                       className="btn"
                       onClick={() => {
-                        // generate random number
-                        randNumbers = shuffleArray(
-                          generateNumberArray(cards.length)
-                        );
+                        setCheckPoint(0);
                         setIsStart((e) => !e);
+
+                        // generate random number
+                        // const randomnumbertemp = await shuffleArray(
+                        //   generateNumberArray(cards.length)
+                        // );
+                        // await setRandomNumbers(randomnumbertemp);
+                        // setRandomNumber(
+                        //   randomNumbers && randomNumbers[checkPoint] - 1
+                        // );
+                        // console.log(randomNumber);
+                        // console.log(cards[randomNumbers[0]-1][1].question);
+                        // setRandomNumbers(
+                        //   shuffleArray(generateNumberArray(cards.length))
+                        // );
+                        // console.log({ randomNumbers });
                       }}
                     >
                       <p className="fs-1 fw-bolder mx-4 mt-2">START</p>
@@ -431,11 +448,15 @@ const Note = () => {
                     <div>
                       {!isSeeAnswer ? (
                         <p className="fs-3 mx-4 mt-2">
-                          {cards && cards[randomNumber][1].question}
+                          {cards &&
+                            checkPoint !== -1 &&
+                            cards[checkPoint][1].question}
                         </p>
                       ) : (
                         <p className="fs-3 mx-4 mt-2">
-                          {cards && cards[randomNumber][1].answer}
+                          {cards &&
+                            checkPoint !== -1 &&
+                            cards[checkPoint][1].answer}
                         </p>
                       )}
                     </div>
@@ -445,19 +466,49 @@ const Note = () => {
             </>
           )}
         </div>
-        <div
-          className="d-flex justify-content-center"
-          style={{ marginTop: "-10vh" }}
-        >
-          <BsFillArrowLeftSquareFill className="fs-1 me-4" />
-          <BsArrowClockwise className="fs-1 me-4" />
-          <BsFillArrowRightSquareFill
-            className="fs-1"
-            onClick={() => {
-              setCheckPoint((e) => e + 1);
-            }}
-          />
-        </div>
+        {isStart && (
+          <div
+            className="d-flex justify-content-center"
+            style={{ marginTop: "-10vh" }}
+          >
+            <BsFillArrowLeftSquareFill
+              className="fs-1 me-4"
+              onClick={() => {
+                if (checkPoint > 0) {
+                  if (isSeeAnswer) {
+                    setIsSeeAnswer((e) => !e);
+                  }
+                  setCheckPoint((e) => e - 1);
+                }
+
+                // setRandomNumber(randomNumbers[checkPoint] - 1);
+                // console.log(cards[randomNumber][1].answer);
+              }}
+            />
+            <BsArrowClockwise
+              className="fs-1 me-4"
+              onClick={() => setIsSeeAnswer((e) => !e)}
+            />
+            <BsFillArrowRightSquareFill
+              className="fs-1"
+              onClick={() => {
+                if (checkPoint < cards.length - 1) {
+                  if (isSeeAnswer) {
+                    setIsSeeAnswer((e) => !e);
+                  }
+                  setCheckPoint((e) => e + 1);
+                }
+                if (checkPoint >= cards.length - 1) {
+                  setIsStart((e) => !e);
+                  setIsPlay((e) => !e);
+                }
+
+                // setRandomNumber(randomNumbers[checkPoint] - 1);
+                // console.log(cards[randomNumber][1].answer);
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

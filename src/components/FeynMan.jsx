@@ -38,7 +38,7 @@ const getAnswer = async (user, log, input, setState) => {
 
   // reset state
   setState("");
-
+``
   if (input.length !== 0) {
     // const key = newKey("search");
     const templateUser = [
