@@ -113,12 +113,12 @@ const Footer = ({
             case "music":
               music === false ? setMusic(true) : setMusic(false);
               // hide component sebelumnya
-              setToDoList(false);
-              setNote(false);
-              setBlurting(false);
-              setFeynman(false);
-              setFlashCard(false);
-              setSearch(false);
+              // setToDoList(false);
+              // setNote(false);
+              // setBlurting(false);
+              // setFeynman(false);
+              // setFlashCard(false);
+              // setSearch(false);
               setPomodoro(false);
               break;
 
@@ -172,20 +172,20 @@ const Footer = ({
           <Icon section={"blurting"} />
           <Icon section={"flashcard"} />
           <Icon section={"feynman"} />
-          <Icon section={"music"} />
         </div>
         <div className="right">
           <Icon section={"search"} />
+          <Icon section={"music"} />
           <div
             className="pomodoro"
             onClick={() => {
               pomodoro === false ? setPomodoro(true) : setPomodoro(false);
-              setToDoList(false);
-              setBlurting(false);
-              setFeynman(false);
-              setFlashCard(false);
+              // setToDoList(false);
+              // setBlurting(false);
+              // setFeynman(false);
+              // setFlashCard(false);
               setMusic(false);
-              setSearch(false);
+              // setSearch(false);
             }}
           >
             <div className="user-select-none">25:00</div>

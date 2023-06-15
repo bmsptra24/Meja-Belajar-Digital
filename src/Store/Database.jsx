@@ -5,7 +5,7 @@ import {
   get,
   child,
   push,
-  update,
+  update, 
 } from "firebase/database";
 
 // write data user after sign up-

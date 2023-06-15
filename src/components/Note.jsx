@@ -110,7 +110,7 @@ const Note = () => {
               {lastOpen >= 0
                 ? data.map((e, idx) => {
                     if (idx !== data.length - 1) {
-                      return (
+                      return ( 
                         <div
                           key={"note-" + idx}
                           className={`${

@@ -32,6 +32,11 @@ const SignUp = ({ app, setSignInOrSignUp }) => {
           search: null,
           tasks: null,
           username: name,
+          pomodoro: {
+            pomodoroDuration: 25,
+            shortBreak: 5,
+            longBreak: 15,
+          },
         });
         // sending email verification
         sendEmailVerification(auth.currentUser).then(() => {

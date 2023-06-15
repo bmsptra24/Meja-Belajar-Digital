@@ -22,6 +22,17 @@
   border: 3px solid black;
 }
 
+.pop-up-size {
+  background-color: var(--blue-light-2);
+  width: 350px;
+  height: 450px;
+  margin-bottom: 75px;
+  border-radius: 50px;
+  border: 3px solid black;
+  position: absolute;
+  z-index: 100;
+}
+
 .full-size {
   background-color: var(--blue-light-2);
   width: 85vw;

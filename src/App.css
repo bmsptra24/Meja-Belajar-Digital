@@ -15,6 +15,14 @@
   --poppin: "Poppins", sans-serif;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.blue-shadow {
+  background-color: var(--blue-shadow);
+}
+
 .App {
   position: absolute;
   background-color: var(--clr-bg);
