@@ -1,16 +1,16 @@
-import { Configuration, OpenAIApi } from 'openai'
+import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
   // apiKey: process.env.REACT_APP_OPENAI_API_KEY,
   // apiKey: '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', //el
-  apiKey: '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',
-  organization: 'org-orCdtXkVs4BhevWrjR0Oj1Wu',
-})
+  apiKey: import.meta.env.VITE_APP_OPENAI_KEY,
+  organization: import.meta.env.VITE_APP_OPENAI_OGRANIZATION,
+});
 // Delete it
 configuration.baseOptions.headers = {
   Authorization: configuration.baseOptions.headers.Authorization,
-}
-const openai = new OpenAIApi(configuration)
+};
+const openai = new OpenAIApi(configuration);
 
 // get data from api
 export const getDataFromChatGPT = async (input) => {
@@ -23,12 +23,12 @@ export const getDataFromChatGPT = async (input) => {
   //   presence_penalty: 0.5,
   // })
 
-  console.log('get openai api')
-  let data
+  console.log("get openai api");
+  let data;
 
   await openai
     .createChatCompletion({
-      model: 'gpt-3.5-turbo',
+      model: "gpt-3.5-turbo",
       messages: input,
       // prompt: input,
       temperature: 0.2,
@@ -38,11 +38,11 @@ export const getDataFromChatGPT = async (input) => {
       presence_penalty: 0.5,
     })
     .then((res) => {
-      data = res.data.choices[0].message
+      data = res.data.choices[0].message;
     })
-    .catch((err) => console.log(err))
-  return data
+    .catch((err) => console.log(err));
+  return data;
 
   // data static dev
   // return (data = 'oke!')
-}
+};
