@@ -180,12 +180,7 @@ const Footer = ({
             className="pomodoro"
             onClick={() => {
               pomodoro === false ? setPomodoro(true) : setPomodoro(false);
-              // setToDoList(false);
-              // setBlurting(false);
-              // setFeynman(false);
-              // setFlashCard(false);
               setMusic(false);
-              // setSearch(false);
             }}
           >
             <div className="user-select-none">25:00</div>

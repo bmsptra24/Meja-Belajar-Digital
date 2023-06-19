@@ -1,101 +1,103 @@
-// import { useState, useRef } from "react";
-import State from "./State";
-// ERROR setIsRunningPomodoro is not a function
-const {
-  isRunningPomodoro,
-  setIsRunningPomodoro,
-  isRunnningShortBreak,
-  setIsRunningShortBreak,
-  isRunningLongBreak,
-  setIsRunningLongBreak,
-} = State;
-let { categoryRef, timerRef } = State;
+// import { useSelector, useDispatch } from "react-redux";
+// import {
+//   setIsLongBreakRunning,
+//   setIsPomodoroRunning,
+//   setIsShortBreakRunning,
+//   setTimeIncrement,
+//   setTimeReset,
+//   setTimeString,
+// } from "../features/pomodoro/Pomodoro";
 
-// export const HendlerPomodoro = () => {
-// const [pomodoroDuration, setPomodoroDuration] = useState();
-// const [shortBreak, setShortBreak] = useState();
-// const [longBreak, setLongBreak] = useState();
-// const [time, setTime] = useState(0);
-// const [category, setCategory] = useState();
+// export const SendNotification = () => {
+//   const { categoryRef } = useSelector((state) => state.pomodoro);
+//   if (Notification.permission === "granted") {
+//     new Notification(categoryRef + " Finished!", {
+//       body: "The " + categoryRef + " has finished. Let's get some break.",
+//     });
+//   } else if (Notification.permission !== "denied") {
+//     Notification.requestPermission().then((permission) => {
+//       if (permission === "granted") {
+//         new Notification(categoryRef + " Finished!", {
+//           body: "The " + categoryRef + " has finished. Let's get some break.",
+//         });
+//       }
+//     });
+//   }
+// };
 
-// const [isRunningPomodoro, setIsRunningPomodoro] = useState(false);
-// const [isRunnningShortBreak, setIsRunningShortBreak] = useState(false);
-// const [isRunningLongBreak, setIsRunningLongBreak] = useState(false);
+// export const FormatTime = (timeInSeconds, duration) => {
+//   if (timeInSeconds <= duration * 60) {
+//     const minutes = Math.floor(timeInSeconds / 60);
+//     const seconds = timeInSeconds % 60;
 
-// const [isRunningLongBreak, setIsRunningLongBreak] = useState(false);
+//     return `${minutes.toString().padStart(2, "0")}:${seconds
+//       .toString()
+//       .padStart(2, "0")}`;
+//   } else if (timeInSeconds >= duration * 60) {
+//     ResetTimer();
+//     SendNotification();
+//   }
+// };
 
-// const timerRef = useRef(null);
-// const category = useRef(null);
-
-export const sendNotification = () => {
-  if (Notification.permission === "granted") {
-    new Notification(categoryRef + " Finished!", {
-      body: "The " + categoryRef + " has finished. Let's get some break.",
-    });
-  } else if (Notification.permission !== "denied") {
-    Notification.requestPermission().then((permission) => {
-      if (permission === "granted") {
-        new Notification(categoryRef + " Finished!", {
-          body: "The " + categoryRef + " has finished. Let's get some break.",
-        });
-      }
-    });
-  }
-};
-
-export const formatTime = (timeInSeconds, duration) => {
-  if (timeInSeconds <= duration * 60) {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = timeInSeconds % 60;
-
-    return `${minutes.toString().padStart(2, "0")}:${seconds
-      .toString()
-      .padStart(2, "0")}`;
-  } else if (timeInSeconds >= duration * 60) {
-    resetTimer();
-    sendNotification();
-  }
-};
-
-export const startTimer = (setTime) => {
-  console.log(categoryRef);
-  if (categoryRef === "Pomodoro") {
-    if (!isRunningPomodoro) {
-      setIsRunningPomodoro(true);
-    }
-  } else if (categoryRef === "Short Break") {
-    if (!isRunnningShortBreak) {
-      setIsRunningShortBreak(true);
-    }
-  } else if (categoryRef === "Long Break") {
-    if (!isRunningLongBreak) {
-      setIsRunningLongBreak(true);
-    }
-  }
-  categoryRef = setInterval(() => {
-    setTime((prevTime) => prevTime + 1);
-  }, 1000);
-};
-
-export const stopTimer = () => {
-  setIsRunningPomodoro(false);
-  setIsRunningShortBreak(false);
-  setIsRunningLongBreak(false);
-  clearInterval(timerRef);
-};
-
-export const resetTimer = (setTime) => {
-  stopTimer();
-  setTime(0);
-};
-
-//   return {
-//     formatTime,
-//     startTimer,
-//     resetTimer,
+// export const StartTimerOld = (dispatch) => {
+//   const {
+//     isPomodoroRunning,
+//     isShortBreakRunning,
+//     isLongBreakRunning,
 //     categoryRef,
-//     isRunningPomodoro,
-//     isRunnningShortBreak,
-//     isRunningLongBreak,
-//   };
+//   } = useSelector((state) => state.pomodoro);
+
+//   if (categoryRef === "Pomodoro") {
+//     if (!isPomodoroRunning) {
+//       dispatch(setIsPomodoroRunning(true));
+//     }
+//   } else if (categoryRef === "Short Break") {
+//     if (!isShortBreakRunning) {
+//       dispatch(setIsShortBreakRunning(true));
+//     }
+//   } else if (categoryRef === "Long Break") {
+//     if (!isLongBreakRunning) {
+//       dispatch(setIsLongBreakRunning(true));
+//     }
+//   }
+//   console.log(categoryRef);
+//   setInterval(() => {
+//     dispatch(setTimeIncrement());
+//   }, 1000);
+// };
+
+// export const StopTimer = () => {
+//   const { timerRef } = useSelector((state) => state.pomodoro);
+//   const dispatch = useDispatch();
+//   dispatch(setIsPomodoroRunning(false));
+//   dispatch(setIsShortBreakRunning(false));
+//   dispatch(setIsLongBreakRunning(false));
+//   clearInterval(timerRef);
+// };
+
+// export const ResetTimer = (dispatch) => {
+//   StopTimer();
+//   dispatch(setTimeReset());
+// };
+
+// export const StartTimer = (dispatch, duration) => {
+//   const { time } = useSelector((state) => state.pomodoro);
+//   dispatch(setIsPomodoroRunning(true));
+//   dispatch(setIsShortBreakRunning(true));
+//   dispatch(setIsLongBreakRunning(true));
+//   setInterval(() => {
+//     dispatch(setTimeIncrement());
+
+//     if (time <= duration * 60) {
+//       const minutes = Math.floor(time / 60);
+//       const seconds = time % 60;
+//       const string = `${minutes.toString().padStart(2, "0")}:${seconds
+//         .toString()
+//         .padStart(2, "0")}`;
+//       dispatch(setTimeString(string));
+//     } else if (time >= duration * 60) {
+//       ResetTimer();
+//       SendNotification();
+//     }
+//   }, 1000);
 // };

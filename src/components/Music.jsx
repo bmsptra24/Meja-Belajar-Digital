@@ -10,7 +10,7 @@ const Music = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const playAudio = (audioElement) => {
-    audioElement.play(); 
+    audioElement.play();
     setIsPlaying(true);
   };
 

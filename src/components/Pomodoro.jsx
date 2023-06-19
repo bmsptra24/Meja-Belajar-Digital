@@ -2,15 +2,12 @@ import { updateData } from "../Store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
 import { getDatabase, ref, onValue } from "firebase/database";
-import { formatTime, startTimer, resetTimer } from "../Store/HandlerPomodoro";
-import State from "../Store/State";
-const { isRunningPomodoro, isRunnningShortBreak, isRunnningLongBreak } = State;
-
-let { categoryRef } = State;
-
+import { useSelector, useDispatch } from "react-redux";
+import { setIsTimerRunning } from "../features/pomodoro/Pomodoro";
 import { BsClock, BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
 import "../styles/Pomodoro.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { HOFPomodoro } from "../features/pomodoro/HOFPomodoro";
 
 // realtime databe
 const DataRealtime = (path, callback) => {
@@ -30,81 +27,11 @@ const Pomodoro = () => {
   const [pomodoroDuration, setPomodoroDuration] = useState();
   const [shortBreak, setShortBreak] = useState();
   const [longBreak, setLongBreak] = useState();
-  const [time, setTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  // const [category, categoryRef.current =  = useState();
-  // const [isRunningPomodoro, setIsRunningPomodoro] = useState(false);
-  // const [isRunnningShortBreak, setIsRunnningShortBreak] = useState(false);
-  // const [isRunnningLongBreak, setIsRunnningLongBreak] = useState(false);
-  // const [isRunningLongBreak, setIsRunningLongBreak] = useState(false);
-  // const timerRef = useRef(null);
-  // const categoryRef = useRef(null);
+  const duration = useRef(null);
 
-  // const sendNotification = () => {
-  //   if (Notification.permission === "granted") {
-  //     new Notification(categoryRef.current + " Finished!", {
-  //       body:
-  //         "The " + categoryRef.current + " has finished. Let's get some break.",
-  //     });
-  //   } else if (Notification.permission !== "denied") {
-  //     Notification.requestPermission().then((permission) => {
-  //       if (permission === "granted") {
-  //         new Notification(categoryRef.current + " Finished!", {
-  //           body:
-  //             "The " +
-  //             categoryRef.current +
-  //             " has finished. Let's get some break.",
-  //         });
-  //       }
-  //     });
-  //   }
-  // };
-
-  // const formatTime = (timeInSeconds) => {
-  //   if (timeInSeconds <= duration * 60) {
-  //     const minutes = Math.floor(timeInSeconds / 60);
-  //     const seconds = timeInSeconds % 60;
-
-  //     return `${minutes.toString().padStart(2, "0")}:${seconds
-  //       .toString()
-  //       .padStart(2, "0")}`;
-  //   } else if (timeInSeconds >= duration * 60) {
-  //     resetTimer();
-  //     sendNotification();
-  //   }
-  // };
-
-  // const startTimer = () => {
-  //   console.log(categoryRef.current);
-  //   if (categoryRef.current === "Pomodoro") {
-  //     if (!isRunningPomodoro) {
-  //       setIsRunningPomodoro(true);
-  //     }
-  //   } else if (categoryRef.current === "Short Break") {
-  //     if (!isRunnningShortBreak) {
-  //       setIsRunnningShortBreak(true);
-  //     }
-  //   } else if (categoryRef.current === "Long Break") {
-  //     if (!isRunnningLongBreak) {
-  //       setIsRunnningLongBreak(true);
-  //     }
-  //   }
-  //   timerRef.current = setInterval(() => {
-  //     setTime((prevTime) => prevTime + 1);
-  //   }, 1000);
-  // };
-
-  // const stopTimer = () => {
-  //   setIsRunningPomodoro(false);
-  //   setIsRunnningShortBreak(false);
-  //   setIsRunnningLongBreak(false);
-  //   clearInterval(timerRef.current);
-  // };
-
-  // const resetTimer = () => {
-  //   stopTimer();
-  //   setTime(0);
-  // };
+  const { isPomodoroRunning, isShortBreakRunning, isLongBreakRunning } =
+    useSelector((state) => state.pomodoro);
+  const dispatch = useDispatch();
 
   // get data from database
   useEffect(() => {
@@ -126,18 +53,13 @@ const Pomodoro = () => {
         <div className="w-100 px-4 pt-3">
           <p className="d-flex justify-content-between">
             Pomodoro duration
-            {!isRunningPomodoro ? (
+            {!isPomodoroRunning ? (
               <button
-                disabled={isRunnningShortBreak || isRunnningLongBreak}
+                disabled={isShortBreakRunning || isLongBreakRunning}
                 className="bg-transparent border-0"
                 onClick={() => {
-                  setDuration(pomodoroDuration);
-                  categoryRef = "Pomodoro";
-                  startTimer(setTime);
-                  updateData(
-                    ["users/" + user.uid + "/pomodoro/timeStamp"],
-                    new Date().getTime()
-                  );
+                  duration.current = pomodoroDuration;
+                  dispatch(setIsTimerRunning(true));
                 }}
               >
                 <BsFillPlayFill className="fs-4" />
@@ -145,7 +67,7 @@ const Pomodoro = () => {
             ) : (
               <button
                 className="bg-transparent border-0"
-                onClick={() => resetTimer(setTime)}
+                onClick={() => console.log("ResetTimer()")}
               >
                 <BsFillPauseFill className="fs-4" />
               </button>
@@ -171,26 +93,22 @@ const Pomodoro = () => {
         <div className="w-100 px-4 pt-3">
           <p className="d-flex justify-content-between">
             Short break
-            {!isRunnningShortBreak ? (
+            {!isShortBreakRunning ? (
               <button
-                disabled={isRunningPomodoro || isRunnningLongBreak}
+                disabled={isPomodoroRunning || isLongBreakRunning}
                 className="bg-transparent border-0"
                 onClick={() => {
-                  setDuration(shortBreak);
-                  categoryRef = "Short Break";
-                  startTimer(setTime);
-                  updateData(
-                    ["users/" + user.uid + "/pomodoro/timeStamp"],
-                    new Date().getTime()
-                  );
+                  duration.current = shortBreak;
+                  dispatch(setIsTimerRunning(true));
                 }}
               >
                 <BsFillPlayFill className="fs-4" />
               </button>
             ) : (
+              // Not work yet
               <button
                 className="bg-transparent border-0"
-                onClick={() => resetTimer(setTime)}
+                onClick={() => console.log("ResetTimer()")} // reset the timer
               >
                 <BsFillPauseFill className="fs-4" />
               </button>
@@ -214,18 +132,13 @@ const Pomodoro = () => {
         <div className="w-100 px-4 pt-3">
           <p className="d-flex justify-content-between">
             Long break
-            {!isRunnningLongBreak ? (
+            {!isLongBreakRunning ? (
               <button
-                disabled={isRunningPomodoro || isRunnningShortBreak}
+                disabled={isPomodoroRunning || isShortBreakRunning}
                 className="bg-transparent border-0"
                 onClick={() => {
-                  setDuration(longBreak);
-                  categoryRef = "Long Break";
-                  startTimer(setTime);
-                  updateData(
-                    ["users/" + user.uid + "/pomodoro/timeStamp"],
-                    new Date().getTime()
-                  );
+                  duration.current = longBreak;
+                  dispatch(setIsTimerRunning(true));
                 }}
               >
                 <BsFillPlayFill className="fs-4" />
@@ -233,7 +146,7 @@ const Pomodoro = () => {
             ) : (
               <button
                 className="bg-transparent border-0"
-                onClick={() => resetTimer(setTime)}
+                onClick={() => console.log("ResetTimer()")}
               >
                 <BsFillPauseFill className="fs-4" />
               </button>
@@ -257,7 +170,7 @@ const Pomodoro = () => {
       </div>
       <div className="d-flex justify-content-center align-items-center ">
         <BsClock className="me-2 mb-2" />
-        <p className="mt-2">{formatTime(time, duration)}</p>
+        <p className="mt-2">{<HOFPomodoro duration={duration.current} />}</p>
       </div>
     </div>
   );
