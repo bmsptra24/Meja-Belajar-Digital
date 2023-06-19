@@ -1,0 +1,7 @@
+.disabled-production-btn {
+  pointer-events: none;
+}
+
+.disabled-production-div {
+  cursor: not-allowed;
+}

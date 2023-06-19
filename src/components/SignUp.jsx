@@ -8,8 +8,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import { updateData } from "../Store/Database";
 import validator from "validator";
+import { auth } from "../Store/Firebase";
 
-const SignUp = ({ app, setSignInOrSignUp }) => {
+const SignUp = ({ setNavigator }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +18,6 @@ const SignUp = ({ app, setSignInOrSignUp }) => {
 
   // create new account user
   const createUser = () => {
-    const auth = getAuth(app);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -46,7 +46,7 @@ const SignUp = ({ app, setSignInOrSignUp }) => {
 
         // Log out first, cause have to verificated first
         auth.signOut();
-        setSignInOrSignUp(false);
+        setNavigator(1);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -114,7 +114,7 @@ const SignUp = ({ app, setSignInOrSignUp }) => {
           <button
             className="btn login-button-in-signup"
             onClick={() => {
-              setSignInOrSignUp(false);
+              setNavigator(1);
             }}
           >
             I have an account!

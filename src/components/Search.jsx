@@ -99,9 +99,7 @@ const Search = () => {
                 })
               ) : (
                 <div className={style.aiMessage}>
-                  <div className="p-2 pt-1 rounded ">
-                    ada yang bisa dibantu?
-                  </div>
+                  <div className="p-2 pt-1 rounded ">can I help you?</div>
                 </div>
               )}
             </div>

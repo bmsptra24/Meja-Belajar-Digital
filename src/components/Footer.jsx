@@ -3,6 +3,7 @@ import {
   FaChalkboardTeacher,
   FaRegStickyNote,
 } from "react-icons/fa";
+import { BiLogOutCircle } from "react-icons/bi";
 import {
   BsCircle,
   BsFire,
@@ -12,6 +13,20 @@ import {
 } from "react-icons/bs";
 import "../styles/Icon.css";
 import "../styles/Footer.css";
+import { signOut, getAuth } from "firebase/auth";
+
+const signOutClick = () => {
+  const auth = getAuth();
+  signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+      alert("Sign-out success!");
+    })
+    .catch((error) => {
+      // An error happened.
+      alert(error);
+    });
+};
 
 const Footer = ({
   setToDoList,
@@ -38,6 +53,9 @@ const Footer = ({
         onClick={() => {
           // saat on click, dicari komponen mana yg terklik (dari sectionnya)
           switch (section) {
+            case "logout":
+              signOutClick();
+              break;
             case "home":
               // jika klik home maka semua state pengontrol di hide (false)
               setToDoList(false);
@@ -155,6 +173,8 @@ const Footer = ({
           <BsSoundwave className="icon-size" />
         ) : section === "search" ? (
           <BsSearch className="icon-size" />
+        ) : section === "logout" ? (
+          <BiLogOutCircle className="icon-size" />
         ) : null}
       </div>
     );
@@ -163,8 +183,9 @@ const Footer = ({
   return (
     <div className="footer-container">
       <div className="icon-container">
-        <div className="left">
+        <div className="left d-flex">
           <Icon section={"home"} />
+          <Icon section={"logout"} />
         </div>
         <div className="center">
           <Icon section={"todolist"} />

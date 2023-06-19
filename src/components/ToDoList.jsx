@@ -27,16 +27,7 @@ const DataRealtime = (path, callback) => {
 
 const ToDoList = () => {
   const [user] = useAuthState(auth);
-
-  // membuat state tasks
   const [tasks, setTasks] = useState([]);
-
-  // console.log(tasks);
-  // 0 : {checked: false, task: 'ngoding'}
-  // 1 : {checked: false, task: 'turu'}
-  // 2 : {checked: false, task: 'asas'}
-  // 3 : {checked: true, task: 'halo'}
-  // 4 : {checked: false, task: 'hai'}
 
   useEffect(() => {
     DataRealtime(`users/${user.uid}/tasks`, (snapshot) => {

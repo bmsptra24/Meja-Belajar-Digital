@@ -3,13 +3,15 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./Store/Firebase";
 import { useEffect, lazy, Suspense } from "react";
 const Home = lazy(() => import("./Pages/Home"));
-const SignInAndSignUp = lazy(() => import("./Pages/SignInAndSignUp"));
+const SignInAndSignUp = lazy(() => import("./Pages/Navigator"));
+// const LandingPage = lazy(() => import("./Pages/LandingPage"));
+
 function App() {
+  const [user] = useAuthState(auth);
+
   useEffect(() => {
     document.body.style.zoom = "100%";
   }, []);
-
-  const [user] = useAuthState(auth);
 
   // kalo user login maka ke home, selain itu ke signin
   return (

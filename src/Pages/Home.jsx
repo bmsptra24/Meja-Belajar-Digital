@@ -1,5 +1,5 @@
 // inport module
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/Home.css";
 import Footer from "../components/Footer";
 import ToDoList from "../components/ToDoList";
@@ -21,6 +21,10 @@ const Home = () => {
   const [search, setSearch] = useState(false);
   const [pomodoro, setPomodoro] = useState(false);
 
+  useEffect(() => {
+    document.body.style.zoom = "100%";
+  }, []);
+  
   return (
     <div className="home">
       {/* if the state is true so display component  */}

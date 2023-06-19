@@ -3,8 +3,8 @@ import { Configuration, OpenAIApi } from "openai";
 const configuration = new Configuration({
   // apiKey: process.env.REACT_APP_OPENAI_API_KEY,
   // apiKey: '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', //el
-  apiKey: import.meta.env.VITE_APP_OPENAI_KEY,
-  organization: import.meta.env.VITE_APP_OPENAI_OGRANIZATION,
+  apiKey: "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",
+  organization: "org-orCdtXkVs4BhevWrjR0Oj1Wu",
 });
 // Delete it
 configuration.baseOptions.headers = {

@@ -43,7 +43,7 @@ const Pomodoro = () => {
   }, []);
 
   return (
-    <div className="pop-up-size p-4 d-flex justify-content-between flex-column end-0 bottom-0 me-1">
+    <div className="pop-up-size p-4 d-flex justify-content-between flex-column end-0 bottom-0 me-1 disabled-production-div ">
       <div>
         <p className="fs-2 fw-bold border-bottom border-black border-3">
           Pomodoro
@@ -56,7 +56,7 @@ const Pomodoro = () => {
             {!isPomodoroRunning ? (
               <button
                 disabled={isShortBreakRunning || isLongBreakRunning}
-                className="bg-transparent border-0"
+                className="bg-transparent border-0 disabled-production-btn disabled-production-btn"
                 onClick={() => {
                   duration.current = pomodoroDuration;
                   dispatch(setIsTimerRunning(true));
@@ -66,7 +66,7 @@ const Pomodoro = () => {
               </button>
             ) : (
               <button
-                className="bg-transparent border-0"
+                className="bg-transparent border-0 disabled-production-btn"
                 onClick={() => console.log("ResetTimer()")}
               >
                 <BsFillPauseFill className="fs-4" />
@@ -77,7 +77,7 @@ const Pomodoro = () => {
             type="number"
             name="pomodoro-duration"
             id="pomodoro-duration"
-            className="rounded border-0 w-100 input-pomodoro"
+            className="rounded border-0 w-100 input-pomodoro disabled-production-btn"
             value={pomodoroDuration}
             onChange={(event) => {
               {
@@ -96,7 +96,7 @@ const Pomodoro = () => {
             {!isShortBreakRunning ? (
               <button
                 disabled={isPomodoroRunning || isLongBreakRunning}
-                className="bg-transparent border-0"
+                className="bg-transparent border-0 disabled-production-btn"
                 onClick={() => {
                   duration.current = shortBreak;
                   dispatch(setIsTimerRunning(true));
@@ -107,7 +107,7 @@ const Pomodoro = () => {
             ) : (
               // Not work yet
               <button
-                className="bg-transparent border-0"
+                className="bg-transparent border-0 disabled-production-btn"
                 onClick={() => console.log("ResetTimer()")} // reset the timer
               >
                 <BsFillPauseFill className="fs-4" />
@@ -118,7 +118,7 @@ const Pomodoro = () => {
             type="number"
             name="pomodoro-duration"
             id="pomodoro-duration"
-            className="rounded border-0 w-100"
+            className="rounded border-0 w-100 disabled-production-btn"
             value={shortBreak}
             onChange={(event) => {
               setShortBreak(Number(event.target.value));
@@ -135,7 +135,7 @@ const Pomodoro = () => {
             {!isLongBreakRunning ? (
               <button
                 disabled={isPomodoroRunning || isShortBreakRunning}
-                className="bg-transparent border-0"
+                className="bg-transparent border-0 disabled-production-btn"
                 onClick={() => {
                   duration.current = longBreak;
                   dispatch(setIsTimerRunning(true));
@@ -145,7 +145,7 @@ const Pomodoro = () => {
               </button>
             ) : (
               <button
-                className="bg-transparent border-0"
+                className="bg-transparent border-0 disabled-production-btn"
                 onClick={() => console.log("ResetTimer()")}
               >
                 <BsFillPauseFill className="fs-4" />
@@ -156,7 +156,7 @@ const Pomodoro = () => {
             type="number"
             name="pomodoro-duration"
             id="pomodoro-duration"
-            className="rounded border-0 w-100 "
+            className="rounded border-0 w-100 disabled-production-btn"
             value={longBreak}
             onChange={(event) => {
               setLongBreak(Number(event.target.value));
