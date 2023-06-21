@@ -19,7 +19,6 @@ const Pages = () => {
   if (navigator === 2) {
     document.body.style.zoom = "100%";
     return <SignUp setNavigator={setNavigator} />;
-  }
-};
+  } 
 
 export default Pages;
