@@ -1,29 +1,16 @@
 import { useEffect, useState } from "react";
 import "../styles/Blurting.css";
-import { newKey, timestamp, updateData } from "../Store/Database";
+import {
+  fetchDataRealtime,
+  newKey,
+  timestamp,
+  updateData,
+} from "../Store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
-import { getDatabase, ref, onValue } from "firebase/database";
 import "../styles/Icon.css";
 import { useRef } from "react";
 import { BsTrash, BsPlusLg } from "react-icons/bs";
-
-// realtime databe
-const DataRealtime = (path, callback) => {
-  const transferData = (snapshot) => {
-    callback(snapshot);
-  };
-
-  const dbRef = ref(getDatabase(), path);
-  onValue(dbRef, (snapshot) => {
-    if (snapshot.val()) {
-      let result = Object.entries(snapshot.val()).map((e, ind) => {
-        return e;
-      });
-      transferData(result);
-    }
-  });
-};
 
 // add new module
 const addModule = async (user) => {
@@ -36,14 +23,12 @@ const addModule = async (user) => {
   };
   const key = newKey("moduls");
   updateData(["users/" + user.uid + "/moduls/" + key], template);
-  // console.log("data berhasil dibuat");
 };
 
 // remove a module
 const removeModul = async (user, data, lastOpen) => {
   const key = data[lastOpen][0];
   updateData(["users/" + user.uid + "/moduls/" + key], null);
-  // console.log("modul berhasil dihapus");
 };
 
 const Blurting = () => {
@@ -52,69 +37,36 @@ const Blurting = () => {
   const [lastOpen, setLastOpen] = useState(0);
   const refTitle = useRef(null);
   const [data, setData] = useState([]);
-  // 0: (2) ['-NVD3c6X_lwBx_pcVxye', {…}]
-  // 1: (2) ['-NVD3c6X_lwBx_pcVxyf', {…}]
-  // 2: (2) ['-NVD3c6b_tIoQ1Yra0Nt', {…}]
-  // 3: (2) ['lastOpen', 2]
 
   // change state
   const changeState = {
     title: (event) => {
-      if (lastOpen !== undefined) {
-        setModul((prev) => {
-          prev.title = event.target.value;
-          return prev;
-        });
-        updateData(
-          ["users/" + user.uid + "/moduls/" + data[lastOpen][0] + "/title"],
-          event.target.value
-        );
-      }
+      handleModulUpdate("title", event.target.value);
     },
     remembered: (event) => {
-      if (lastOpen !== undefined) {
-        setModul((prev) => {
-          prev.remembered = event.target.value;
-          return prev;
-        });
-        updateData(
-          [
-            "users/" +
-              user.uid +
-              "/moduls/" +
-              data[lastOpen][0] +
-              "/remembered",
-          ],
-          event.target.value
-        );
-      }
+      handleModulUpdate("remembered", event.target.value);
     },
-    forget: (event) => {
-      if (lastOpen !== undefined) {
-        setModul((prev) => {
-          console.log(prev);
-          prev.forgotten = event.target.value;
-          return prev;
-        });
-        updateData(
-          ["users/" + user.uid + "/moduls/" + data[lastOpen][0] + "/forgotten"],
-          event.target.value
-        );
-      }
+    forgotten: (event) => {
+      handleModulUpdate("forgotten", event.target.value);
     },
     questions: (event) => {
-      if (lastOpen !== undefined) {
-        setModul((prev) => {
-          // console.log(prev);
-          prev.questions = event.target.value;
-          return prev;
-        });
-        updateData(
-          ["users/" + user.uid + "/moduls/" + data[lastOpen][0] + "/questions"],
-          event.target.value
-        );
-      }
+      handleModulUpdate("questions", event.target.value);
     },
+  };
+
+  const handleModulUpdate = (key, value) => {
+    if (lastOpen !== undefined) {
+      setModul((prev) => {
+        return {
+          ...prev,
+          [key]: value,
+        };
+      });
+      updateData(
+        ["users/" + user.uid + "/moduls/" + data[lastOpen][0] + "/" + key],
+        value
+      );
+    }
   };
 
   const handleClickRefTitle = () => {
@@ -122,10 +74,10 @@ const Blurting = () => {
   };
 
   useEffect(() => {
-    DataRealtime(`users/${user.uid}/moduls`, (snapshot) => {
-      setData(snapshot);
+    fetchDataRealtime(`users/${user.uid}/moduls`, (snapshot) => {
+      setData(Object.entries(snapshot).map((e) => e));
     });
-  }, []);
+  }, [user.uid]);
 
   useEffect(() => {
     if (data.length > 1) {
@@ -193,6 +145,7 @@ const Blurting = () => {
                   : "Tidak ada modul..."}
               </div>
               <div
+                title="Add new module"
                 className="icon"
                 onClick={async () => {
                   addModule(user);
@@ -221,6 +174,7 @@ const Blurting = () => {
                   <div className="d-flex justify-content-between mb-3 pb-1 border-bottom">
                     <div>{modul.date}</div>
                     <div
+                      title="Delete module"
                       onClick={() => {
                         // jika menghapus elemen terakhir dan data > 1
                         if (data.length - 2 === lastOpen) {
@@ -274,7 +228,7 @@ const Blurting = () => {
                       className="form-control"
                       placeholder="Leave a comment here"
                       id="floatingTextarea2"
-                      onChange={changeState.forget}
+                      onChange={changeState.forgotten}
                       value={modul.forgotten}
                       maxLength={10000}
                       rows={5}

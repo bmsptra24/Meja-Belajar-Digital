@@ -3,7 +3,12 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./Store/Firebase";
 import { useEffect, lazy, Suspense } from "react";
 const Home = lazy(() => import("./Pages/Home"));
+<<<<<<< Updated upstream
 const SignInAndSignUp = lazy(() => import("./Pages/SignInAndSignUp"));
+=======
+const Navigator = lazy(() => import("./Pages/Navigator"));
+
+>>>>>>> Stashed changes
 function App() {
   useEffect(() => {
     document.body.style.zoom = "100%";
@@ -23,7 +28,7 @@ function App() {
           </div>
         }
       >
-        {user ? <Home /> : <SignInAndSignUp />}
+        {user ? <Home /> : <Navigator />}
       </Suspense>
     </>
   );

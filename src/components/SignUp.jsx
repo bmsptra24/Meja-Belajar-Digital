@@ -26,22 +26,35 @@ const SignUp = ({ app, setSignInOrSignUp }) => {
         // writeUserData(user.uid, name, email);
         updateData("users/" + user.uid, {
           email: email,
-          feynman: null,
-          moduls: null,
-          notes: null,
-          search: null,
-          tasks: null,
+          feynman: [],
+          moduls: { lastOpen: -1 },
+          notes: { lastOpen: -1 },
+          search: [],
+          tasks: [],
           username: name,
+<<<<<<< Updated upstream
+=======
+          pomodoro: {
+            pomodoroDuration: 25,
+            shortBreak: 5,
+            longBreak: 15,
+          },
+          flashcard: { lastOpen: -1 },
+>>>>>>> Stashed changes
         });
         // sending email verification
         sendEmailVerification(auth.currentUser).then(() => {
           // Email verification sent!
           alert("An email verification link has been sent to " + user.email);
         });
-
         // Log out first, cause have to verificated first
         auth.signOut();
+<<<<<<< Updated upstream
         setSignInOrSignUp(false);
+=======
+
+        setNavigator(1);
+>>>>>>> Stashed changes
       })
       .catch((error) => {
         const errorCode = error.code;

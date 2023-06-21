@@ -1,5 +1,8 @@
 // inport module
+<<<<<<< Updated upstream
 import { useState } from "react";
+=======
+>>>>>>> Stashed changes
 import "../styles/Home.css";
 import Footer from "../components/Footer";
 import ToDoList from "../components/ToDoList";
@@ -10,8 +13,11 @@ import FeynMan from "../components/FeynMan";
 import Music from "../components/Music";
 import Search from "../components/Search";
 import Pomodoro from "../components/Pomodoro";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+<<<<<<< Updated upstream
   // const auth = getAuth();
   // const [user] = useAuthState(auth);
 
@@ -34,37 +40,36 @@ const Home = () => {
   const [search, setSearch] = useState(false);
   const [pomodoro, setPomodoro] = useState(false);
 
+=======
+  const {
+    toDoList,
+    note,
+    blurting,
+    flashCard,
+    feynman,
+    music,
+    search,
+    pomodoro,
+  } = useSelector((state) => state.home);
+
+  useEffect(() => {
+    document.body.style.zoom = "100%";
+  }, []);
+
+>>>>>>> Stashed changes
   return (
     <div className="home">
       {/* if the state is true so display component  */}
-      {toDoList === true && <ToDoList />}
-      {note === true && <Note />}
-      {blurting === true && <Blurting />}
-      {flashCard === true && <FlashCard />}
-      {feynman === true && <FeynMan />}
-      {music === true && <Music />}
-      {search === true && <Search />}
-      {pomodoro === true && <Pomodoro />}
+      {toDoList && <ToDoList />}
+      {note && <Note />}
+      {blurting && <Blurting />}
+      {flashCard && <FlashCard />}
+      {feynman && <FeynMan />}
+      {music && <Music />}
+      {search && <Search />}
+      {pomodoro && <Pomodoro />}
 
-      <Footer
-        //passing state to child
-        setToDoList={setToDoList}
-        toDoList={toDoList}
-        setNote={setNote}
-        note={note}
-        setBlurting={setBlurting}
-        blurting={blurting}
-        flashCard={flashCard}
-        setFlashCard={setFlashCard}
-        feynman={feynman}
-        setFeynman={setFeynman}
-        music={music}
-        setMusic={setMusic}
-        search={search}
-        setSearch={setSearch}
-        pomodoro={pomodoro}
-        setPomodoro={setPomodoro}
-      />
+      <Footer />
     </div>
   );
 };
