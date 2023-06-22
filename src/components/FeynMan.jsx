@@ -1,31 +1,10 @@
 import { useEffect, useState } from "react";
-import { updateData } from "../Store/Database";
+import { updateData, fetchDataRealtime } from "../Store/Database";
 import { getDataFromChatGPT } from "../Store/OpenAI";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
-import { getDatabase, ref, onValue } from "firebase/database";
 import { BsSearch } from "react-icons/bs";
 import "../styles/Search.css";
-
-// realtime databe
-const DataRealtime = async (path, callback) => {
-  const transferData = (snapshot) => {
-    callback(snapshot);
-  };
-  const dbRef = ref(getDatabase(), path);
-  await onValue(dbRef, (snapshot) => {
-    if (snapshot.val() !== null) {
-      let result = Object.entries(snapshot.val())
-        .map((e, idx) => {
-          if (idx !== 0) {
-            return e[1];
-          }
-        })
-        .filter((e, idx) => idx !== 0);
-      transferData(result);
-    }
-  });
-};
 
 // get answer from api
 const getAnswer = async (user, log, input, setState) => {
@@ -38,9 +17,7 @@ const getAnswer = async (user, log, input, setState) => {
 
   // reset state
   setState("");
-``
   if (input.length !== 0) {
-    // const key = newKey("search");
     const templateUser = [
       defaultSystem,
       ...log,
@@ -64,11 +41,16 @@ const Search = () => {
   const [user] = useAuthState(auth);
 
   useEffect(() => {
-    DataRealtime(`users/${user.uid}/feynman`, (snapshot) => {
-      setLog(snapshot);
+    fetchDataRealtime(`users/${user.uid}/feynman`, (snapshot) => {
+      setLog(
+        Object.entries(snapshot)
+          .slice(1) // remove first element
+          .map((e) => e[1])
+          .filter((_, idx) => idx !== 0)
+      );
     });
-  }, []);
-  // console.log(log);
+  }, [user.uid]);
+
   const inputHandle = (event) => {
     setInputSearch(event.target.value);
   };
@@ -119,6 +101,7 @@ const Search = () => {
               ></textarea>
             </div>
             <button
+              title="Send"
               onClick={() => getAnswer(user, log, inputSearch, setInputSearch)}
               className="position-absolute z-2 end-0 p-1 pt-0 me-2 fs-5 btn-search "
               style={{ bottom: "1vh" }}

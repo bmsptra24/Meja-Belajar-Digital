@@ -1,8 +1,7 @@
 import "../styles/Note.css";
-import { newKey, updateData } from "../Store/Database";
+import { fetchDataRealtime, newKey, updateData } from "../Store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
-import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect, useRef, useState } from "react";
 import { BsTrash, BsPlusLg } from "react-icons/bs";
 
@@ -14,22 +13,6 @@ const addNote = async (user) => {
   };
   const key = newKey("notes");
   updateData(["users/" + user.uid + "/notes/" + key], template);
-};
-
-// realtime databe
-const DataRealtime = (path, callback) => {
-  const transferData = (snapshot) => {
-    callback(snapshot);
-  };
-  const dbRef = ref(getDatabase(), path);
-  onValue(dbRef, (snapshot) => {
-    if (snapshot.val()) {
-      let result = Object.entries(snapshot.val()).map((e) => {
-        return e;
-      });
-      transferData(result);
-    }
-  });
 };
 
 // remove a note
@@ -45,40 +28,36 @@ const Note = () => {
   const [note, setNote] = useState([]); // a note was selected
   const [lastOpen, setLastOpen] = useState(0);
   const refTitle = useRef(null);
+
   // change state
   const changeState = {
     title: (event) => {
-      if (lastOpen !== undefined) {
-        setNote((prev) => {
-          prev.title = event.target.value;
-          return prev;
-        });
-        updateData(
-          ["users/" + user.uid + "/notes/" + data[lastOpen][0] + "/title"],
-          event.target.value
-        );
-      }
+      handleChange("title", event.target.value);
     },
     text: (event) => {
-      if (lastOpen !== undefined) {
-        setNote((prev) => {
-          prev.text = event.target.value;
-          return prev;
-        });
-        updateData(
-          ["users/" + user.uid + "/notes/" + data[lastOpen][0] + "/text"],
-          event.target.value
-        );
-      }
+      handleChange("text", event.target.value);
     },
+  };
+
+  const handleChange = (key, value) => {
+    if (lastOpen !== undefined) {
+      setNote((prev) => {
+        prev[key] = value;
+        return prev;
+      });
+      updateData(
+        ["users/" + user.uid + "/notes/" + data[lastOpen][0] + "/" + key],
+        value
+      );
+    }
   };
 
   // get data from database
   useEffect(() => {
-    DataRealtime(`users/${user.uid}/notes`, (snapshot) => {
-      setData(snapshot);
+    fetchDataRealtime(`users/${user.uid}/notes`, (snapshot) => {
+      setData(Object.entries(snapshot || {}).map((entry) => entry));
     });
-  }, []);
+  }, [user.uid]);
 
   // set last open data for navigate in first modul
   useEffect(() => {
@@ -110,7 +89,7 @@ const Note = () => {
               {lastOpen >= 0
                 ? data.map((e, idx) => {
                     if (idx !== data.length - 1) {
-                      return ( 
+                      return (
                         <div
                           key={"note-" + idx}
                           className={`${
@@ -150,6 +129,7 @@ const Note = () => {
                 : "Tidak ada modul..."}
             </div>
             <div
+              title="Add note"
               className="icon"
               onClick={async () => {
                 addNote(user);
@@ -178,6 +158,7 @@ const Note = () => {
                 <div className="d-flex justify-content-between mb-3 pb-1 border-bottom">
                   <div></div>
                   <div
+                    title="Delete note"
                     onClick={() => {
                       // jika menghapus elemen terakhir dan data > 1
                       if (data.length - 2 === lastOpen) {
