@@ -1,8 +1,7 @@
 import "../styles/Flashcard.css";
-import { newKey, updateData } from "../Store/Database";
+import { fetchDataRealtime, newKey, updateData } from "../Store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
-import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect, useRef, useState } from "react";
 import {
   BsTrash,
@@ -15,7 +14,6 @@ import {
 
 // add new note
 const addCardModule = async (user, setCards, key = newKey("flashcard")) => {
-  // console.log(key);
   const template = {
     question: "",
     answer: "",
@@ -31,140 +29,81 @@ const addCardModule = async (user, setCards, key = newKey("flashcard")) => {
   );
 };
 
-// realtime databe
-const DataRealtime = (path, callback) => {
-  const transferData = (snapshot) => {
-    callback(snapshot);
-  };
-  const dbRef = ref(getDatabase(), path);
-  onValue(dbRef, (snapshot) => {
-    if (snapshot.val()) {
-      let result = Object.entries(snapshot.val()).map((e) => {
-        return e;
-      });
-      transferData(result);
-    }
-  });
-};
-
 // remove a module card
 const removeModuleCard = async (user, data, lastOpen) => {
   const key = data[lastOpen][0];
   updateData(["users/" + user.uid + "/flashcard/" + key], null);
-  // console.log("modul berhasil dihapus");
 };
-
-// remove a card
-// const removeCard = async (user, data, lastOpen, prevCards, idx) => {
-//   // remove the card
-//   const temp = prevCards.splice(idx, 1);
-
-//   const key = data[lastOpen][0];
-//   updateData(["users/" + user.uid + "/flashcard/" + key], temp);
-//   // console.log("modul berhasil dihapus");
-// };
 
 const Note = () => {
   const [user] = useAuthState(auth);
   const [data, setData] = useState([]); // all data flashcard
-  // const [note, setNote] = useState([]); // a note was selected
   const [title, setTitle] = useState(""); // a note was selected
   const [cards, setCards] = useState([]); // a note was selected
-  // const [idxCard, setIdxCards] = useState([]); // a note was selected
   const [lastOpen, setLastOpen] = useState(0);
   const [currentKeyCard, setCurrentKeyCard] = useState([]);
   const [isPlay, setIsPlay] = useState(false);
   const [isStart, setIsStart] = useState(false);
   const [isSeeAnswer, setIsSeeAnswer] = useState(false);
-  // const [randomNumber, setRandomNumber] = useState(0);
-  // const [randomNumbers, setRandomNumbers] = useState(
-  //   shuffleArray(generateNumberArray(cards.length))
-  // );
   const [checkPoint, setCheckPoint] = useState(-1);
-  // let checkPoint = 0;
-  // let randomNumbers = [];
-
   const refTitle = useRef(null);
-  // change state
-  const changeState = {
-    title: (event) => {
-      if (lastOpen !== undefined) {
-        // setNote((prev) => {
-        //   prev.title = event.target.value;
-        //   return prev;
-        // });
-        setTitle(event.target.value);
-        updateData(
-          ["users/" + user.uid + "/flashcard/" + data[lastOpen][0] + "/title"],
-          event.target.value
-        );
-      }
-    },
-    question: (event, dbCardKey) => {
-      if (lastOpen !== undefined) {
-        // setNote((prev) => {
-        //   prev.text = event.target.value;
-        //   return prev;
-        // });
-        setCards((prev) => {
-          return prev.map((e) => {
-            if (e[0] === dbCardKey) {
-              e[1].question = event.target.value;
-            }
-            return e;
-          });
-        });
-        updateData(
-          [
-            "users/" +
-              user.uid +
-              "/flashcard/" +
-              data[lastOpen][0] +
-              "/cards/" +
-              dbCardKey +
-              "/question",
-          ],
-          event.target.value
-        );
-      }
-    },
-    answer: (event, dbCardKey) => {
-      if (lastOpen !== undefined) {
-        // setNote((prev) => {
-        //   prev.text = event.target.value;
-        //   return prev;
-        // });
-        setCards((prev) => {
-          return prev.map((e) => {
-            if (e[0] === dbCardKey) {
-              e[1].answer = event.target.value;
-            }
-            return e;
-          });
-        });
-        updateData(
-          [
-            "users/" +
-              user.uid +
-              "/flashcard/" +
-              data[lastOpen][0] +
-              "/cards/" +
-              dbCardKey +
-              "/answer",
-          ],
-          event.target.value
-        );
-      }
-    },
-  };
 
   // get data from database
   useEffect(() => {
-    DataRealtime(`users/${user.uid}/flashcard`, (snapshot) => {
-      setData(snapshot);
+    fetchDataRealtime(`users/${user.uid}/flashcard`, (snapshot) => {
+      setData(Object.entries(snapshot).map((e) => e));
     });
-  }, []);
-  // console.log(currentKeyCard);
+  }, [user.uid]);
+
+  // change state
+  const changeState = {
+    title: (event) => {
+      handleUpdate("title", event.target.value);
+    },
+    question: (event, dbCardKey) => {
+      handleCardUpdate(dbCardKey, "question", event.target.value);
+    },
+    answer: (event, dbCardKey) => {
+      handleCardUpdate(dbCardKey, "answer", event.target.value);
+    },
+  };
+
+  const handleUpdate = (key, value) => {
+    if (lastOpen !== undefined) {
+      setTitle(value);
+      updateData(
+        ["users/" + user.uid + "/flashcard/" + data[lastOpen][0] + "/" + key],
+        value
+      );
+    }
+  };
+
+  const handleCardUpdate = (dbCardKey, cardProperty, value) => {
+    if (lastOpen !== undefined) {
+      setCards((prev) => {
+        return prev.map((e) => {
+          if (e[0] === dbCardKey) {
+            e[1][cardProperty] = value;
+          }
+          return e;
+        });
+      });
+      updateData(
+        [
+          "users/" +
+            user.uid +
+            "/flashcard/" +
+            data[lastOpen][0] +
+            "/cards/" +
+            dbCardKey +
+            "/" +
+            cardProperty,
+        ],
+        value
+      );
+    }
+  };
+
   // set last open data for navigate in first modul
   useEffect(() => {
     if (data.length > 1) {
@@ -173,22 +112,7 @@ const Note = () => {
       setLastOpen(-1);
     }
   }, [data]);
-  // Function to shuffle an array using Fisher-Yates algorithm
-  // function shuffleArray(array) {
-  //   for (let i = array.length - 1; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1));
-  //     [array[i], array[j]] = [array[j], array[i]];
-  //   }
-  //   return array;
-  // }
-  // Function to generate an array of numbers from 1 to maxNumber
-  // function generateNumberArray(maxNumber) {
-  //   const numberArray = [];
-  //   for (let i = 1; i <= maxNumber; i++) {
-  //     numberArray.push(i);
-  //   }
-  //   return numberArray;
-  // }
+
   // set the note
   useEffect(() => {
     if (lastOpen >= 0 && data.length !== 0) {
@@ -199,23 +123,15 @@ const Note = () => {
         setCards(Object.entries(data[lastOpen][1].cards));
       } else {
         setCards([]);
-        // setRandomNumber(0);
       }
       setCurrentKeyCard(data[lastOpen][0]);
     }
   }, [lastOpen]);
-  // console.log(data);
+
   const handleClickRefTitle = () => {
     refTitle.current.focus();
   };
 
-  // useEffect(() => {
-  //   if (randomNumbers) {
-  //     setRandomNumber(randomNumbers[checkPoint] - 1);
-  //   }
-  // }, [checkPoint]);
-
-  // console.log(randomNumber);
   return (
     <div className="regular-size shadow">
       <div className="regular-size position-relative">
@@ -270,6 +186,7 @@ const Note = () => {
                     : "Tidak ada modul..."}
                 </div>
                 <div
+                  title="Add flashcard"
                   className="icon"
                   onClick={async () => {
                     addCardModule(user, setCards);
@@ -297,6 +214,7 @@ const Note = () => {
                   <div>
                     <div className="d-flex justify-content-between mb-3 pb-1 border-bottom">
                       <div
+                        title="Delete flashcard"
                         onClick={() => {
                           // jika menghapus elemen terakhir dan data > 1
                           if (data.length - 2 === lastOpen) {
@@ -317,6 +235,7 @@ const Note = () => {
                       </div>
                       <div className="d-flex align-items-center ">
                         <div
+                          title="Add card"
                           className="me-2"
                           onClick={() => {
                             addCardModule(user, setCards, currentKeyCard);
@@ -325,6 +244,7 @@ const Note = () => {
                           <BsPlusLg style={{ fontSize: "x-large" }} />
                         </div>
                         <div
+                          title="Start flashcard"
                           onClick={() => {
                             setIsPlay((e) => !e);
                           }}

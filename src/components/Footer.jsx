@@ -3,7 +3,6 @@ import {
   FaChalkboardTeacher,
   FaRegStickyNote,
 } from "react-icons/fa";
-import { BiLogOutCircle } from "react-icons/bi";
 import {
   BsCircle,
   BsFire,
@@ -11,9 +10,21 @@ import {
   BsSoundwave,
   BsSearch,
 } from "react-icons/bs";
+import { BiLogOutCircle } from "react-icons/bi";
 import "../styles/Icon.css";
 import "../styles/Footer.css";
 import { signOut, getAuth } from "firebase/auth";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setBlurting,
+  setFeynman,
+  setFlashCard,
+  setMusic,
+  setNote,
+  setPomodoro,
+  setSearch,
+  setToDoList,
+} from "../features/home/Home";
 
 const signOutClick = () => {
   const auth = getAuth();
@@ -28,154 +39,112 @@ const signOutClick = () => {
     });
 };
 
-const Footer = ({
-  setToDoList,
-  toDoList,
-  setNote,
-  note,
-  setBlurting,
-  blurting,
-  setFlashCard,
-  flashCard,
-  setFeynman,
-  feynman,
-  setMusic,
-  music,
-  setSearch,
-  search,
-  setPomodoro,
-  pomodoro,
-}) => {
+const Footer = () => {
+  const {
+    toDoList,
+    note,
+    blurting,
+    flashCard,
+    feynman,
+    music,
+    search,
+    pomodoro,
+  } = useSelector((state) => state.home);
+  const dispatch = useDispatch();
+
   const Icon = ({ section }) => {
+    const toggleSection = (newSection) => {
+      const hideAllComponents = () => {
+        dispatch(setToDoList(false));
+        dispatch(setNote(false));
+        dispatch(setBlurting(false));
+        dispatch(setFeynman(false));
+        dispatch(setFlashCard(false));
+        dispatch(setMusic(false));
+        dispatch(setSearch(false));
+        dispatch(setPomodoro(false));
+      };
+
+      switch (newSection) {
+        case "logout":
+          signOutClick();
+          break;
+
+        case "home":
+          hideAllComponents();
+          break;
+
+        case "todolist":
+          hideAllComponents();
+          dispatch(setToDoList(!toDoList));
+          break;
+
+        case "note":
+          hideAllComponents();
+          dispatch(setNote(!note));
+          break;
+
+        case "blurting":
+          hideAllComponents();
+          dispatch(setBlurting(!blurting));
+          break;
+
+        case "flashcard":
+          hideAllComponents();
+          dispatch(setFlashCard(!flashCard));
+          break;
+
+        case "feynman":
+          hideAllComponents();
+          dispatch(setFeynman(!feynman));
+          break;
+
+        case "music":
+          dispatch(setMusic(!music));
+          dispatch(setPomodoro(false));
+          break;
+
+        case "search":
+          hideAllComponents();
+          dispatch(setSearch(!search));
+          break;
+
+        default:
+          break;
+      }
+    };
+
+    const getIcon = (section) => {
+      switch (section) {
+        case "home":
+          return <BsCircle className="icon-size" />;
+        case "todolist":
+          return <FaClipboardList className="icon-size" />;
+        case "note":
+          return <FaRegStickyNote className="icon-size" />;
+        case "blurting":
+          return <BsFire className="icon-size" />;
+        case "flashcard":
+          return <BsCardHeading className="icon-size" />;
+        case "feynman":
+          return <FaChalkboardTeacher className="icon-size" />;
+        case "music":
+          return <BsSoundwave className="icon-size" />;
+        case "search":
+          return <BsSearch className="icon-size" />;
+        case "logout":
+          return <BiLogOutCircle className="icon-size" />;
+        default:
+          return null;
+      }
+    };
+
     return (
       <div
         className="icon user-select-none"
-        onClick={() => {
-          // saat on click, dicari komponen mana yg terklik (dari sectionnya)
-          switch (section) {
-            case "logout":
-              signOutClick();
-              break;
-            case "home":
-              // jika klik home maka semua state pengontrol di hide (false)
-              setToDoList(false);
-              setNote(false);
-              setBlurting(false);
-              setFeynman(false);
-              setFlashCard(false);
-              setMusic(false);
-              setSearch(false);
-              setPomodoro(false);
-              break;
-
-            case "todolist":
-              toDoList === false ? setToDoList(true) : setToDoList(false);
-              // hide component sebelumnya
-              setNote(false);
-              setBlurting(false);
-              setFeynman(false);
-              setFlashCard(false);
-              setMusic(false);
-              setSearch(false);
-              setPomodoro(false);
-              break;
-
-            case "note":
-              note === false ? setNote(true) : setNote(false);
-              // hide component sebelumnya
-              setToDoList(false);
-              setBlurting(false);
-              setFeynman(false);
-              setFlashCard(false);
-              setMusic(false);
-              setSearch(false);
-              setPomodoro(false);
-              break;
-
-            case "blurting":
-              blurting === false ? setBlurting(true) : setBlurting(false);
-              // hide component sebelumnya
-              setToDoList(false);
-              setNote(false);
-              setFeynman(false);
-              setFlashCard(false);
-              setMusic(false);
-              setSearch(false);
-              setPomodoro(false);
-              break;
-
-            case "flashcard":
-              flashCard === false ? setFlashCard(true) : setFlashCard(false);
-              // hide component sebelumnya
-              setToDoList(false);
-              setNote(false);
-              setBlurting(false);
-              setFeynman(false);
-              setMusic(false);
-              setSearch(false);
-              setPomodoro(false);
-              break;
-
-            case "feynman":
-              feynman === false ? setFeynman(true) : setFeynman(false);
-              // hide component sebelumnya
-              setToDoList(false);
-              setNote(false);
-              setBlurting(false);
-              setFlashCard(false);
-              setMusic(false);
-              setSearch(false);
-              setPomodoro(false);
-              break;
-
-            case "music":
-              music === false ? setMusic(true) : setMusic(false);
-              // hide component sebelumnya
-              // setToDoList(false);
-              // setNote(false);
-              // setBlurting(false);
-              // setFeynman(false);
-              // setFlashCard(false);
-              // setSearch(false);
-              setPomodoro(false);
-              break;
-
-            case "search":
-              search === false ? setSearch(true) : setSearch(false);
-              // hide component sebelumnya
-              setToDoList(false);
-              setNote(false);
-              setBlurting(false);
-              setFeynman(false);
-              setFlashCard(false);
-              setMusic(false);
-              setPomodoro(false);
-              break;
-
-            default:
-              break;
-          }
-        }}
+        onClick={() => toggleSection(section)}
       >
-        {section === "home" ? (
-          <BsCircle className="icon-size" />
-        ) : section === "todolist" ? (
-          <FaClipboardList className="icon-size" />
-        ) : section === "note" ? (
-          <FaRegStickyNote className="icon-size" />
-        ) : section === "blurting" ? (
-          <BsFire className="icon-size" />
-        ) : section === "flashcard" ? (
-          <BsCardHeading className="icon-size" />
-        ) : section === "feynman" ? (
-          <FaChalkboardTeacher className="icon-size" />
-        ) : section === "music" ? (
-          <BsSoundwave className="icon-size" />
-        ) : section === "search" ? (
-          <BsSearch className="icon-size" />
-        ) : section === "logout" ? (
-          <BiLogOutCircle className="icon-size" />
-        ) : null}
+        {getIcon(section)}
       </div>
     );
   };
@@ -184,24 +153,43 @@ const Footer = ({
     <div className="footer-container">
       <div className="icon-container">
         <div className="left d-flex">
-          <Icon section={"home"} />
-          <Icon section={"logout"} />
+          <div title="Home">
+            <Icon section={"home"} />
+          </div>
+          <div title="Logout">
+            <Icon section={"logout"} />
+          </div>
         </div>
         <div className="center">
-          <Icon section={"todolist"} />
-          <Icon section={"note"} />
-          <Icon section={"blurting"} />
-          <Icon section={"flashcard"} />
-          <Icon section={"feynman"} />
+          <div title="To Do List">
+            <Icon section={"todolist"} />
+          </div>
+          <div title="Notes">
+            <Icon section={"note"} />
+          </div>
+          <div title="Blurting">
+            <Icon section={"blurting"} />
+          </div>
+          <div title="Flashcard">
+            <Icon section={"flashcard"} />
+          </div>
+          <div title="Feynman">
+            <Icon section={"feynman"} />
+          </div>
         </div>
         <div className="right">
-          <Icon section={"search"} />
-          <Icon section={"music"} />
+          <div title="Search">
+            <Icon section={"search"} />
+          </div>
+          <div title="Music">
+            <Icon section={"music"} />
+          </div>
           <div
+            title="Pomodoro"
             className="pomodoro"
             onClick={() => {
-              pomodoro === false ? setPomodoro(true) : setPomodoro(false);
-              setMusic(false);
+              dispatch(setPomodoro(!pomodoro));
+              dispatch(setMusic(false));
             }}
           >
             <div className="user-select-none">25:00</div>

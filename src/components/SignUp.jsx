@@ -1,6 +1,5 @@
 import "../styles/SignUp.css";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from "firebase/auth";
