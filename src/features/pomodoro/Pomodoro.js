@@ -11,7 +11,7 @@ export const isTimerRunningSlice = createSlice({
     time: 0,
     timeString: '',
     isTimerRunning: false,
-  }, 
+  },
   reducers: {
     setIsPomodoroRunning: (state, action) => {
       state.isPomodoroRunning = action.payload

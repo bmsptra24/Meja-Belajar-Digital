@@ -17,7 +17,7 @@ function App() {
     <>
       <Suspense
         fallback={
-          <div className="bg-loading d-flex vh-100 justify-content-center align-items-center">
+          <div className="bg-loading d-flex vh-100 justify-center align-items-center">
             <div className="spinner-border" role="status">
               <span className="visually-hidden"></span>
             </div>

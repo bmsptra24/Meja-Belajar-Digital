@@ -1,4 +1,4 @@
-.login-container {
+/* .login-container {
   height: 530px;
   width: 400px;
   background-color: #ffffff;
@@ -7,8 +7,8 @@
   align-items: center;
   flex-direction: column;
   padding: 20px;
-}
-
+} */
+/* 
 .login-container > button {
   background-color: var(--blue-light);
   margin-top: 32px;
@@ -16,13 +16,13 @@
 
 .login-container > button:hover {
   background-color: var(--white-dark);
-}
+} */
 
-.form-loginpage {
+/* .form-loginpage {
   width: 89%;
 }
 
 button.login-button-in-signup {
   margin-top: 7px;
   margin-bottom: 10px;
-}
+} */

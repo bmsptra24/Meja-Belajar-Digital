@@ -1,24 +1,9 @@
 .login-container {
-  height: 400px;
-  width: 300px;
-  background-color: var(--blue-light-2) !important;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px;
-  border-style: solid;
+  height: 550px;
+  width: 450px;
 }
 
-.login-container > button {
-  background-color: var(--blue-light);
-  border-color: #000000;
-  border-width: 2px;
-  border-style: solid;
-  width: 89%;
-  margin-top: 32px;
-}
-
+/* 
 div > .login-container > button:hover {
   border-color: var(--blue);
   background-color: var(--blue);
@@ -68,20 +53,11 @@ input[type="password"]:focus {
 }
 
 .btn {
-  background-color: #c4ddff !important;
+  background-color: #c4ddff ;
   color: black !important;
   transform: translateY(10px);
   font-size: 14px;
   border-radius: 10px !important;
   border-color: black;
-  margin: 2px;
-}
-
-.belakang {
-  height: 530px;
-  width: 400px;
-  padding: 20px;
-  background: #c4ddff !important;
-  border-radius: 10px !important;
-  border: 3px solid black;
-}
+  height: 40px;
+} */

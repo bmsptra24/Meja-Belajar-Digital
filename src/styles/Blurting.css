@@ -17,7 +17,7 @@
 .content-2 {
   height: 49.1%;
 }
-
+/* 
 textarea {
   overflow: auto;
   border-radius: 0px;
@@ -51,4 +51,4 @@ textarea {
   .form-floating > .form-control-plaintext {
     height: 31vh !important;
   }
-}
+} */

@@ -3,7 +3,6 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from "firebase/auth";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import { updateData } from "../Store/Database";
 import validator from "validator";
@@ -22,7 +21,6 @@ const SignUp = ({ setNavigator }) => {
         // Signed in
         const user = userCredential.user;
         // write user data to database
-        // writeUserData(user.uid, name, email);
         updateData("users/" + user.uid, {
           email: email,
           feynman: null,
@@ -56,42 +54,52 @@ const SignUp = ({ setNavigator }) => {
 
   return (
     <div className="App">
-      <div className="belakang">
-        <div className="login-container rounded-3">
-          <h2 className="fw-bold fs-1">Sign Up Account</h2>
-          <p className="p-4 mt-n4">
-            Hey, enter your detail to get sign up to your account!
-          </p>
-          <input
-            type="text"
-            className="form-control form-loginpage mt-n4"
-            placeholder="Your Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            type="email"
-            className="form-control form-loginpage mt-2"
-            placeholder="Enter Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            className="form-control form-loginpage mt-2"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <input
-            type="password"
-            className="form-control form-loginpage mt-2"
-            placeholder="Confirm Your Password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
+      <div className="flex lg:h-3/4 lg:w-4/5 xl:w-3/5  lg:shadow-2xl rounded-3xl">
+        <div className="lg:flex hidden w-1/2 bg-gradient-to-bl from-cyan-500 to-blue-500 justify-center items-center rounded-s-3xl">
+          <div className="px-7 flex flex-col text-center text-blue-50">
+            <p className="font-black text-4xl mb-5">Meja Belajar Digital</p>
+            <p className="px-7">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
+              ut consequatur vero excepturi officia repellendus.
+            </p>
+          </div>
+        </div>
+        <div className="h-screen lg:h-auto w-screen lg:w-1/2 p-4 px-7 pb-7 flex flex-col justify-evenly lg:justify-between bg-blue-50 lg:rounded-e-3xl">
+          <div className="flex justify-center my-7">
+            <p className="font-black text-4xl">Signup</p>
+          </div>
+          <div className="flex flex-col">
+            <input
+              type="text"
+              className="placeholder:text-slate-500 h-12 rounded px-3 bg-slate-200 focus:outline-none focus:ring-slate-300 focus:ring-2"
+              placeholder="Your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <input
+              type="email"
+              className="placeholder:text-slate-500 mt-4 h-12 rounded px-3 bg-slate-200 focus:outline-none focus:ring-slate-300 focus:ring-2"
+              placeholder="Enter Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              className="placeholder:text-slate-500 mt-4 h-12 rounded px-3 bg-slate-200 focus:outline-none focus:ring-slate-300 focus:ring-2"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+              type="password"
+              className="placeholder:text-slate-500 mt-4 h-12 rounded px-3 bg-slate-200 focus:outline-none focus:ring-slate-300 focus:ring-2"
+              placeholder="Confirm Your Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
           <button
-            className="btn"
+            className="hover:to-blue-600 hover:from-blue-400 bg-gradient-to-l from-cyan-400 to-blue-500 h-12 rounded mt-4"
             onClick={() => {
               if (!validator.isEmpty(name, { ignore_whitespace: true })) {
                 if (validator.isEmail(email)) {
@@ -110,14 +118,17 @@ const SignUp = ({ setNavigator }) => {
           >
             Sign Up
           </button>
-          <button
-            className="btn login-button-in-signup"
-            onClick={() => {
-              setNavigator(1);
-            }}
-          >
-            I have an account!
-          </button>
+          <div className="flex justify-center text-sm">
+            <p>{"I have an account!"}</p>
+            <button
+              className="ml-2 transition ease-in-out hover:text-blue-600 text-blue-500"
+              onClick={() => {
+                setNavigator(1);
+              }}
+            >
+              Login
+            </button>
+          </div>
         </div>
       </div>
     </div>

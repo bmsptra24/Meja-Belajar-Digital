@@ -52,7 +52,7 @@ const Footer = () => {
   } = useSelector((state) => state.home);
   const dispatch = useDispatch();
 
-  const Icon = ({ section }) => {
+  const Icon = ({ section, isOpened }) => {
     const toggleSection = (newSection) => {
       const hideAllComponents = () => {
         dispatch(setToDoList(false));
@@ -141,7 +141,10 @@ const Footer = () => {
 
     return (
       <div
-        className="icon user-select-none"
+        className={
+          "icon select-none ring-2 ring-blue-950 " +
+            (isOpened && "ring-blue-500 ring-4 shadow-md") || ""
+        }
         onClick={() => toggleSection(section)}
       >
         {getIcon(section)}
@@ -150,9 +153,9 @@ const Footer = () => {
   };
 
   return (
-    <div className="footer-container">
-      <div className="icon-container">
-        <div className="left d-flex">
+    <div className="footer-container bg-blue-400 ring-2 ring-slate-800 flex justify-center items-center border-solid border-x-0 border-b-0 w-screen h-16 absolute top-0 lg:top-auto bottom-auto lg:bottom-0 rounded-ss-3xl rounded-se-3xl">
+      <div className="w-full flex justify-center items-center">
+        <div className="absolute left-0 ml-3 flex">
           <div title="Home">
             <Icon section={"home"} />
           </div>
@@ -160,26 +163,26 @@ const Footer = () => {
             <Icon section={"logout"} />
           </div>
         </div>
-        <div className="center">
+        <div className="flex">
           <div title="To Do List">
-            <Icon section={"todolist"} />
+            <Icon section={"todolist"} isOpened={toDoList} />
           </div>
           <div title="Notes">
-            <Icon section={"note"} />
+            <Icon section={"note"} isOpened={note} />
           </div>
           <div title="Blurting">
-            <Icon section={"blurting"} />
+            <Icon section={"blurting"} isOpened={blurting} />
           </div>
           <div title="Flashcard">
-            <Icon section={"flashcard"} />
+            <Icon section={"flashcard"} isOpened={flashCard} />
           </div>
           <div title="Feynman">
-            <Icon section={"feynman"} />
+            <Icon section={"feynman"} isOpened={feynman} />
           </div>
         </div>
-        <div className="right">
+        <div className="absolute right-0 mr-3 flex">
           <div title="Search">
-            <Icon section={"search"} />
+            <Icon section={"search"} isOpened={search} />
           </div>
           <div title="Music">
             <Icon section={"music"} />

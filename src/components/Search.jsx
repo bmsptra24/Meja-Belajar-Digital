@@ -6,26 +6,6 @@ import { auth } from "../Store/Firebase";
 import { BsSearch } from "react-icons/bs";
 import "../styles/Search.css";
 
-// realtime databe
-// const DataRealtime = async (path, callback) => {
-//   const transferData = (snapshot) => {
-//     callback(snapshot);
-//   };
-//   const dbRef = ref(getDatabase(), path);
-//   await onValue(dbRef, (snapshot) => {
-//     if (snapshot.val() !== null) {
-//       let result = Object.entries(snapshot.val())
-//         .map((e, idx) => {
-//           if (idx !== 0) {
-//             return e[1];
-//           }
-//         })
-//         .filter((e, idx) => idx !== 0);
-//       transferData(result);
-//     }
-//   });
-// };
-
 // get answer from api
 const getAnswer = async (user, log, input, setState) => {
   //DEFAULT SYSTEM GPT

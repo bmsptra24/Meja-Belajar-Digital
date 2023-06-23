@@ -2,7 +2,6 @@ import { BsPlusLg } from "react-icons/bs";
 import Task from "./Task";
 import { useState, useEffect } from "react";
 import "../styles/ToDoList.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { updateData, fetchDataRealtime } from "../Store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
@@ -12,7 +11,6 @@ const ToDoList = () => {
 
   // membuat state tasks
   const [tasks, setTasks] = useState([]);
-
   // 0 : {checked: false, task: 'ngoding'}
 
   useEffect(() => {

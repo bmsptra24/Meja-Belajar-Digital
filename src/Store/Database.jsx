@@ -5,7 +5,8 @@ import {
   get,
   child,
   push,
-  update, 
+  update,
+  onValue,
 } from "firebase/database";
 
 // write data user after sign up-
@@ -121,7 +122,6 @@ export const deleteTask = (user, key) => {
 
 export const getTimestamp = () => {
   const db = getDatabase();
-  // const dbRef = ref(getDatabase())
   return db.FieldValue.serverTimestamp();
 };
 
@@ -132,4 +132,16 @@ export const timestamp = () => {
     month: current.getMonth() + 1,
     year: current.getFullYear(),
   };
+};
+
+export const fetchDataRealtime = (path, callback) => {
+  const dbRef = ref(getDatabase(), path);
+
+  const handleDataChange = (snapshot) => {
+    if (snapshot.val() !== null) {
+      callback(snapshot.val());
+    }
+  };
+
+  onValue(dbRef, handleDataChange);
 };
