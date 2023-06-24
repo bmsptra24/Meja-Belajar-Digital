@@ -362,7 +362,7 @@ const Note = () => {
                       className="transition ease-in-out bg-blue-300 p-3 rounded-lg px-6 hover:bg-blue-400 cursor-pointer"
                       onClick={() => {
                         setCheckPoint(0);
-                        setIsStart((e) => !e);
+                        setIsStart(true);
 
                         // generate random number
                         // const randomnumbertemp = await shuffleArray(
@@ -389,7 +389,7 @@ const Note = () => {
                         No. {checkPoint + 1} |{" "}
                         {isSeeAnswer ? "Answer" : "Question"}
                       </p>
-                      <div className="grow flex justify-center items-center">
+                      <div className="grow flex justify-center items-center text-center">
                         {!isSeeAnswer ? (
                           <p className="text-lg mx-4 mt-2">
                             {cards &&

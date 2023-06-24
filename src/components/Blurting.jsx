@@ -177,7 +177,7 @@ const Blurting = () => {
               </div>
             </div>
           </div>
-          <div className="grow rounded-xl h-full border-none lg:border-2 border-black bg-slate-50 lg:bg-blue-50 ml-0 lg:ml-2 p-3 pt-2 flex flex-col w-screen lg:w-auto">
+          <div className="grow rounded-xl h-full border-0 lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 ml-0 lg:ml-2 p-3 pt-2 flex flex-col w-screen lg:w-auto">
             {lastOpen >= 0 ? (
               <>
                 <div className="flex justify-between mb-3 pb-1 border-b-2 ">
@@ -212,7 +212,7 @@ const Blurting = () => {
                   <textarea
                     autoFocus
                     spellCheck={false}
-                    className="resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-none rounded-lg p-3 h-16 text-2xl"
+                    className="resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-0 rounded-lg p-3 h-16 text-2xl"
                     placeholder="Judul"
                     maxLength={44}
                     rows={5}
@@ -228,7 +228,7 @@ const Blurting = () => {
                   </label>
                   <textarea
                     id="remembered"
-                    className="grow resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-none rounded-lg px-3"
+                    className="grow border-2 lg:border-0 mt-3 lg:mt-0 focus:border-slate-300 resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none rounded-lg px-3 py-2 lg:py-0 mx-3 lg:mx-0"
                     placeholder="..."
                     spellCheck={false}
                     rows={5}
@@ -243,7 +243,7 @@ const Blurting = () => {
             )}
           </div>
           <div className="min-h-screen lg:min-h-0 lg:h-full lg:w-4/12 p-0 flex justify-between flex-col ml-0 lg:ml-2 lg:mr-0 gap-3 lg:px-0 px-3">
-            <div className="h-1/2 rounded-xl border-none lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50  p-3 pt-1 flex flex-col">
+            <div className="h-1/2 rounded-xl border-0 lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50  p-3 pt-1 flex flex-col">
               {lastOpen >= 0 ? (
                 <>
                   <label
@@ -253,7 +253,7 @@ const Blurting = () => {
                     Hal yang dilupa
                   </label>
                   <textarea
-                    className="grow mt-1 resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-none rounded-lg"
+                    className="grow border-2 lg:border-0 lg:mt-0 focus:border-slate-300 mt-1 resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none rounded-lg px-3 py-2 lg:py-0"
                     id="forgotten"
                     spellCheck={false}
                     placeholder="..."
@@ -267,7 +267,7 @@ const Blurting = () => {
                 <div>...</div>
               )}
             </div>
-            <div className="h-1/2 rounded-xl border-none lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 p-3 pt-1 flex flex-col ">
+            <div className="h-1/2 rounded-xl border-0 lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 p-3 pt-1 flex flex-col ">
               {lastOpen >= 0 ? (
                 <>
                   <label
@@ -280,7 +280,7 @@ const Blurting = () => {
                     spellCheck={false}
                     id="questions"
                     placeholder="..."
-                    className="grow mt-1 resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-none rounded-lg"
+                    className="grow border-2 lg:border-0 lg:mt-0 focus:border-slate-300 mt-1 resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none rounded-lg px-3 py-2 lg:py-0"
                     rows={5}
                     maxLength={5000}
                     onChange={changeState.questions}
