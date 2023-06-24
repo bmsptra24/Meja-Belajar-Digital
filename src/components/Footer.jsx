@@ -145,7 +145,7 @@ const Footer = () => {
     return (
       <div
         className={
-          "icon select-none transition ease-out " +
+          "icon select-none transition ease-out hover:bg-slate-300 " +
             (isOpened && "border-blue-500 border-4 shadow-md") || ""
         }
         onClick={() => toggleSection(section)}
@@ -159,7 +159,7 @@ const Footer = () => {
   const [isSettingClicked, setIsSettingClicked] = useState(false);
 
   return (
-    <div className="footer-container bg-slate-50 ring-2 ring-slate-800 flex justify-center items-center border-solid border-x-0 border-b-0 w-screen h-13 lg:h-16 lg:rounded-ss-3xl lg:rounded-se-3xl">
+    <div className="footer-container bg-slate-50 ring-2 ring-slate-800 flex justify-center items-center border-solid border-x-0 border-b-0 w-screen h-13 lg:rounded-ss-3xl lg:rounded-se-3xl">
       {/* large screen */}
       <div className="w-full justify-center items-center hidden lg:flex">
         <div className="absolute left-0 ml-3 flex">
@@ -196,7 +196,7 @@ const Footer = () => {
           </div>
           <div
             title="Pomodoro"
-            className="pomodoro"
+            className="pomodoro hover:bg-slate-300"
             onClick={() => {
               dispatch(setPomodoro(!pomodoro));
               dispatch(setMusic(false));
@@ -235,6 +235,16 @@ const Footer = () => {
               }}
             >
               Todolist
+            </p>
+            <p
+              className="hover:bg-slate-300 p-2 rounded"
+              onClick={() => {
+                hideAllComponents();
+                setIsBurgerClicked((e) => !e);
+                dispatch(setNote(true));
+              }}
+            >
+              Note
             </p>
             <p
               className="hover:bg-slate-300 p-2 rounded"
@@ -309,7 +319,7 @@ const Footer = () => {
                 onClick={() => {
                   hideAllComponents();
                   setIsSettingClicked((e) => !e);
-                  signOutClick()
+                  signOutClick();
                 }}
               >
                 Logout
@@ -321,8 +331,6 @@ const Footer = () => {
         <div
           className="absolute left-5 pomodoro"
           onClick={() => {
-            hideAllComponents();
-            // setIsBurgerClicked(false)
             dispatch(setPomodoro(!pomodoro));
           }}
         >

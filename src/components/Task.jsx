@@ -29,7 +29,7 @@ const Task = ({ tasks, index, user, setTasks }) => {
             {tasks[index].task}
           </p>
         </div>
-        <BsTrash onClick={handleDeleteTask} />
+        <BsTrash onClick={handleDeleteTask} className="cursor-pointer transition hover:text-red-700"/>
       </div>
     )
   );

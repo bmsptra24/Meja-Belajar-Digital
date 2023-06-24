@@ -1,4 +1,3 @@
-import "../styles/Flashcard.css";
 import { fetchDataRealtime, newKey, updateData } from "../Store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
@@ -11,6 +10,7 @@ import {
   BsFillArrowLeftSquareFill,
   BsArrowClockwise,
 } from "react-icons/bs";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 // add new note
 const addCardModule = async (user, setCards, key = newKey("flashcard")) => {
@@ -46,6 +46,7 @@ const Note = () => {
   const [isStart, setIsStart] = useState(false);
   const [isSeeAnswer, setIsSeeAnswer] = useState(false);
   const [checkPoint, setCheckPoint] = useState(-1);
+  const [isListCardsClicked, setIsListCardsClicked] = useState(false);
   const refTitle = useRef(null);
 
   // get data from database
@@ -133,13 +134,20 @@ const Note = () => {
   };
 
   return (
-    <div className="regular-size shadow">
-      <div className="regular-size position-relative">
-        <div className=" align-items-center row d-flex justify-content-center p-3 ps-4 pe-4">
+    <div className="lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
+      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
+        <div className="flex h-full flex-col lg:flex-row overflow-scroll lg:overflow-hidden">
           {!isPlay && (
             <>
-              <div className="d-flex justify-content-between flex-column col-3 rounded-3 border border-2 border-black bg-white-dark content-1 p-2">
-                <div>
+              <div
+                className={
+                  "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 pl-3 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +
+                  (isListCardsClicked === true
+                    ? "visible lg:visible"
+                    : "hidden lg:visible")
+                }
+              >
+                <div className="overflow-y-scroll mr-3 lg:mr-0 grow h-9/10 lg:h-auto mb-0 lg:mb-1">
                   {lastOpen >= 0
                     ? data.map((e, idx) => {
                         if (idx !== data.length - 1) {
@@ -148,13 +156,14 @@ const Note = () => {
                               key={"note-" + idx}
                               className={`${
                                 idx === lastOpen
-                                  ? "bg-white-clicked"
-                                  : "bg-white-unclicked"
-                              } px-2 py-1 rounded-3 border border-2 border-dark mb-1`}
+                                  ? "bg-slate-50 border-2 border-blue-300 drop-shadow-lg"
+                                  : "bg-slate-200 border-2 border-blue-50 hover:border-slate-300 hover:bg-slate-300"
+                              } px-2 py-1 rounded-lg mb-1`}
                               style={
                                 ({ cursor: "pointer" }, { minHeight: "35px" })
                               }
                               onClick={() => {
+                                setIsListCardsClicked((e) => !e);
                                 data.map((e, index) => {
                                   if (idx === index && idx !== data.length) {
                                     // update last open
@@ -185,34 +194,37 @@ const Note = () => {
                     ? "Loading..."
                     : "Tidak ada modul..."}
                 </div>
-                <div
-                  title="Add flashcard"
-                  className="icon"
-                  onClick={async () => {
-                    addCardModule(user, setCards);
-                    if (lastOpen >= 0) {
-                      // jika data masih ada maka:
-                      await updateData(
-                        ["users/" + user.uid + "/flashcard/" + "lastOpen"],
-                        data.length - 1
-                      );
-                    } else {
-                      // jika tidak ada data:
-                      await updateData(
-                        ["users/" + user.uid + "/flashcard/" + "lastOpen"],
-                        0
-                      );
-                    }
-                    handleClickRefTitle();
-                  }}
-                >
-                  <BsPlusLg style={{ fontSize: "x-large" }} />
+                <div className="w-full flex justify-end lg:justify-start pr-3 lg:pr-0 h-1/10 lg:h-auto items-center">
+                  <div
+                    title="Add flashcard"
+                    className="icon transition ease-out bg-blue-200 hover:bg-blue-300 border-2 border-blue-500 text-2xl"
+                    onClick={async () => {
+                      setIsListCardsClicked(false);
+                      addCardModule(user, setCards);
+                      if (lastOpen >= 0) {
+                        // jika data masih ada maka:
+                        await updateData(
+                          ["users/" + user.uid + "/flashcard/" + "lastOpen"],
+                          data.length - 1
+                        );
+                      } else {
+                        // jika tidak ada data:
+                        await updateData(
+                          ["users/" + user.uid + "/flashcard/" + "lastOpen"],
+                          0
+                        );
+                      }
+                      handleClickRefTitle();
+                    }}
+                  >
+                    <BsPlusLg />
+                  </div>
                 </div>
               </div>
-              <div className="col rounded-3 border border-2 border-black bg-white content-1 ms-2 p-3 pt-2">
+              <div className="rounded-lg lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 ml-0 lg:ml-2 p-3 pt-2 grow flex flex-col">
                 {lastOpen >= 0 ? (
-                  <div>
-                    <div className="d-flex justify-content-between mb-3 pb-1 border-bottom">
+                  <>
+                    <div className="flex justify-between mb-3 pb-1 border-b-2">
                       <div
                         title="Delete flashcard"
                         onClick={() => {
@@ -231,9 +243,19 @@ const Note = () => {
                           removeModuleCard(user, data, lastOpen);
                         }}
                       >
-                        <BsTrash style={{ fontSize: "22px" }} />
+                        <BsTrash className="hover:text-red-700 cursor-pointer transition ease-out text-xl" />
                       </div>
-                      <div className="d-flex align-items-center ">
+                      {!isListCardsClicked && (
+                        <div
+                          className="visible lg:hidden text-xl hover:text-slate-400 absolute left-10 right-10 flex justify-center"
+                          onClick={() => {
+                            setIsListCardsClicked((e) => !e);
+                          }}
+                        >
+                          <RxHamburgerMenu />
+                        </div>
+                      )}
+                      <div className="flex align-items-center ">
                         <div
                           title="Add card"
                           className="me-2"
@@ -241,7 +263,7 @@ const Note = () => {
                             addCardModule(user, setCards, currentKeyCard);
                           }}
                         >
-                          <BsPlusLg style={{ fontSize: "x-large" }} />
+                          <BsPlusLg className="hover:text-slate-400 cursor-pointer transition ease-out text-2xl" />
                         </div>
                         <div
                           title="Start flashcard"
@@ -249,40 +271,38 @@ const Note = () => {
                             setIsPlay((e) => !e);
                           }}
                         >
-                          <BsPlayFill style={{ fontSize: "x-large" }} />
+                          <BsPlayFill className="hover:text-slate-400 cursor-pointer transition ease-out text-2xl" />
                         </div>
                       </div>
                     </div>
 
-                    <div>
-                      <textarea
-                        autoFocus
-                        className="form-control fs-4 mb-1"
-                        placeholder="title"
-                        maxLength={44}
-                        id="floatingTextarea2"
-                        rows={5}
-                        onChange={changeState.title}
-                        value={title}
-                        ref={refTitle}
-                      ></textarea>
-                    </div>
-                    <div className="overflow-scroll" style={{ height: "55vh" }}>
+                    <textarea
+                      autoFocus
+                      spellCheck={false}
+                      className="resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-none rounded-lg p-3 h-16 text-2xl"
+                      placeholder="title"
+                      maxLength={44}
+                      rows={5}
+                      onChange={changeState.title}
+                      value={title}
+                      ref={refTitle}
+                    ></textarea>
+
+                    <div className="overflow-y-scroll h-full">
                       {cards !== null &&
                         cards.map((e, idx) => {
                           return (
                             <div
                               key={idx}
-                              className="d-flex justify-content-between w-100 mt-2"
+                              className="flex justify-between w-100 mt-2"
                             >
-                              <div className="me-2 pt-2 d-flex">
+                              <div className="me-2 pt-2 flex">
                                 <p>{idx + 1}</p>
                               </div>
                               <textarea
-                                className="form-control border-dark-subtle border border-1 w-50 me-2"
-                                placeholder="note"
-                                style={{ height: "20vh" }}
-                                id="floatingTextarea2"
+                                className="form-control p-2 hover:shadow-lg transition ease-out border-slate-300 focus:outline-none focus:border-slate-400 focus:shadow-md border-2 w-50 mr-1 h-44 grow rounded-md"
+                                spellCheck={false}
+                                placeholder="question"
                                 rows={5}
                                 maxLength={20000}
                                 onChange={(event) => {
@@ -291,10 +311,9 @@ const Note = () => {
                                 value={e[1].question}
                               ></textarea>
                               <textarea
-                                className="form-control border-dark-subtle border border-1 w-50 ms-2"
-                                style={{ height: "20vh" }}
-                                placeholder="note"
-                                id="floatingTextarea2"
+                                className="form-control p-2 hover:shadow-lg transition ease-out border-slate-300 focus:outline-none focus:border-slate-400 focus:shadow-md border-2 w-50 ms-1 h-44 grow rounded-md"
+                                spellCheck={false}
+                                placeholder="answer"
                                 rows={5}
                                 maxLength={20000}
                                 onChange={(event) => {
@@ -303,7 +322,7 @@ const Note = () => {
                                 value={e[1].answer}
                               ></textarea>
                               <BsTrash
-                                className="mt-1 ms-2"
+                                className="mt-1 ml-2 hover:text-red-700 cursor-pointer transition ease-out"
                                 onClick={() => {
                                   cards.map((e, idxCard) => {
                                     if (idxCard === idx) {
@@ -327,7 +346,7 @@ const Note = () => {
                           );
                         })}
                     </div>
-                  </div>
+                  </>
                 ) : (
                   <div>...</div>
                 )}
@@ -336,11 +355,11 @@ const Note = () => {
           )}
           {isPlay && (
             <>
-              <div className="d-flex w-100 justify-content-center flex-column align-items-center rounded-3 border border-2 border-black bg-white content-1 p-3 pt-2">
-                <div>
+              <div className="flex w-full h-full relative justify-center flex-col items-center rounded-xl border-none mb-1 lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 p-3 pt-2">
+                <>
                   {!isStart && (
                     <div
-                      className="btn"
+                      className="transition ease-in-out bg-blue-300 p-3 rounded-lg px-6 hover:bg-blue-400 cursor-pointer"
                       onClick={() => {
                         setCheckPoint(0);
                         setIsStart((e) => !e);
@@ -361,74 +380,75 @@ const Note = () => {
                         // console.log({ randomNumbers });
                       }}
                     >
-                      <p className="fs-1 fw-bolder mx-4 mt-2">START</p>
+                      <p className="font-bold text-3xl">START</p>
                     </div>
                   )}
                   {isStart && (
-                    <div>
-                      {!isSeeAnswer ? (
-                        <p className="fs-3 mx-4 mt-2">
-                          {cards &&
-                            checkPoint !== -1 &&
-                            cards[checkPoint][1].question}
-                        </p>
-                      ) : (
-                        <p className="fs-3 mx-4 mt-2">
-                          {cards &&
-                            checkPoint !== -1 &&
-                            cards[checkPoint][1].answer}
-                        </p>
-                      )}
-                    </div>
+                    <>
+                      <p className="absolute top-3 left-4 font-bold text-slate-500">
+                        No. {checkPoint + 1} |{" "}
+                        {isSeeAnswer ? "Answer" : "Question"}
+                      </p>
+                      <div className="grow flex justify-center items-center">
+                        {!isSeeAnswer ? (
+                          <p className="text-lg mx-4 mt-2">
+                            {cards &&
+                              checkPoint !== -1 &&
+                              cards[checkPoint][1].question}
+                          </p>
+                        ) : (
+                          <p className="text-lg mx-4 mt-2">
+                            {cards &&
+                              checkPoint !== -1 &&
+                              cards[checkPoint][1].answer}
+                          </p>
+                        )}
+                      </div>
+                      <div className="flex justify-center mb-5 lg:mb-auto">
+                        <BsFillArrowLeftSquareFill
+                          className="text-3xl text-slate-400 hover:text-slate-500 hover:shadow-md cursor-pointer transition ease-out"
+                          onClick={() => {
+                            if (checkPoint > 0) {
+                              if (isSeeAnswer) {
+                                setIsSeeAnswer((e) => !e);
+                              }
+                              setCheckPoint((e) => e - 1);
+                            }
+
+                            // setRandomNumber(randomNumbers[checkPoint] - 1);
+                            // console.log(cards[randomNumber][1].answer);
+                          }}
+                        />
+                        <BsArrowClockwise
+                          className="text-3xl text-slate-400 hover:text-slate-500 hover:shadow-md cursor-pointer transition ease-out mx-7"
+                          onClick={() => setIsSeeAnswer((e) => !e)}
+                        />
+                        <BsFillArrowRightSquareFill
+                          className="text-3xl text-slate-400 hover:text-slate-500 hover:shadow-md cursor-pointer transition ease-out"
+                          onClick={() => {
+                            if (checkPoint < cards.length - 1) {
+                              if (isSeeAnswer) {
+                                setIsSeeAnswer((e) => !e);
+                              }
+                              setCheckPoint((e) => e + 1);
+                            }
+                            if (checkPoint >= cards.length - 1) {
+                              setIsStart((e) => !e);
+                              setIsPlay((e) => !e);
+                            }
+
+                            // setRandomNumber(randomNumbers[checkPoint] - 1);
+                            // console.log(cards[randomNumber][1].answer);
+                          }}
+                        />
+                      </div>
+                    </>
                   )}
-                </div>
+                </>
               </div>
             </>
           )}
         </div>
-        {isStart && (
-          <div
-            className="d-flex justify-content-center"
-            style={{ marginTop: "-10vh" }}
-          >
-            <BsFillArrowLeftSquareFill
-              className="fs-1 me-4"
-              onClick={() => {
-                if (checkPoint > 0) {
-                  if (isSeeAnswer) {
-                    setIsSeeAnswer((e) => !e);
-                  }
-                  setCheckPoint((e) => e - 1);
-                }
-
-                // setRandomNumber(randomNumbers[checkPoint] - 1);
-                // console.log(cards[randomNumber][1].answer);
-              }}
-            />
-            <BsArrowClockwise
-              className="fs-1 me-4"
-              onClick={() => setIsSeeAnswer((e) => !e)}
-            />
-            <BsFillArrowRightSquareFill
-              className="fs-1"
-              onClick={() => {
-                if (checkPoint < cards.length - 1) {
-                  if (isSeeAnswer) {
-                    setIsSeeAnswer((e) => !e);
-                  }
-                  setCheckPoint((e) => e + 1);
-                }
-                if (checkPoint >= cards.length - 1) {
-                  setIsStart((e) => !e);
-                  setIsPlay((e) => !e);
-                }
-
-                // setRandomNumber(randomNumbers[checkPoint] - 1);
-                // console.log(cards[randomNumber][1].answer);
-              }}
-            />
-          </div>
-        )}
       </div>
     </div>
   );

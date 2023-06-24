@@ -40,9 +40,6 @@
   margin: 5px;
   cursor: pointer;
 }
-.pomodoro:hover {
-  background-color: rgb(211, 211, 211);
-}
 .icon-size {
   font-size: x-large;
 }

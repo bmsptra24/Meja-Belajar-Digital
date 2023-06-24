@@ -1,15 +1,15 @@
-import "../styles/Note.css";
 import { fetchDataRealtime, newKey, updateData } from "../Store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
 import { useEffect, useRef, useState } from "react";
 import { BsTrash, BsPlusLg } from "react-icons/bs";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 // add new note
 const addNote = async (user) => {
   const template = {
     title: "",
-    text: "",
+    text: "", 
   };
   const key = newKey("notes");
   updateData(["users/" + user.uid + "/notes/" + key], template);
@@ -27,6 +27,7 @@ const Note = () => {
   const [data, setData] = useState([]); // all data notes
   const [note, setNote] = useState([]); // a note was selected
   const [lastOpen, setLastOpen] = useState(0);
+  const [isListNotesClicked, setIsListNotesClicked] = useState(false);
   const refTitle = useRef(null);
 
   // change state
@@ -79,13 +80,19 @@ const Note = () => {
     refTitle.current.focus();
   };
 
-  // console.log(note.text);
   return (
-    <div className="regular-size shadow">
-      <div className="regular-size">
-        <div className="row d-flex justify-content-between p-3 ps-4 pe-4">
-          <div className="d-flex justify-content-between flex-column col-3 rounded-3 border border-2 border-black bg-white-dark content-1 p-2">
-            <div>
+    <div className="lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
+      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
+        <div className="flex h-full flex-col lg:flex-row overflow-scroll lg:overflow-hidden ">
+          <div
+            className={
+              "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 pl-3 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +
+              (isListNotesClicked === true
+                ? "visible lg:visible"
+                : "hidden lg:visible")
+            }
+          >
+            <div className="overflow-y-scroll mr-3 lg:mr-0 grow h-9/10 lg:h-auto mb-0 lg:mb-1">
               {lastOpen >= 0
                 ? data.map((e, idx) => {
                     if (idx !== data.length - 1) {
@@ -94,11 +101,12 @@ const Note = () => {
                           key={"note-" + idx}
                           className={`${
                             idx === lastOpen
-                              ? "bg-white-clicked"
-                              : "bg-white-unclicked"
-                          } px-2 py-1 rounded-3 border border-2 border-dark mb-1`}
+                              ? "bg-slate-50 border-2 border-blue-300 drop-shadow-lg"
+                              : "bg-slate-200 border-2 border-blue-50 hover:border-slate-300 hover:bg-slate-300"
+                          } px-2 py-1 rounded-lg mb-1`}
                           style={({ cursor: "pointer" }, { minHeight: "35px" })}
                           onClick={() => {
+                            setIsListNotesClicked((e) => !e);
                             data.map((e, index) => {
                               if (idx === index && idx !== data.length) {
                                 updateData(
@@ -128,35 +136,47 @@ const Note = () => {
                 ? "Loading..."
                 : "Tidak ada modul..."}
             </div>
-            <div
-              title="Add note"
-              className="icon"
-              onClick={async () => {
-                addNote(user);
-                if (lastOpen >= 0) {
-                  // jika data masih ada maka:
-                  await updateData(
-                    ["users/" + user.uid + "/notes/" + "lastOpen"],
-                    data.length - 1
-                  );
-                } else {
-                  // jika tidak ada data:
-                  await updateData(
-                    ["users/" + user.uid + "/notes/" + "lastOpen"],
-                    0
-                  );
-                }
-                handleClickRefTitle();
-              }}
-            >
-              <BsPlusLg style={{ fontSize: "x-large" }} />
+            <div className="w-full flex justify-end lg:justify-start pr-3 lg:pr-0 h-1/10 lg:h-auto items-center">
+              <div
+                title="Add note"
+                className="icon transition ease-out bg-blue-200 hover:bg-blue-300 border-2 border-blue-500"
+                onClick={async () => {
+                  setIsListNotesClicked(false);
+                  addNote(user);
+                  if (lastOpen >= 0) {
+                    // jika data masih ada maka:
+                    await updateData(
+                      ["users/" + user.uid + "/notes/" + "lastOpen"],
+                      data.length - 1
+                    );
+                  } else {
+                    // jika tidak ada data:
+                    await updateData(
+                      ["users/" + user.uid + "/notes/" + "lastOpen"],
+                      0
+                    );
+                  }
+                  handleClickRefTitle();
+                }}
+              >
+                <BsPlusLg style={{ fontSize: "x-large" }} />
+              </div>
             </div>
           </div>
-          <div className="col rounded-3 border border-2 border-black bg-white content-1 ms-2 p-3 pt-2">
+          <div className="rounded-lg lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 ml-0 lg:ml-2 p-3 pt-2 grow">
             {lastOpen >= 0 ? (
-              <div>
-                <div className="d-flex justify-content-between mb-3 pb-1 border-bottom">
-                  <div></div>
+              <div className="flex flex-col justify-between w-full h-full">
+                <div className="flex justify-between mb-3 pb-1 border-b-2">
+                  <div>
+                    <div
+                      className="visible lg:hidden text-xl hover:text-slate-400"
+                      onClick={() => {
+                        setIsListNotesClicked((e) => !e);
+                      }}
+                    >
+                      <RxHamburgerMenu />
+                    </div>
+                  </div>
                   <div
                     title="Delete note"
                     onClick={() => {
@@ -170,34 +190,31 @@ const Note = () => {
                       removeNote(user, data, lastOpen);
                     }}
                   >
-                    <BsTrash style={{ fontSize: "22px" }} />
+                    <BsTrash className="hover:text-red-700 cursor-pointer text-xl transition ease-out" />
                   </div>
                 </div>
 
-                <div>
-                  <textarea
-                    autoFocus
-                    className="form-control fs-4 mb-1"
-                    placeholder="title"
-                    maxLength={44}
-                    id="floatingTextarea2"
-                    rows={5}
-                    onChange={changeState.title}
-                    value={note.title}
-                    ref={refTitle}
-                  ></textarea>
-                </div>
-                <div className="form-remembered">
-                  <textarea
-                    className="form-control"
-                    placeholder="note"
-                    id="floatingTextarea2"
-                    rows={5}
-                    maxLength={20000}
-                    onChange={changeState.text}
-                    value={note.text}
-                  ></textarea>
-                </div>
+                <textarea
+                  autoFocus
+                  spellCheck={false}
+                  className="resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-none rounded-lg p-3 h-16 text-2xl"
+                  placeholder="title"
+                  maxLength={44}
+                  rows={5}
+                  onChange={changeState.title}
+                  value={note.title}
+                  ref={refTitle}
+                ></textarea>
+
+                <textarea
+                  className="resize-none transition ease-in-out grow bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-none rounded-lg p-3"
+                  placeholder="note"
+                  spellCheck={false}
+                  rows={5}
+                  maxLength={20000}
+                  onChange={changeState.text}
+                  value={note.text}
+                ></textarea>
               </div>
             ) : (
               <div>...</div>

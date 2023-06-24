@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "../styles/Blurting.css";
 import {
   fetchDataRealtime,
   newKey,
@@ -10,6 +9,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
 import "../styles/Icon.css";
 import { useRef } from "react";
+import { RxHamburgerMenu } from "react-icons/rx";
 import { BsTrash, BsPlusLg } from "react-icons/bs";
 
 // add new module
@@ -37,6 +37,7 @@ const Blurting = () => {
   const [lastOpen, setLastOpen] = useState(0);
   const refTitle = useRef(null);
   const [data, setData] = useState([]);
+  const [isListModuksClicked, setIsListModuksClicked] = useState(false);
 
   // change state
   const changeState = {
@@ -94,60 +95,67 @@ const Blurting = () => {
   }, [lastOpen]);
 
   return (
-    <div className="full-size shadow">
-      <div className="full-size">
-        <div className="container">
-          <div className="row d-flex justify-content-between p-3">
-            <div className="d-flex justify-content-between flex-column col-2 rounded-3 border border-2 border-black bg-white-dark content-1 p-2">
-              <div>
-                {lastOpen >= 0
-                  ? data.map((e, idx) => {
-                      if (idx !== data.length - 1) {
-                        return (
+    <div className="lg:h-5/6 lg:w-11/12 xl:w-5/6 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
+      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
+        <div className="flex-col overflow-scroll lg:overflow-hidden lg:flex-row flex justify-between h-full">
+          <div
+            className={
+              "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 pl-3 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +
+              (isListModuksClicked === true
+                ? "visible lg:visible"
+                : "hidden lg:visible")
+            }
+          >
+            <div className="overflow-y-scroll mr-3 lg:mr-0 grow h-9/10 lg:h-auto mb-0 lg:mb-1">
+              {lastOpen >= 0
+                ? data.map((e, idx) => {
+                    if (idx !== data.length - 1) {
+                      return (
+                        <div
+                          key={"modul-" + idx}
+                          className={`${
+                            idx === lastOpen
+                              ? "bg-slate-50 border-2 border-blue-300 drop-shadow-lg"
+                              : "bg-slate-200 border-2 border-blue-50 hover:border-slate-300 hover:bg-slate-300"
+                          } px-2 py-1 rounded-lg mb-1`}
+                          style={({ cursor: "pointer" }, { minHeight: "35px" })}
+                          onClick={() => {
+                            setIsListModuksClicked((e) => !e);
+                            data.map((e, index) => {
+                              if (idx === index && idx !== data.length) {
+                                updateData(
+                                  [
+                                    "users/" +
+                                      user.uid +
+                                      "/moduls/" +
+                                      "lastOpen",
+                                  ],
+                                  idx
+                                );
+                              }
+                            });
+                          }}
+                        >
                           <div
-                            key={"modul-" + idx}
-                            className={`${
-                              idx === lastOpen
-                                ? "bg-white-clicked"
-                                : "bg-white-unclicked"
-                            } px-2 py-1 rounded-3 border border-2 border-dark mb-1`}
-                            style={
-                              ({ cursor: "pointer" }, { minHeight: "35px" })
-                            }
-                            onClick={() => {
-                              data.map((e, index) => {
-                                if (idx === index && idx !== data.length) {
-                                  updateData(
-                                    [
-                                      "users/" +
-                                        user.uid +
-                                        "/moduls/" +
-                                        "lastOpen",
-                                    ],
-                                    idx
-                                  );
-                                }
-                              });
-                            }}
+                            style={{ cursor: "pointer" }}
+                            className="user-select-none"
                           >
-                            <div
-                              style={{ cursor: "pointer" }}
-                              className="user-select-none"
-                            >
-                              {e[1].title}
-                            </div>
+                            {e[1].title}
                           </div>
-                        );
-                      }
-                    })
-                  : data.length === 0
-                  ? "Loading..."
-                  : "Tidak ada modul..."}
-              </div>
+                        </div>
+                      );
+                    }
+                  })
+                : data.length === 0
+                ? "Loading..."
+                : "Tidak ada modul..."}
+            </div>
+            <div className="w-full flex justify-end lg:justify-start pr-3 lg:pr-0 h-1/10 lg:h-auto items-center">
               <div
                 title="Add new module"
-                className="icon"
+                className="icon text-2xl transition ease-out bg-blue-200 hover:bg-blue-300 border-2 border-blue-500"
                 onClick={async () => {
+                  setIsListModuksClicked(false);
                   addModule(user);
                   if (lastOpen >= 0) {
                     // jika data masih ada maka:
@@ -165,98 +173,123 @@ const Blurting = () => {
                   handleClickRefTitle();
                 }}
               >
-                <BsPlusLg style={{ fontSize: "x-large" }} />
+                <BsPlusLg />
               </div>
             </div>
-            <div className="col rounded-3 border border-2 border-black bg-white content-1 ms-2 p-3 pt-2">
-              {lastOpen >= 0 ? (
-                <div>
-                  <div className="d-flex justify-content-between mb-3 pb-1 border-bottom">
-                    <div>{modul.date}</div>
+          </div>
+          <div className="grow rounded-xl h-full border-none lg:border-2 border-black bg-slate-50 lg:bg-blue-50 ml-0 lg:ml-2 p-3 pt-2 flex flex-col w-screen lg:w-auto">
+            {lastOpen >= 0 ? (
+              <>
+                <div className="flex justify-between mb-3 pb-1 border-b-2 ">
+                  {!isListModuksClicked && (
                     <div
-                      title="Delete module"
+                      className="visible lg:hidden text-xl hover:text-slate-400"
                       onClick={() => {
-                        // jika menghapus elemen terakhir dan data > 1
-                        if (data.length - 2 === lastOpen) {
-                          updateData(
-                            ["users/" + user.uid + "/moduls/" + "lastOpen"],
-                            lastOpen - 1
-                          );
-                        }
-                        removeModul(user, data, lastOpen);
+                        setIsListModuksClicked((e) => !e);
                       }}
                     >
-                      <BsTrash style={{ fontSize: "22px" }} />
+                      <RxHamburgerMenu />
                     </div>
-                  </div>
-
-                  <div>
-                    <textarea
-                      autoFocus
-                      className="form-control fs-4 mb-1"
-                      placeholder="Judul"
-                      maxLength={44}
-                      id="floatingTextarea2"
-                      rows={5}
-                      onChange={changeState.title}
-                      value={modul.title}
-                      ref={refTitle}
-                    ></textarea>
-                  </div>
-                  <div className="form-floating form-remembered">
-                    <textarea
-                      className="form-control"
-                      placeholder="Leave a comment here"
-                      id="floatingTextarea2"
-                      rows={5}
-                      maxLength={20000}
-                      onChange={changeState.remembered}
-                      value={modul.remembered}
-                    ></textarea>
-                    <label htmlFor="floatingTextarea2">Hal yang diingat</label>
+                  )}
+                  <div>{modul.date}</div>
+                  <div
+                    title="Delete module"
+                    onClick={() => {
+                      // jika menghapus elemen terakhir dan data > 1
+                      if (data.length - 2 === lastOpen) {
+                        updateData(
+                          ["users/" + user.uid + "/moduls/" + "lastOpen"],
+                          lastOpen - 1
+                        );
+                      }
+                      removeModul(user, data, lastOpen);
+                    }}
+                  >
+                    <BsTrash className="hover:text-red-700 cursor-pointer text-xl transition ease-out" />
                   </div>
                 </div>
+                <div className="flex flex-col justify-between grow w-full lg:w-auto h-screen lg:h-auto">
+                  <textarea
+                    autoFocus
+                    spellCheck={false}
+                    className="resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-none rounded-lg p-3 h-16 text-2xl"
+                    placeholder="Judul"
+                    maxLength={44}
+                    rows={5}
+                    onChange={changeState.title}
+                    value={modul.title}
+                    ref={refTitle}
+                  ></textarea>
+                  <label
+                    htmlFor="remembered"
+                    className="ml-3 text-lsm text-slate-400 font-semibold mt-0"
+                  >
+                    Hal yang diingat
+                  </label>
+                  <textarea
+                    id="remembered"
+                    className="grow resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-none rounded-lg px-3"
+                    placeholder="..."
+                    spellCheck={false}
+                    rows={5}
+                    maxLength={20000}
+                    onChange={changeState.remembered}
+                    value={modul.remembered}
+                  ></textarea>
+                </div>
+              </>
+            ) : (
+              <div>...</div>
+            )}
+          </div>
+          <div className="min-h-screen lg:min-h-0 lg:h-full lg:w-4/12 p-0 flex justify-between flex-col ml-0 lg:ml-2 lg:mr-0 gap-3 lg:px-0 px-3">
+            <div className="h-1/2 rounded-xl border-none lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50  p-3 pt-1 flex flex-col">
+              {lastOpen >= 0 ? (
+                <>
+                  <label
+                    htmlFor="forgotten"
+                    className="text-lsm mt-1 text-slate-400 font-semibold"
+                  >
+                    Hal yang dilupa
+                  </label>
+                  <textarea
+                    className="grow mt-1 resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-none rounded-lg"
+                    id="forgotten"
+                    spellCheck={false}
+                    placeholder="..."
+                    onChange={changeState.forgotten}
+                    value={modul.forgotten}
+                    maxLength={10000}
+                    rows={5}
+                  ></textarea>
+                </>
               ) : (
                 <div>...</div>
               )}
             </div>
-            <div className="col-4 content-1 p-0 d-flex justify-content-between flex-column ms-2">
-              <div className=" rounded-3 border border-2 border-black bg-white content-2 p-3 pt-1">
-                {lastOpen >= 0 ? (
-                  <div className="form-floating form-forget pb-1 mt-3">
-                    <textarea
-                      className="form-control"
-                      placeholder="Leave a comment here"
-                      id="floatingTextarea2"
-                      onChange={changeState.forgotten}
-                      value={modul.forgotten}
-                      maxLength={10000}
-                      rows={5}
-                    ></textarea>
-                    <label htmlFor="floatingTextarea2">Hal yang dilupa</label>
-                  </div>
-                ) : (
-                  <div>...</div>
-                )}
-              </div>
-              <div className=" rounded-3 border border-2 border-black bg-white content-2 p-3 pt-1">
-                {lastOpen >= 0 ? (
-                  <div className="form-floating form-forget pb-1 mt-3">
-                    <textarea
-                      className="form-control"
-                      placeholder="Leave a comment here"
-                      id="floatingTextarea2"
-                      rows={5}
-                      maxLength={5000}
-                      onChange={changeState.questions}
-                      value={modul.questions}
-                    ></textarea>
-                    <label htmlFor="floatingTextarea2">Pertanyaan</label>
-                  </div>
-                ) : (
-                  <div>...</div>
-                )}
-              </div>
+            <div className="h-1/2 rounded-xl border-none lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 p-3 pt-1 flex flex-col ">
+              {lastOpen >= 0 ? (
+                <>
+                  <label
+                    htmlFor="questions"
+                    className="text-lsm mt-1 text-slate-400 font-semibold"
+                  >
+                    Pertanyaan
+                  </label>
+                  <textarea
+                    spellCheck={false}
+                    id="questions"
+                    placeholder="..."
+                    className="grow mt-1 resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-none rounded-lg"
+                    rows={5}
+                    maxLength={5000}
+                    onChange={changeState.questions}
+                    value={modul.questions}
+                  ></textarea>
+                </>
+              ) : (
+                <div>...</div>
+              )}
             </div>
           </div>
         </div>
