@@ -79,11 +79,11 @@ const Login = ({ setNavigator }) => {
           <div>
             <div className="flex justify-between my-4 grow">
               <div className="grow">
-                <hr className="h-px my-4 bg-slate-400 border-0" />
+                <hr className="h-px my-4 bg-slate-300 border-0" />
               </div>
               <p className="mx-2 mt-1 text-slate-500">Or</p>
               <div className="grow">
-                <hr className="h-px my-4 bg-slate-400 border-0" />
+                <hr className="h-px my-4 bg-slate-300 border-0" />
               </div>
             </div>
           </div>

@@ -29,16 +29,18 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="home">
-      {/* if the state is true so display component  */}
-      {toDoList && <ToDoList />}
-      {note && <Note />}
-      {blurting && <Blurting />}
-      {flashCard && <FlashCard />}
-      {feynman && <FeynMan />}
-      {music && <Music />}
-      {search && <Search />}
-      {pomodoro && <Pomodoro />}
+    <div className="home bg-slate-100 flex flex-col justify-between">
+      <div className="grow flex justify-center items-center w-full overflow-hidden">
+        {/* if the state is true so display component  */}
+        {toDoList && <ToDoList />}
+        {note && <Note />}
+        {blurting && <Blurting />}
+        {flashCard && <FlashCard />}
+        {feynman && <FeynMan />}
+        {music && <Music />}
+        {search && <Search />}
+        {pomodoro && <Pomodoro />}
+      </div>
 
       <Footer />
     </div>

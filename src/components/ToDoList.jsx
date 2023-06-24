@@ -26,37 +26,38 @@ const ToDoList = () => {
   };
 
   return (
-    <div className="regular-size shadow">
-      <div className="regular-size p-3">
-        <div className="rounded-3 border border-2 border-black bg-white-dark content-1 p-3 position-relative">
-          <div className="d-flex">
-            <h1 className="fw-bold ms-2">To Do List</h1>
-          </div>
-          <div className="container">
+    <div className="lg:h-5/6 lg:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
+      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
+        <div className="h-full w-full rounded-md lg:border-2 border-black py-3 pr-3 pl-6 bg-slate-50 lg:bg-blue-50 flex flex-col">
+          <h1 className="font-bold mt-2 text-4xl">To Do List</h1>
+          <div className="grow overflow-y-scroll pr-3 mt-3">
             {tasks.length !== 0 ? (
               tasks.map((_, index) => (
-                <Task
-                  tasks={tasks}
-                  index={index}
-                  user={user}
-                  key={index}
-                  setTasks={setTasks}
-                />
+                <>
+                  <Task
+                    tasks={tasks}
+                    index={index}
+                    user={user}
+                    key={index}
+                    setTasks={setTasks}
+                  />
+                  <hr className="mt-1"/>
+                </>
               ))
             ) : (
               <div>Tidak ada task</div>
             )}
           </div>
-          <div className="new-task-container d-flex justify-content-evenly align-items-center">
+          <div className="flex justify-between items-center mt-3 drop-shadow-md">
             <input
               type="text"
-              className="form-control input-task"
+              className="transition ease-out grow h-5/6 border-2 bg-slate-50 lg:bg-blue-50 border-slate-400 focus:outline-none focus:bg-slate-50 focus:ring-slate-300 focus:ring-2 rounded-lg p-3"
               placeholder="New Task"
               onChange={getInputValue}
               value={inputValue}
             />
             <button
-              className="icon icon-plus-todolist"
+              className="transition ease-out icon bg-blue-300 border-2 border-blue-500 hover:bg-blue-400 hover:border-r-blue-600 hover:shadow-md focus:bg-blue-400 focus:shadow-md focus:outline-none focus:border-r-blue-600"
               onClick={() => {
                 // ubah isi tasks di database
                 updateData(`users/${user.uid}/tasks`, [

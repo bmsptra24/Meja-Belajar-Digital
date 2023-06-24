@@ -29,7 +29,7 @@ const Pomodoro = () => {
   }, [user.uid]);
 
   return (
-    <div className="pop-up-size p-4 d-flex justify-content-between flex-column end-0 bottom-0 me-1 ">
+    <div className="pop-up-size z-10 p-4 d-flex justify-content-between flex-column end-0 bottom-0 me-1 ">
       <div>
         <p className="fs-2 fw-bold border-bottom border-black border-3">
           Pomodoro

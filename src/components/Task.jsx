@@ -17,11 +17,11 @@ const Task = ({ tasks, index, user, setTasks }) => {
 
   return (
     tasks.length !== 0 && (
-      <div className="border-bottom fs-5 task">
-        <div className="d-flex">
+      <div className="text-lg flex justify-between mt-3">
+        <div className="flex">
           <input
             type="checkbox"
-            className="me-3 checkbox cursor-pointer"
+            className="mr-3 cursor-pointer w-4 rounded-full"
             checked={tasks[index].checked}
             onChange={handleCheckboxChange}
           />

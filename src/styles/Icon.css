@@ -1,5 +1,4 @@
 .icon {
-  background-color: white;
   width: 47px;
   height: 47px;
   display: flex;
@@ -8,9 +7,6 @@
   border-radius: 9999px;
   margin: 5px;
   cursor: pointer;
-}
-.icon:hover {
-  background-color: rgb(211, 211, 211);
 }
 img {
   width: 30px;

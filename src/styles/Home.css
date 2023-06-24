@@ -1,5 +1,4 @@
 .home {
-  background-color: var(--clr-bg);
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -7,34 +6,23 @@
   align-items: center;
 }
 
-.shadow {
-  background-color: var(--blue-light-2-sw) !important;
-  padding-left: 10px;
-  padding-top: 10px;
-}
-
-.regular-size {
-  background-color: var(--blue-light-2);
-  width: 65vw;
-  height: 80vh;
-  margin-bottom: 75px;
-  border-radius: 10px;
-  border: 3px solid black;
-}
+/* .regular-size { */
+  /* width: 65vw; */
+  /* height: 80vh; */
+  /* margin-bottom: 75px; */
+  /* border-radius: 10px; */
+/* } */
 
 .pop-up-size {
-  background-color: var(--blue-light-2);
   width: 350px;
   height: 450px;
   margin-bottom: 75px;
   border-radius: 50px;
   border: 3px solid black;
   position: absolute;
-  z-index: 100;
 }
 
 .full-size {
-  background-color: var(--blue-light-2);
   width: 85vw;
   height: 80vh;
   margin-bottom: 75px;

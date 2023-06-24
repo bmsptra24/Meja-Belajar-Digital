@@ -15,7 +15,6 @@
 /* } */
 
 .footer-container > .icon-container {
-  /* width: 98vw; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,16 +31,12 @@
 }
 
 .pomodoro {
-  background-color: white;
   width: 70px;
   height: 47px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
-  border-width: 2px;
-  border-color: black;
-  border-style: solid;
   margin: 5px;
   cursor: pointer;
 }
