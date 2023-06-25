@@ -95,12 +95,12 @@ const Blurting = () => {
   }, [lastOpen]);
 
   return (
-    <div className="lg:h-5/6 lg:w-11/12 xl:w-5/6 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
+    <div className="z-10 lg:h-5/6 lg:w-11/12 xl:w-5/6 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
       <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
         <div className="flex-col overflow-scroll lg:overflow-hidden lg:flex-row flex justify-between h-full">
           <div
             className={
-              "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 pl-3 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +
+              "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 p-2 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +
               (isListModuksClicked === true
                 ? "visible lg:visible"
                 : "hidden lg:visible")

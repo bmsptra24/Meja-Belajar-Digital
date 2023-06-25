@@ -13,15 +13,6 @@
   /* border-radius: 10px; */
 /* } */
 
-.pop-up-size {
-  width: 350px;
-  height: 450px;
-  margin-bottom: 75px;
-  border-radius: 50px;
-  border: 3px solid black;
-  position: absolute;
-}
-
 .full-size {
   width: 85vw;
   height: 80vh;

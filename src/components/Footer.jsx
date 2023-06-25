@@ -16,6 +16,7 @@ import { BiLogOutCircle } from "react-icons/bi";
 import "../styles/Icon.css";
 import "../styles/Footer.css";
 import { signOut, getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setBlurting,
@@ -34,7 +35,6 @@ const signOutClick = () => {
   signOut(auth)
     .then(() => {
       // Sign-out successful.
-      alert("Sign-out success!");
     })
     .catch((error) => {
       // An error happened.
@@ -43,6 +43,7 @@ const signOutClick = () => {
 };
 
 const Footer = () => {
+  const navigate = useNavigate();
   const {
     toDoList,
     note,
@@ -66,91 +67,15 @@ const Footer = () => {
     dispatch(setPomodoro(false));
   };
 
-  const Icon = ({ section, isOpened }) => {
-    const toggleSection = (newSection) => {
-      switch (newSection) {
-        case "logout":
-          signOutClick();
-          break;
-
-        case "home":
-          hideAllComponents();
-          break;
-
-        case "todolist":
-          hideAllComponents();
-          dispatch(setToDoList(!toDoList));
-          break;
-
-        case "note":
-          hideAllComponents();
-          dispatch(setNote(!note));
-          break;
-
-        case "blurting":
-          hideAllComponents();
-          dispatch(setBlurting(!blurting));
-          break;
-
-        case "flashcard":
-          hideAllComponents();
-          dispatch(setFlashCard(!flashCard));
-          break;
-
-        case "feynman":
-          hideAllComponents();
-          dispatch(setFeynman(!feynman));
-          break;
-
-        case "music":
-          dispatch(setMusic(!music));
-          dispatch(setPomodoro(false));
-          break;
-
-        case "search":
-          hideAllComponents();
-          dispatch(setSearch(!search));
-          break;
-
-        default:
-          break;
-      }
-    };
-
-    const getIcon = (section) => {
-      switch (section) {
-        case "home":
-          return <BsCircle className="icon-size" />;
-        case "todolist":
-          return <FaClipboardList className="icon-size" />;
-        case "note":
-          return <FaRegStickyNote className="icon-size" />;
-        case "blurting":
-          return <BsFire className="icon-size" />;
-        case "flashcard":
-          return <BsCardHeading className="icon-size" />;
-        case "feynman":
-          return <FaChalkboardTeacher className="icon-size" />;
-        case "music":
-          return <BsSoundwave className="icon-size" />;
-        case "search":
-          return <BsSearch className="icon-size" />;
-        case "logout":
-          return <BiLogOutCircle className="icon-size" />;
-        default:
-          return null;
-      }
-    };
-
+  const Icon = ({ Icon, isOpened }) => {
     return (
       <div
         className={
-          "icon select-none transition ease-out hover:bg-slate-300 " +
+          "icon text-2xl select-none transition ease-out hover:bg-slate-300 " +
             (isOpened && "border-blue-500 border-4 shadow-md") || ""
         }
-        onClick={() => toggleSection(section)}
       >
-        {getIcon(section)}
+        <Icon />
       </div>
     );
   };
@@ -159,40 +84,100 @@ const Footer = () => {
   const [isSettingClicked, setIsSettingClicked] = useState(false);
 
   return (
-    <div className="footer-container bg-slate-50 ring-2 ring-slate-800 flex justify-center items-center border-solid border-x-0 border-b-0 w-screen h-13 lg:rounded-ss-3xl lg:rounded-se-3xl">
+    <div className="z-10 footer-container bg-slate-50 ring-2 ring-slate-800 flex justify-center items-center border-solid border-x-0 border-b-0 w-screen h-13 lg:rounded-ss-3xl lg:rounded-se-3xl">
       {/* large screen */}
       <div className="w-full justify-center items-center hidden lg:flex">
         <div className="absolute left-0 ml-3 flex">
-          <div title="Home">
-            <Icon section={"home"} />
+          <div
+            title="Home"
+            onClick={() => {
+              hideAllComponents();
+            }}
+          >
+            <Icon Icon={BsCircle} />
           </div>
-          <div title="Logout">
-            <Icon section={"logout"} />
+          <div
+            title="Logout"
+            onClick={() => {
+              signOutClick();
+            }}
+          >
+            <Icon Icon={BiLogOutCircle} />
           </div>
         </div>
         <div className="w-screen lg:w-auto justify-evenly flex">
-          <div title="To Do List">
-            <Icon section={"todolist"} isOpened={toDoList} />
+          <div
+            title="To Do List"
+            onClick={() => {
+              hideAllComponents();
+              dispatch(setToDoList(!toDoList));
+            }}
+          >
+            <Icon Icon={FaClipboardList} isOpened={toDoList} />
           </div>
-          <div title="Notes">
-            <Icon section={"note"} isOpened={note} />
+          <div
+            title="Notes"
+            onClick={() => {
+              hideAllComponents();
+              dispatch(setNote(!note));
+            }}
+          >
+            <Icon Icon={FaRegStickyNote} isOpened={note} />
           </div>
-          <div title="Blurting">
-            <Icon section={"blurting"} isOpened={blurting} />
+          <div
+            title="Blurting"
+            onClick={() => {
+              hideAllComponents();
+              dispatch(setBlurting(!blurting));
+            }}
+          >
+            <Icon Icon={BsFire} isOpened={blurting} />
           </div>
-          <div title="Flashcard">
-            <Icon section={"flashcard"} isOpened={flashCard} />
+          <div
+            title="Flashcard"
+            onClick={() => {
+              hideAllComponents();
+              dispatch(setFlashCard(!flashCard));
+            }}
+          >
+            <Icon Icon={BsCardHeading} isOpened={flashCard} />
           </div>
-          <div title="Feynman">
-            <Icon section={"feynman"} isOpened={feynman} />
+          <div
+            title="Feynman"
+            onClick={() => {
+              hideAllComponents();
+              dispatch(setFeynman(!feynman));
+            }}
+          >
+            <Icon Icon={FaChalkboardTeacher} isOpened={feynman} />
           </div>
-          <div title="Search">
-            <Icon section={"search"} isOpened={search} />
+          <div
+            title="Search"
+            onClick={() => {
+              hideAllComponents();
+              dispatch(setSearch(!search));
+            }}
+          >
+            <Icon Icon={BsSearch} isOpened={search} />
           </div>
         </div>
         <div className="absolute right-0 mr-3 flex">
-          <div title="Music">
-            <Icon section={"music"} />
+          <div
+            title="Setting"
+            onClick={() => {
+              navigate("/setting");
+            }}
+          >
+            <Icon Icon={AiOutlineSetting} />
+          </div>
+          <div
+            title="Music"
+            onClick={() => {
+              dispatch(setMusic(!music));
+              dispatch(setPomodoro(false));
+            }}
+          >
+            <Icon Icon={BsSoundwave} />
           </div>
           <div
             title="Pomodoro"
@@ -213,8 +198,8 @@ const Footer = () => {
           <div
             className={
               isBurgerClicked === true
-                ? "absolute bottom-full mb-7 bg-slate-200 py-3 rounded-lg w-80 text-center z-50 visible"
-                : "absolute bottom-full mb-7 bg-slate-200 py-3 rounded-lg w-80 text-center z-50 hidden"
+                ? "absolute bottom-full mb-7 bg-slate-200 shadow-md py-3 rounded-lg w-80 text-center z-50 visible"
+                : "absolute bottom-full mb-7 bg-slate-200 shadow-md py-3 rounded-lg w-80 text-center z-50 hidden"
             }
           >
             <p
@@ -289,8 +274,8 @@ const Footer = () => {
             <p
               className="hover:bg-slate-300 p-2 rounded"
               onClick={() => {
-                hideAllComponents();
                 setIsBurgerClicked((e) => !e);
+                dispatch(setPomodoro(false));
                 dispatch(setMusic(!music));
               }}
             >
@@ -331,6 +316,7 @@ const Footer = () => {
         <div
           className="absolute left-5 pomodoro"
           onClick={() => {
+            dispatch(setMusic(false));
             dispatch(setPomodoro(!pomodoro));
           }}
         >

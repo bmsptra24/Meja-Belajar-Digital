@@ -1,7 +1,10 @@
 // inport module
-import { useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
 import Footer from "../components/Footer";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../Store/Firebase"; 
 import ToDoList from "../components/ToDoList";
 import Note from "../components/Note";
 import Blurting from "../components/Blurting";
@@ -11,8 +14,13 @@ import Music from "../components/Music";
 import Search from "../components/Search";
 import Pomodoro from "../components/Pomodoro";
 import { useSelector } from "react-redux";
+import imgErrorHandling from "../assets/wallpaper/img1.jpg";
+import unsplashApi from "../Store/Unsplash";
 
 const Home = () => {
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
+  const [photos, setPhotos] = useState([]);
   const {
     toDoList,
     note,
@@ -24,12 +32,35 @@ const Home = () => {
     pomodoro,
   } = useSelector((state) => state.home);
 
-  useEffect(() => {
-    document.body.style.zoom = "100%";
-  }, []);
+  if (!user) {
+    navigate("/signin");
+    return <></>;
+  }
+
+  const fetchPhotos = async () => {
+    try {
+      const response = await unsplashApi.get("/photos/random", {
+        params: {
+          count: 5,
+        },
+      });
+
+      setPhotos(response.data);
+    } catch (error) {
+      console.log("Error fetching photos from Unsplash:", error);
+    }
+  };
 
   return (
-    <div className="home bg-slate-100 flex flex-col justify-between">
+    <div className="home bg-slate-100 flex flex-col justify-between relative">
+      <div className="absolute inset-0 z-0">
+        <img
+          src={photos.length > 0 ? photos[0].urls.regular : imgErrorHandling}
+          alt="wallpaper"
+          className="w-full h-full"
+        />
+      </div>
+
       <div className="grow flex justify-center items-center w-full overflow-hidden">
         {/* if the state is true so display component  */}
         {toDoList && <ToDoList />}

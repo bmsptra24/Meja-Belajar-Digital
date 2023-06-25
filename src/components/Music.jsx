@@ -19,21 +19,19 @@ const Music = () => {
     setIsPlaying(false);
   };
   return (
-    <div className="pop-up-size z-10 p-4 d-flex justify-content-between flex-column end-0 bottom-0 me-1">
-      <div>
-        <p className="fs-2 fw-bold border-bottom border-black border-3 d-flex justify-content-between">
-          Sound
-          {isPlaying ? (
-            <BsFillPauseFill
-              className="mt-2 fs-1"
-              onClick={() => pauseAudio()}
-            />
-          ) : (
-            <BsFillPlayFill className="mt-2 fs-1" opacity={"50%"} />
-          )}
-        </p>
+    <div className="w-72 h-96 rounded-3xl border-2 border-slate-800 absolute bg-blue-400 z-20 p-4 flex justify-between flex-col lg:right-0 bottom-16 mr-1">
+      <div className="items-center flex justify-between">
+        <p className="font-bold text-2xl ml-2">Sound</p>
+        {isPlaying ? (
+          <BsFillPauseFill
+            className="mt-2 text-2xl"
+            onClick={() => pauseAudio()}
+          />
+        ) : (
+          <BsFillPlayFill className="opacity-50 text-3xl" />
+        )}
       </div>
-      <div className="h-75 w-100 blue-shadow rounded rounded-4 mb-3 pb-3 p-3 overflow-scroll">
+      <div className="rounded-xl bg-blue-200 mb-3 pb-3 p-3  grow mt-5 flex flex-col gap-2">
         <audio id="rainSound" src={rainSound}></audio>
         <audio id="fireSound" src={fireSound}></audio>
         <audio id="beachSound" src={beachSound}></audio>
@@ -41,7 +39,7 @@ const Music = () => {
         <audio id="coffeeSound" src={coffeeSound}></audio>
 
         <p
-          className="bg-light rounded py-1 px-2 cursor-pointer"
+          className="bg-blue-50 hover:bg-slate-300 rounded py-1 px-2 cursor-pointer"
           onClick={() => {
             document.querySelectorAll("audio").forEach((el) => el.pause());
             const audioElement = document.getElementById("rainSound");
@@ -51,7 +49,7 @@ const Music = () => {
           Rain
         </p>
         <p
-          className="bg-light rounded py-1 px-2 cursor-pointer"
+          className="bg-blue-50 hover:bg-slate-300 rounded py-1 px-2 cursor-pointer"
           onClick={() => {
             document.querySelectorAll("audio").forEach((el) => el.pause());
             const audioElement = document.getElementById("fireSound");
@@ -61,7 +59,7 @@ const Music = () => {
           Fire
         </p>
         <p
-          className="bg-light rounded py-1 px-2 cursor-pointer"
+          className="bg-blue-50 hover:bg-slate-300 rounded py-1 px-2 cursor-pointer"
           onClick={() => {
             document.querySelectorAll("audio").forEach((el) => el.pause());
             const audioElement = document.getElementById("beachSound");
@@ -71,7 +69,7 @@ const Music = () => {
           Beach
         </p>
         <p
-          className="bg-light rounded py-1 px-2 cursor-pointer"
+          className="bg-blue-50 hover:bg-slate-300 rounded py-1 px-2 cursor-pointer"
           onClick={() => {
             document.querySelectorAll("audio").forEach((el) => el.pause());
             const audioElement = document.getElementById("forestSound");
@@ -81,7 +79,7 @@ const Music = () => {
           Forest
         </p>
         <p
-          className="bg-light rounded py-1 px-2 cursor-pointer"
+          className="bg-blue-50 hover:bg-slate-300 rounded py-1 px-2 cursor-pointer"
           onClick={() => {
             document.querySelectorAll("audio").forEach((el) => el.pause());
             const audioElement = document.getElementById("coffeeSound");

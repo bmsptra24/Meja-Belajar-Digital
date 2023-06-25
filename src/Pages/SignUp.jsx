@@ -7,12 +7,14 @@ import { useState } from "react";
 import { updateData } from "../Store/Database";
 import validator from "validator";
 import { auth } from "../Store/Firebase";
+import { useNavigate } from "react-router-dom";
 
-const SignUp = ({ setNavigator }) => {
+const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
   // create new account user
   const createUser = () => {
@@ -43,7 +45,7 @@ const SignUp = ({ setNavigator }) => {
 
         // Log out first, cause have to verificated first
         auth.signOut();
-        setNavigator(1);
+        navigate("/signin");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -122,9 +124,7 @@ const SignUp = ({ setNavigator }) => {
             <p>{"I have an account!"}</p>
             <button
               className="ml-2 transition ease-in-out hover:text-blue-600 text-blue-500"
-              onClick={() => {
-                setNavigator(1);
-              }}
+              onClick={() => navigate("/signin")}
             >
               Login
             </button>

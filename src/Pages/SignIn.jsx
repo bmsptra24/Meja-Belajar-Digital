@@ -1,19 +1,21 @@
 import { useState } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import logoFB from "../assets/icon/fb_logo.png";
 import logoGoogle from "../assets/icon/google_logo.png";
+import { auth } from "../Store/Firebase";
 import "../styles/SignIn.css";
 
-const Login = ({ setNavigator }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const signIn = () => {
     if (password === "") {
       return alert("Password Empty!");
     }
 
-    const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -24,6 +26,7 @@ const Login = ({ setNavigator }) => {
             return alert("Email is not verified");
           } else {
             // alert("Login success");
+            navigate("/home");
           }
         }
       })
@@ -69,7 +72,7 @@ const Login = ({ setNavigator }) => {
               <button
                 className="transition ease-in-out hover:text-blue-600 ml-2 text-blue-500"
                 onClick={() => {
-                  setNavigator(2);
+                  navigate("/signup");
                 }}
               >
                 Signup

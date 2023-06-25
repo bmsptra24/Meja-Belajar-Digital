@@ -29,15 +29,13 @@ const Pomodoro = () => {
   }, [user.uid]);
 
   return (
-    <div className="pop-up-size z-10 p-4 d-flex justify-content-between flex-column end-0 bottom-0 me-1 ">
-      <div>
-        <p className="fs-2 fw-bold border-bottom border-black border-3">
-          Pomodoro
-        </p>
+    <div className="z-20 w-72 h-96 rounded-3xl border-2 border-slate-800 absolute bg-blue-400 p-4 flex justify-between flex-col lg:right-0 bottom-16 mr-1">
+      <div className="items-center flex justify-between">
+        <p className="font-bold text-2xl ml-2">Pomodoro</p>
       </div>
-      <div className="h-75 w-100 blue-shadow rounded rounded-4 mb-4 pb-3 d-flex flex-column justify-content-between">
-        <div className="w-100 px-4 pt-3">
-          <p className="d-flex justify-content-between">
+      <div className="grow mt-3 h-75 w-full bg-blue-200 rounded-xl mb-4 pb-3 flex flex-col justify-between">
+        <div className="w-full px-4 pt-3">
+          <p className="flex justify-between">
             Pomodoro duration
             {!isPomodoroRunning ? (
               <button
@@ -49,7 +47,7 @@ const Pomodoro = () => {
                   dispatch(setIsTimerRunning(true));
                 }}
               >
-                <BsFillPlayFill className="fs-4" />
+                <BsFillPlayFill className="text-3xl" />
               </button>
             ) : (
               <button
@@ -57,7 +55,7 @@ const Pomodoro = () => {
                 className="bg-transparent border-0 "
                 onClick={() => console.log("ResetTimer()")}
               >
-                <BsFillPauseFill className="fs-4" />
+                <BsFillPauseFill className="text-3xl" />
               </button>
             )}
           </p>
@@ -65,7 +63,7 @@ const Pomodoro = () => {
             type="number"
             name="pomodoro-duration"
             id="pomodoro-duration"
-            className="rounded border-0 w-100 input-pomodoro "
+            className="rounded border-2 focus:outline-none focus:border-blue-300 focus:shadow-md w-full "
             value={pomodoroDuration}
             onChange={(event) => {
               {
@@ -78,8 +76,8 @@ const Pomodoro = () => {
             }}
           />
         </div>
-        <div className="w-100 px-4 pt-3">
-          <p className="d-flex justify-content-between">
+        <div className="w-full px-4 pt-3">
+          <p className="flex justify-between">
             Short break
             {!isShortBreakRunning ? (
               <button
@@ -91,7 +89,7 @@ const Pomodoro = () => {
                   dispatch(setIsTimerRunning(true));
                 }}
               >
-                <BsFillPlayFill className="fs-4" />
+                <BsFillPlayFill className="text-3xl" />
               </button>
             ) : (
               // Not work yet
@@ -100,7 +98,7 @@ const Pomodoro = () => {
                 className="bg-transparent border-0 "
                 onClick={() => console.log("ResetTimer()")} // reset the timer
               >
-                <BsFillPauseFill className="fs-4" />
+                <BsFillPauseFill className="text-3xl" />
               </button>
             )}
           </p>
@@ -108,7 +106,7 @@ const Pomodoro = () => {
             type="number"
             name="pomodoro-duration"
             id="pomodoro-duration"
-            className="rounded border-0 w-100 "
+            className="rounded border-2 focus:outline-none focus:border-blue-300 focus:shadow-md w-full "
             value={shortBreak}
             onChange={(event) => {
               setShortBreak(Number(event.target.value));
@@ -119,8 +117,8 @@ const Pomodoro = () => {
             }}
           />
         </div>
-        <div className="w-100 px-4 pt-3">
-          <p className="d-flex justify-content-between">
+        <div className="w-full px-4 pt-3">
+          <p className="flex justify-between">
             Long break
             {!isLongBreakRunning ? (
               <button
@@ -132,7 +130,7 @@ const Pomodoro = () => {
                   dispatch(setIsTimerRunning(true));
                 }}
               >
-                <BsFillPlayFill className="fs-4" />
+                <BsFillPlayFill className="text-3xl" />
               </button>
             ) : (
               <button
@@ -140,7 +138,7 @@ const Pomodoro = () => {
                 className="bg-transparent border-0 "
                 onClick={() => console.log("ResetTimer()")}
               >
-                <BsFillPauseFill className="fs-4" />
+                <BsFillPauseFill className="text-3xl" />
               </button>
             )}
           </p>
@@ -148,7 +146,7 @@ const Pomodoro = () => {
             type="number"
             name="pomodoro-duration"
             id="pomodoro-duration"
-            className="rounded border-0 w-100 "
+            className="rounded border-2 focus:outline-none focus:border-blue-300 focus:shadow-md w-full "
             value={longBreak}
             onChange={(event) => {
               setLongBreak(Number(event.target.value));
@@ -160,9 +158,9 @@ const Pomodoro = () => {
           />
         </div>
       </div>
-      <div className="d-flex justify-content-center align-items-center ">
-        <BsClock className="me-2 mb-2" />
-        <p className="mt-2">{<HOFPomodoro duration={duration.current} />}</p>
+      <div className="flex justify-center items-center">
+        <BsClock className="mr-2" />
+        <p className="">{<HOFPomodoro duration={duration.current} />}</p>
       </div>
     </div>
   );

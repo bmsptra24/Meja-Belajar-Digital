@@ -4,7 +4,7 @@ import { getDataFromChatGPT } from "../Store/OpenAI";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
 import validator from "validator";
-import { VscNewFile } from "react-icons/vsc";
+import { AiOutlineClear } from "react-icons/ai";
 // import "../styles/Search.css";
 
 // get answer from api
@@ -56,8 +56,8 @@ const Feynman = () => {
   };
 
   const style = {
-    message: "flex justify-end mt-6 ml-10",
-    aiMessage: "flex justify-start mt-6 mr-10",
+    message: "flex justify-end mt-6 ml-12 mr-2",
+    aiMessage: "flex justify-start mt-6 mr-12 ml-2",
   };
 
   const handleKeyPress = (event) => {
@@ -73,7 +73,7 @@ const Feynman = () => {
   };
 
   return (
-    <div className="lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
+    <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
       <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
         <div className="flex h-full flex-col overflow-scroll lg:overflow-hidden p-3 bg-blue-50 border-0 lg:border-2 border-slate-800 rounded-lg justify-between">
           <div className="grow overflow-y-scroll">
@@ -110,7 +110,7 @@ const Feynman = () => {
                 updateData(["users/" + user.uid + "/feynman"], []);
               }}
             >
-              <VscNewFile className="text-2xl " />
+              <AiOutlineClear className="text-3xl" />
               <p className="ml-2 hidden group-hover:block whitespace-nowrap">
                 New topic
               </p>

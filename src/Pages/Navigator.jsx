@@ -9,7 +9,7 @@ const Pages = () => {
 
   // state false = sign in, true = sign up
   if (navigator === 0) {
-    document.body.style.zoom = "75%";
+    document.body.style.zoom = "100%";
     return <LandingPage setNavigator={setNavigator} />;
   }
   if (navigator === 1) {
