@@ -32,5 +32,12 @@ module.exports = {
       },
     },
   },
+  variant: {
+    extend: {
+      display: ['group-hover'],
+      opacity: ['group-hover'],
+      scale: ['group-hover'],
+    },
+  },
   plugins: [],
 }

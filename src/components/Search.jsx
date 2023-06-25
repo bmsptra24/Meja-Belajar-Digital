@@ -3,7 +3,8 @@ import { fetchDataRealtime, updateData } from "../Store/Database";
 import { getDataFromChatGPT } from "../Store/OpenAI";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
-import { BsSearch } from "react-icons/bs";
+import validator from "validator";
+import { VscNewFile } from "react-icons/vsc";
 import "../styles/Search.css";
 
 // get answer from api
@@ -41,6 +42,18 @@ const Search = () => {
   const [log, setLog] = useState([]);
   const [user] = useAuthState(auth);
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter" && event.shiftKey) return null;
+    if (
+      event.key === "Enter" &&
+      !validator.isEmpty(inputSearch) &&
+      !validator.isWhitelisted(inputSearch, " \n")
+    ) {
+      getAnswer(user, log, inputSearch, setInputSearch);
+      setInputSearch("");
+    }
+  };
+
   useEffect(() => {
     fetchDataRealtime(`users/${user.uid}/search`, (snapshot) => {
       snapshot !== null &&
@@ -57,58 +70,62 @@ const Search = () => {
   };
 
   const style = {
-    message: "massage d-flex justify-content-end mb-4 ps-5",
-    aiMessage: "ai-massage d-flex justify-content-start mb-4 pe-5",
+    message: "flex justify-end mt-6",
+    aiMessage: "flex justify-start mt-6 mr-40",
   };
 
   return (
-    <div className="regular-size shadow">
-      <div className="regular-size p-3">
-        <div className="d-flex justify-content-between flex-column rounded-3 border border-2 border-black bg-white-dark content-1 p-3">
-          <div className="overflow-auto pb-5">
-            <div className="log pt-2 pe-3">
-              {log.length > 0 ? (
-                log.map((e, idx) => {
-                  return (
-                    <div
-                      key={"message-" + idx}
-                      className={
-                        e.role === "user" ? style.message : style.aiMessage
-                      }
-                    >
-                      <div className="p-2 pt-1 rounded ">{e.content}</div>
+    <div className="lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
+      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
+        <div className="flex h-full flex-col overflow-scroll lg:overflow-hidden p-3 bg-blue-50 border-2 border-slate-800 rounded-lg justify-between">
+          <div className="grow overflow-y-scroll">
+            {log.length > 0 ? (
+              log.map((e, idx) => {
+                return (
+                  <div
+                    key={"message-" + idx}
+                    className={
+                      e.role === "user" ? style.message : style.aiMessage
+                    }
+                  >
+                    <div className="p-3 bg-blue-200 rounded-lg">
+                      {e.content}
                     </div>
-                  );
-                })
-              ) : (
-                <div className={style.aiMessage}>
-                  <div className="p-2 pt-1 rounded ">
-                    ada yang bisa dibantu?
                   </div>
+                );
+              })
+            ) : (
+              <div className={style.aiMessage}>
+                <div className="p-3 bg-blue-200 rounded-lg">
+                  what do you want to search?
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
-          <div className="position-relative mt-5 ">
-            <div className="d-flex justify-content-between form-search start-0 end-0 bottom-0 position-absolute z-1 search-box">
-              <textarea
-                autoFocus
-                className="form-control fs-6 rounded rounded-3 pe-4 "
-                placeholder="search"
-                maxLength={15000}
-                id="floatingTextarea2"
-                value={inputSearch}
-                onChange={inputHandle}
-              ></textarea>
-            </div>
-            <button
-              title="Send"
-              onClick={() => getAnswer(user, log, inputSearch, setInputSearch)}
-              className="position-absolute z-2 end-0 p-1 pt-0 me-2 fs-5 btn-search "
-              style={{ bottom: "1vh" }}
+          <div className="flex items-end pt-2">
+            <div
+              className="group transition-all ease-out duration-700 w-14 h-14 rounded-full flex justify-center items-center bg-blue-300 border-2 border-blue-500 mr-2 cursor-pointer hover:w-36"
+              onClick={() => {
+                setLog([]);
+                setInputSearch("");
+                updateData(["users/" + user.uid + "/search"], []);
+              }}
             >
-              <BsSearch />
-            </button>
+              <VscNewFile className="text-2xl " />
+              <p className="ml-2 hidden group-hover:block whitespace-nowrap">
+                New topic
+              </p>
+            </div>
+
+            <textarea
+              autoFocus
+              className="transition-all ease-in-out grow h-14 border-2 focus:outline-none border-slate-300 rounded-lg p-2 focus:h-24 focus:shadow-md focus:border-slate-400 hover:shadow-md"
+              placeholder="search"
+              maxLength={15000}
+              value={inputSearch}
+              onKeyDown={handleKeyPress}
+              onChange={inputHandle}
+            ></textarea>
           </div>
         </div>
       </div>

@@ -279,7 +279,7 @@ const Note = () => {
                     <textarea
                       autoFocus
                       spellCheck={false}
-                      className="resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-none rounded-lg p-3 h-16 text-2xl"
+                      className="resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-0 rounded-lg p-3 h-16 text-2xl"
                       placeholder="title"
                       maxLength={44}
                       rows={5}
@@ -355,7 +355,7 @@ const Note = () => {
           )}
           {isPlay && (
             <>
-              <div className="flex w-full h-full relative justify-center flex-col items-center rounded-xl border-none mb-1 lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 p-3 pt-2">
+              <div className="flex w-full h-full relative justify-center flex-col items-center rounded-xl border-0 mb-1 lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 p-3 pt-2">
                 <>
                   {!isStart && (
                     <div
@@ -386,7 +386,7 @@ const Note = () => {
                   {isStart && (
                     <>
                       <p className="absolute top-3 left-4 font-bold text-slate-500">
-                        No. {checkPoint + 1} |{" "}
+                        {checkPoint + 1} |{" "}
                         {isSeeAnswer ? "Answer" : "Question"}
                       </p>
                       <div className="grow flex justify-center items-center text-center">
