@@ -70,14 +70,14 @@ const Search = () => {
   };
 
   const style = {
-    message: "flex justify-end mt-6",
-    aiMessage: "flex justify-start mt-6 mr-40",
+    message: "flex justify-end mt-6 ml-10",
+    aiMessage: "flex justify-start mt-6 mr-10",
   };
 
   return (
     <div className="lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
       <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
-        <div className="flex h-full flex-col overflow-scroll lg:overflow-hidden p-3 bg-blue-50 border-2 border-slate-800 rounded-lg justify-between">
+        <div className="flex h-full flex-col overflow-scroll lg:overflow-hidden p-3 bg-blue-50 border-0 lg:border-2 border-slate-800 rounded-lg justify-between">
           <div className="grow overflow-y-scroll">
             {log.length > 0 ? (
               log.map((e, idx) => {
@@ -88,7 +88,8 @@ const Search = () => {
                       e.role === "user" ? style.message : style.aiMessage
                     }
                   >
-                    <div className="p-3 bg-blue-200 rounded-lg">
+                    <div className="p-3 bg-blue-200 rounded-lg text-justify justify-end">
+                      {""}
                       {e.content}
                     </div>
                   </div>
