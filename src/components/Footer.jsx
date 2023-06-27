@@ -15,7 +15,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { BiLogOutCircle } from "react-icons/bi";
 import "../styles/Icon.css";
 import "../styles/Footer.css";
-import { signOut, getAuth } from "firebase/auth";
+import { signOutBtn } from "../Store/Firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -29,18 +29,6 @@ import {
   setToDoList,
 } from "../features/home/Home";
 import { useState } from "react";
-
-const signOutClick = () => {
-  const auth = getAuth();
-  signOut(auth)
-    .then(() => {
-      // Sign-out successful.
-    })
-    .catch((error) => {
-      // An error happened.
-      alert(error);
-    });
-};
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -66,6 +54,8 @@ const Footer = () => {
     dispatch(setSearch(false));
     dispatch(setPomodoro(false));
   };
+  const [isBurgerClicked, setIsBurgerClicked] = useState(false);
+  const [isSettingClicked, setIsSettingClicked] = useState(false);
 
   const Icon = ({ Icon, isOpened }) => {
     return (
@@ -79,9 +69,6 @@ const Footer = () => {
       </div>
     );
   };
-
-  const [isBurgerClicked, setIsBurgerClicked] = useState(false);
-  const [isSettingClicked, setIsSettingClicked] = useState(false);
 
   return (
     <div className="z-10 footer-container bg-slate-50 ring-2 ring-slate-800 flex justify-center items-center border-solid border-x-0 border-b-0 w-screen h-13 lg:rounded-ss-3xl lg:rounded-se-3xl">
@@ -99,7 +86,7 @@ const Footer = () => {
           <div
             title="Logout"
             onClick={() => {
-              signOutClick();
+              signOutBtn();
             }}
           >
             <Icon Icon={BiLogOutCircle} />
@@ -304,7 +291,7 @@ const Footer = () => {
                 onClick={() => {
                   hideAllComponents();
                   setIsSettingClicked((e) => !e);
-                  signOutClick();
+                  signOutBtn();
                 }}
               >
                 Logout

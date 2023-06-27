@@ -17,20 +17,26 @@ const Task = ({ tasks, index, user, setTasks }) => {
 
   return (
     tasks.length !== 0 && (
-      <div className="text-lg flex justify-between mt-3">
-        <div className="flex">
-          <input
-            type="checkbox"
-            className="mr-3 cursor-pointer w-4 rounded-full"
-            checked={tasks[index].checked}
-            onChange={handleCheckboxChange}
+      <>
+        <div className="text-lg flex justify-between mt-3">
+          <div className="flex">
+            <input
+              type="checkbox"
+              className="mr-3 cursor-pointer w-4 rounded-full"
+              checked={tasks[index].checked}
+              onChange={handleCheckboxChange}
+            />
+            <p className={tasks[index].checked ? "selected" : "unselected"}>
+              {tasks[index].task}
+            </p>
+          </div>
+          <BsTrash
+            onClick={handleDeleteTask}
+            className="cursor-pointer transition hover:text-red-700"
           />
-          <p className={tasks[index].checked ? "selected" : "unselected"}>
-            {tasks[index].task}
-          </p>
         </div>
-        <BsTrash onClick={handleDeleteTask} className="cursor-pointer transition hover:text-red-700"/>
-      </div>
+        <hr className="mt-1" />
+      </>
     )
   );
 };

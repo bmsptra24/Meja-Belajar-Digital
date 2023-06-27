@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
 import Footer from "../components/Footer";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../Store/Firebase"; 
+import { auth } from "../Store/Firebase";
 import ToDoList from "../components/ToDoList";
 import Note from "../components/Note";
 import Blurting from "../components/Blurting";
@@ -55,7 +55,8 @@ const Home = () => {
     <div className="home bg-slate-100 flex flex-col justify-between relative">
       <div className="absolute inset-0 z-0">
         <img
-          src={photos.length > 0 ? photos[0].urls.regular : imgErrorHandling}
+          // src={photos.length > 0 ? photos[0].urls.regular : imgErrorHandling} //for production
+          src={"https://picsum.photos/1920/1080"} //for dev
           alt="wallpaper"
           className="w-full h-full"
         />

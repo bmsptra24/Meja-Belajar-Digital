@@ -1,4 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
+import { updateData } from "./Database";
 
 const configuration = new Configuration({
   // apiKey: process.env.VITE_APP_OPENAI_KEY,
@@ -43,4 +44,26 @@ export const getDataFromChatGPT = async (input) => {
 
   // data static dev
   // return (data = 'oke!')
+};
+
+// get answer from api
+export const getAnswer = async (path, log, input, setState, defaultSystem) => {
+  // reset state
+  setState("");
+  if (input.length !== 0) {
+    const templateUser = [
+      defaultSystem,
+      ...log,
+      { content: input, role: "user" },
+    ];
+    await updateData(path, templateUser);
+
+    const data = await getDataFromChatGPT(templateUser);
+    if (data) {
+      updateData(path, [...templateUser, data]);
+    } else {
+      const templateError = { role: "assistant", content: "error" };
+      updateData(path, templateError);
+    }
+  }
 };

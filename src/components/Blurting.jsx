@@ -35,9 +35,9 @@ const Blurting = () => {
   const [user] = useAuthState(auth);
   const [modul, setModul] = useState([]);
   const [lastOpen, setLastOpen] = useState(0);
-  const refTitle = useRef(null);
   const [data, setData] = useState([]);
   const [isListModuksClicked, setIsListModuksClicked] = useState(false);
+  const refTitle = useRef(null);
 
   // change state
   const changeState = {
@@ -92,7 +92,7 @@ const Blurting = () => {
     if (lastOpen >= 0 && data.length !== 0) {
       setModul(data[lastOpen][1]);
     }
-  }, [lastOpen]);
+  }, [lastOpen, data]);
 
   return (
     <div className="z-10 lg:h-5/6 lg:w-11/12 xl:w-5/6 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">

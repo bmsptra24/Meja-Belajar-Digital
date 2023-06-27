@@ -32,16 +32,13 @@ const ToDoList = () => {
           <div className="grow overflow-y-scroll pr-3 mt-3">
             {tasks.length !== 0 ? (
               tasks.map((_, index) => (
-                <>
-                  <Task
-                    tasks={tasks}
-                    index={index}
-                    user={user}
-                    key={index}
-                    setTasks={setTasks}
-                  />
-                  <hr className="mt-1" />
-                </>
+                <Task
+                  tasks={tasks}
+                  index={index}
+                  user={user}
+                  key={"task-" + index}
+                  setTasks={setTasks}
+                />
               ))
             ) : (
               <div>Tidak ada task</div>

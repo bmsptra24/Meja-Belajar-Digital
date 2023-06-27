@@ -1,41 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import logoFB from "../assets/icon/fb_logo.png";
 import logoGoogle from "../assets/icon/google_logo.png";
-import { auth } from "../Store/Firebase";
+import { signIn } from "../Store/Firebase";
 import "../styles/SignIn.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  const signIn = () => {
-    if (password === "") {
-      return alert("Password Empty!");
-    }
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        let user = userCredential.user;
-        if (user) {
-          if (!user.emailVerified) {
-            auth.signOut();
-            return alert("Email is not verified");
-          } else {
-            // alert("Login success");
-            navigate("/home");
-          }
-        }
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorCode, errorMessage);
-      });
-  };
 
   return (
     <div className="App">
@@ -62,7 +35,8 @@ const Login = () => {
             <button
               className="transition ease-in-out hover:to-blue-600 hover:from-blue-400 bg-gradient-to-l from-cyan-400 to-blue-500 h-12 rounded mt-4"
               onClick={() => {
-                signIn();
+                signIn(email, password);
+                navigate("/home");
               }}
             >
               Login

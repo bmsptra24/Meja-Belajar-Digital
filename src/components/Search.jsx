@@ -1,56 +1,73 @@
 import { useEffect, useState } from "react";
 import { fetchDataRealtime, updateData } from "../Store/Database";
-import { getDataFromChatGPT } from "../Store/OpenAI";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
 import validator from "validator";
 import { AiOutlineClear } from "react-icons/ai";
-import "../styles/Search.css";
+import { ImSpinner9 } from "react-icons/im";
+import { BsFillClipboard2Fill } from "react-icons/bs";
+import { getAnswer } from "../Store/OpenAI";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsGeneratingGpt } from "../features/loading/isLoading";
+// // get answer from api
+// const getAnswer = async (user, log, input, setState) => {
+//   //DEFAULT SYSTEM GPT
+//   const defaultSystem = {
+//     content:
+//       "Your name is Meja Belajar Digital. You are a helpful search engine designed to assist students in their learning journey.",
+//     role: "system",
+//   };
 
-// get answer from api
-const getAnswer = async (user, log, input, setState) => {
-  //DEFAULT SYSTEM GPT
-  const defaultSystem = {
-    content:
-      "Your name is Meja Belajar Digital. You are a helpful search engine designed to assist students in their learning journey.",
-    role: "system",
-  };
+//   // reset state
+//   setState("");
 
-  // reset state
-  setState("");
+//   if (input.length !== 0) {
+//     const templateUser = [
+//       defaultSystem,
+//       ...log,
+//       { content: input, role: "user" },
+//     ];
+//     await updateData(["users/" + user.uid + "/search"], templateUser);
 
-  if (input.length !== 0) {
-    const templateUser = [
-      defaultSystem,
-      ...log,
-      { content: input, role: "user" },
-    ];
-    await updateData(["users/" + user.uid + "/search"], templateUser);
-
-    const data = await getDataFromChatGPT(templateUser);
-    if (data) {
-      updateData(["users/" + user.uid + "/search"], [...templateUser, data]);
-    } else {
-      const templateError = { role: "assistant", content: "error" };
-      updateData(["users/" + user.uid + "/search"], templateError);
-    }
-  }
-};
+//     const data = await getDataFromChatGPT(templateUser);
+//     if (data) {
+//       updateData(["users/" + user.uid + "/search"], [...templateUser, data]);
+//     } else {
+//       const templateError = { role: "assistant", content: "error" };
+//       updateData(["users/" + user.uid + "/search"], templateError);
+//     }
+//   }
+// };
 
 const Search = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [log, setLog] = useState([]);
   const [user] = useAuthState(auth);
+  const { isGeneratingGpt } = useSelector((state) => state.isLoading);
+  const dispatch = useDispatch();
 
-  const handleKeyPress = (event) => {
+  const handleKeyPress = async (event) => {
     if (event.key === "Enter" && event.shiftKey) return null;
     if (
       event.key === "Enter" &&
       !validator.isEmpty(inputSearch) &&
       !validator.isWhitelisted(inputSearch, " \n")
     ) {
-      getAnswer(user, log, inputSearch, setInputSearch);
+      const defaultSystem = {
+        content:
+          "Your name is Meja Belajar Digital. You are a helpful search engine designed to assist students in their learning journey.",
+        role: "system",
+      };
+      dispatch(setIsGeneratingGpt(true));
+      await getAnswer(
+        ["users/" + user.uid + "/search"],
+        log,
+        inputSearch,
+        setInputSearch,
+        defaultSystem
+      );
       setInputSearch("");
+      dispatch(setIsGeneratingGpt(false));
     }
   };
 
@@ -71,7 +88,7 @@ const Search = () => {
 
   const style = {
     message: "flex justify-end mt-6 ml-12 mr-2",
-    aiMessage: "flex justify-start mt-6 mr-12 ml-2",
+    aiMessage: "flex justify-start mt-6 mr-12 ml-2 group",
   };
 
   return (
@@ -88,9 +105,22 @@ const Search = () => {
                       e.role === "user" ? style.message : style.aiMessage
                     }
                   >
-                    <div className="p-3 bg-blue-200 rounded-lg text-justify justify-end">
-                      {""}
-                      {e.content}
+                    <div className="p-3 bg-blue-200 rounded-lg text-justify justify-end relative">
+                      {e.content.split("\n").map((e, i) => {
+                        return (
+                          <div key={i}>
+                            <p>{e}</p>
+                          </div>
+                        );
+                      })}
+                      <div
+                        className="m-1 shadow-lg hidden group-hover:block absolute right-0 top-0 bg-slate-200/75 p-1.5 rounded-md cursor-pointer"
+                        onClick={() => {
+                          navigator.clipboard.writeText(e.content);
+                        }}
+                      >
+                        <BsFillClipboard2Fill className="text-slate-600" />
+                      </div>
                     </div>
                   </div>
                 );
@@ -102,14 +132,22 @@ const Search = () => {
                 </div>
               </div>
             )}
+            {isGeneratingGpt && (
+              <div className={style.aiMessage}>
+                <div className="p-3 bg-blue-200 rounded-lg flex">
+                  <ImSpinner9 className="animate-spin" />
+                </div>
+              </div>
+            )}
           </div>
           <div className="flex items-end pt-2">
             <div
-              className="group transition-all ease-out duration-700 w-14 h-14 rounded-full flex justify-center items-center bg-blue-300 border-2 border-blue-500 mr-2 cursor-pointer hover:w-36"
+              className="group transition-all ease-out duration-700 w-14 h-14 rounded-full flex justify-center items-center bg-blue-300 border-2 border-blue-500 mr-2 cursor-pointer hover:w-36 hover:bg-blue-400 hover:drop-shadow-md"
               onClick={() => {
                 setLog([]);
                 setInputSearch("");
                 updateData(["users/" + user.uid + "/search"], []);
+                dispatch(setIsGeneratingGpt(false));
               }}
             >
               <AiOutlineClear className="text-3xl" />

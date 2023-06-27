@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { signOut, getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 //key
 const firebaseConfig = {
@@ -16,4 +16,40 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
- 
+
+export const signOutBtn = () => {
+  const auth = getAuth();
+  signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+    })
+    .catch((error) => {
+      // An error happened.
+      alert(error);
+    });
+};
+
+export const signIn = (email, password) => {
+  if (password === "") {
+    return alert("Password Empty!");
+  }
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      let user = userCredential.user;
+      if (user) {
+        if (!user.emailVerified) {
+          auth.signOut();
+          return alert("Email is not verified");
+        } else {
+          // alert("Login success");
+         }
+      }
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(errorCode, errorMessage);
+    });
+};
