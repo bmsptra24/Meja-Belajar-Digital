@@ -31,6 +31,7 @@ const SignUp = () => {
           notes: null,
           search: null,
           tasks: null,
+          music: { log: "rainSound" },
           username: name,
           pomodoro: {
             pomodoroDuration: 25,

@@ -13,6 +13,7 @@ import FeynMan from "../components/FeynMan";
 import Music from "../components/Music";
 import Search from "../components/Search";
 import Pomodoro from "../components/Pomodoro";
+import { HandlerMusic } from "../features/music/HandlerMusic";
 import { useSelector } from "react-redux";
 import imgErrorHandling from "../assets/wallpaper/img1.jpg";
 import unsplashApi from "../Store/Unsplash";
@@ -53,6 +54,7 @@ const Home = () => {
 
   return (
     <div className="home bg-slate-100 flex flex-col justify-between relative">
+      <HandlerMusic />
       <div className="absolute inset-0 z-0">
         <img
           // src={photos.length > 0 ? photos[0].urls.regular : imgErrorHandling} //for production
