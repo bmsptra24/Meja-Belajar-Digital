@@ -7,7 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
 import ToDoList from "../components/ToDoList";
 import Note from "../components/Note";
-import Blurting from "../components/Blurting";
+import Blurting from "../components/Blurting"; 
 import FlashCard from "../components/FlashCard";
 import FeynMan from "../components/FeynMan";
 import Music from "../components/Music";
@@ -20,8 +20,8 @@ import imgErrorHandling from "../assets/wallpaper/img1.jpg";
 import unsplashApi from "../Store/Unsplash";
 
 const Home = () => {
-  const [user] = useAuthState(auth);
   const navigate = useNavigate();
+  const [user] = useAuthState(auth);
   const [photos, setPhotos] = useState([]);
   const {
     toDoList,

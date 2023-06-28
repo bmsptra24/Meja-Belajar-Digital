@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
-import Setting from "./Pages/Setting";
+const Setting = lazy(() => import("./Pages/Setting"));
 const LandingPage = lazy(() => import("./Pages/LandingPage"));
 const SignIn = lazy(() => import("./Pages/SignIn"));
 const SignUp = lazy(() => import("./Pages/SignUp"));

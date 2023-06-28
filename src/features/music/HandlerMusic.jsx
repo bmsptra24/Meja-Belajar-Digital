@@ -15,6 +15,13 @@ export const HandlerMusic = () => {
   const [musicLog, setMusicLog] = useState("");
   const { playAudio } = useSelector((state) => state.music);
 
+  const startSound = (elementHTML) => {
+    elementHTML.play();
+  };
+  const pauseAllSound = () => {
+    document.querySelectorAll("audio").forEach((el) => el.pause());
+  };
+
   useEffect(() => {
     fetchDataRealtime(`users/${user.uid}/music/log`, (snapshot) => {
       setMusicLog(snapshot);
@@ -23,25 +30,25 @@ export const HandlerMusic = () => {
 
   useEffect(() => {
     if (playAudio === "stop") {
-      return document.querySelectorAll("audio").forEach((el) => el.pause());
+      return pauseAllSound();
     }
     if (playAudio === "playLog") {
-      document.querySelectorAll("audio").forEach((el) => el.pause());
-      document.getElementById(musicLog).play();
+      pauseAllSound();
+      startSound(document.getElementById(musicLog));
       return;
     }
-    document.querySelectorAll("audio").forEach((el) => el.pause());
-    document.getElementById(playAudio).play();
+    pauseAllSound();
+    startSound(document.getElementById(playAudio));
     updateData(["users/" + user.uid + "/music/log"], playAudio);
   }, [playAudio, user, musicLog]);
 
   return (
     <>
-      <audio id="rainSound" src={rainSound}></audio>
-      <audio id="fireSound" src={fireSound}></audio>
-      <audio id="beachSound" src={beachSound}></audio>
-      <audio id="forestSound" src={forestSound}></audio>
-      <audio id="cafeSound" src={cafeSound}></audio>
+      <audio id="rainSound" src={rainSound} loop={true}></audio>
+      <audio id="fireSound" src={fireSound} loop={true}></audio>
+      <audio id="beachSound" src={beachSound} loop={true}></audio>
+      <audio id="forestSound" src={forestSound} loop={true}></audio>
+      <audio id="cafeSound" src={cafeSound} loop={true}></audio>
     </>
   );
 };
