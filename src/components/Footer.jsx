@@ -42,6 +42,7 @@ const Footer = () => {
     search,
     pomodoro,
   } = useSelector((state) => state.home);
+  const { timeRemainingString } = useSelector((state) => state.pomodoro);
   const dispatch = useDispatch();
 
   const hideAllComponents = () => {
@@ -174,7 +175,7 @@ const Footer = () => {
               dispatch(setMusic(false));
             }}
           >
-            <div className="select-none">25:00</div>
+            <div className="select-none">{timeRemainingString}</div>
           </div>
         </div>
       </div>
@@ -307,7 +308,7 @@ const Footer = () => {
             dispatch(setPomodoro(!pomodoro));
           }}
         >
-          <div className="select-none text-xl">25:00</div>
+          <div className="select-none text-xl">{timeRemainingString}</div>
         </div>
       </div>
     </div>

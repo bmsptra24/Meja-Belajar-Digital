@@ -14,6 +14,7 @@ import Music from "../components/Music";
 import Search from "../components/Search";
 import Pomodoro from "../components/Pomodoro";
 import { HandlerMusic } from "../features/music/HandlerMusic";
+import { HandlerPomodoro } from "../features/pomodoro/HandlerPomodoro";
 import { useSelector } from "react-redux";
 import imgErrorHandling from "../assets/wallpaper/img1.jpg";
 import unsplashApi from "../Store/Unsplash";
@@ -55,6 +56,7 @@ const Home = () => {
   return (
     <div className="home bg-slate-100 flex flex-col justify-between relative">
       <HandlerMusic />
+      <HandlerPomodoro />
       <div className="absolute inset-0 z-0">
         <img
           // src={photos.length > 0 ? photos[0].urls.regular : imgErrorHandling} //for production
@@ -63,7 +65,6 @@ const Home = () => {
           className="w-full h-full"
         />
       </div>
-
       <div className="grow flex justify-center items-center w-full overflow-hidden">
         {/* if the state is true so display component  */}
         {toDoList && <ToDoList />}
@@ -75,7 +76,6 @@ const Home = () => {
         {search && <Search />}
         {pomodoro && <Pomodoro />}
       </div>
-
       <Footer />
     </div>
   );

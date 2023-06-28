@@ -3,57 +3,42 @@ import { createSlice } from '@reduxjs/toolkit'
 export const isTimerRunningSlice = createSlice({
   name: 'isRunningPomodoro',
   initialState: {
-    isPomodoroRunning: false,
-    isShortBreakRunning: false,
-    isLongBreakRunning: false,
-    categoryRef: '',
-    timerRef: 0,
-    time: 0,
-    timeString: '',
-    isTimerRunning: false,
+    timeRemaining: 0, // in second
+    pomodoroStatus: 'stop',
+    pomodoroDuration: 0,
+    shortBreakDuration: 0,
+    longBreakDuration: 0,
+    timeRemainingString: '00:00', // in string
   },
   reducers: {
-    setIsPomodoroRunning: (state, action) => {
-      state.isPomodoroRunning = action.payload
+    setTimeRemaining: (state, action) => {
+      state.timeRemaining = action.payload
     },
-    setIsShortBreakRunning: (state, action) => {
-      state.isShortBreakRunning = action.payload
+    setPomodoroStatus: (state, action) => {
+      state.pomodoroStatus = action.payload
     },
-    setIsLongBreakRunning: (state, action) => {
-      state.isLongBreakRunning = action.payload
+    setPomodoroDuration: (state, action) => {
+      state.pomodoroDuration = action.payload
     },
-    setTimerRef: (state, action) => {
-      state.timerRef = action.payload
+    setShortBreakDuration: (state, action) => {
+      state.shortBreakDuration = action.payload
     },
-    setCategoryRef: (state, action) => {
-      console.log(action.payload)
-      state.categoryRef = action.payload
+    setLongBreakDuration: (state, action) => {
+      state.longBreakDuration = action.payload
     },
-    setTimeIncrement: (state) => {
-      state.time++
-    },
-    setTimeReset: (state) => {
-      state.time = 0
-    },
-    setTimeString: (state, action) => {
-      state.timeString = action.payload
-    },
-    setIsTimerRunning: (state, action) => {
-      state.isTimerRunning = action.payload
+    setTimeRemainingString: (state, action) => {
+      state.timeRemainingString = action.payload
     },
   },
 })
 
 export const {
-  setIsPomodoroRunning,
-  setIsShortBreakRunning,
-  setIsLongBreakRunning,
-  setTimerRef,
-  setCategoryRef,
-  setTimeIncrement,
-  setTimeReset,
-  setTimeString,
-  setIsTimerRunning,
+  setTimeRemaining,
+  setPomodoroStatus,
+  setPomodoroDuration,
+  setShortBreakDuration,
+  setLongBreakDuration,
+  setTimeRemainingString,
 } = isTimerRunningSlice.actions
 
 export default isTimerRunningSlice.reducer
