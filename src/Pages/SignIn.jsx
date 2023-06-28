@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import logoFB from "../assets/icon/fb_logo.png";
 import logoGoogle from "../assets/icon/google_logo.png";
 import { signIn } from "../Store/Firebase";
-import "../styles/SignIn.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -34,8 +33,11 @@ const Login = () => {
             />
             <button
               className="transition ease-in-out hover:to-blue-600 hover:from-blue-400 bg-gradient-to-l from-cyan-400 to-blue-500 h-12 rounded mt-4"
-              onClick={() => {
-                signIn(email, password);
+              onClick={async () => {
+                if (password === "") {
+                  return alert("Password Empty!");
+                }
+                await signIn(email, password);
                 navigate("/home");
               }}
             >

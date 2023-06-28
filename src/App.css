@@ -59,11 +59,27 @@
   border-radius: 5px;
 }
 
-/* .design-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: blue orange;
-} */
+.toasts {
+  color: #fff;
+  position: fixed;
+  top: 20px;
+  right: 15px;
+  z-index: 1001;
+  animation-name: fadeInRight, hide;
+  animation-duration: 1s;
+  animation-delay: 0s, 5s;
+  animation-fill-mode: both;
+}
 
-/* * {
-  font-family: var(--poppin);
-} */
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@keyframes hide {
+  100% {
+    opacity: 0;
+  }
+}

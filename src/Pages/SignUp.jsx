@@ -1,4 +1,4 @@
-import "../styles/SignUp.css";
+import { Toasts } from "../components/Toasts";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
@@ -14,6 +14,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [toastsSwitch, setToastsSwitch] = useState(-1);
   const navigate = useNavigate();
 
   // create new account user
@@ -40,7 +41,10 @@ const SignUp = () => {
         // sending email verification
         sendEmailVerification(auth.currentUser).then(() => {
           // Email verification sent!
-          alert("An email verification link has been sent to " + user.email);
+          setToastsSwitch(0);
+          setTimeout(() => {
+            setToastsSwitch(-1);
+          }, 7000);
         });
 
         // Log out first, cause have to verificated first
@@ -56,6 +60,12 @@ const SignUp = () => {
 
   return (
     <div className="App">
+      {toastsSwitch === 0 && (
+        <Toasts
+          category={"success"}
+          message={"An email verification has been sent to your account!"}
+        />
+      )}
       <div className="flex lg:h-3/4 lg:w-4/5 xl:w-3/5  lg:shadow-2xl rounded-3xl">
         <div className="lg:flex hidden w-1/2 bg-gradient-to-bl from-cyan-500 to-blue-500 justify-center items-center rounded-s-3xl">
           <div className="px-7 flex flex-col text-center text-blue-50">
@@ -108,13 +118,16 @@ const SignUp = () => {
                   if (password === confirmPassword) {
                     createUser();
                   } else {
-                    alert("Cek kembali password anda!");
+                    <Toasts
+                      category={"success"}
+                      message={"Cek kembali password anda!"}
+                    />;
                   }
                 } else {
                   alert("Email not valid!");
                 }
               } else {
-                alert("Nama tidak boleh kosong! ");
+                alert("Nama tidak boleh kosong!");
               }
             }}
           >

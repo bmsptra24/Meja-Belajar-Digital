@@ -114,7 +114,7 @@ const Search = () => {
                         );
                       })}
                       <div
-                        className="m-1 shadow-lg hidden group-hover:block absolute right-0 top-0 bg-slate-200/75 p-1.5 rounded-md cursor-pointer"
+                        className="transition-all ease-in-out m-1 shadow-sm hover:shadow-lg opacity-0 group-hover:opacity-100 absolute right-0 top-0 bg-slate-200/75 hover:bg-slate-100 p-1.5 rounded-md cursor-pointer"
                         onClick={() => {
                           navigator.clipboard.writeText(e.content);
                         }}

@@ -19,37 +19,34 @@ export const auth = getAuth(app);
 
 export const signOutBtn = () => {
   const auth = getAuth();
-  signOut(auth)
+  return signOut(auth)
     .then(() => {
       // Sign-out successful.
+      return true;
     })
     .catch((error) => {
       // An error happened.
-      alert(error);
+      return false;
     });
 };
 
 export const signIn = (email, password) => {
-  if (password === "") {
-    return alert("Password Empty!");
-  }
-
-  signInWithEmailAndPassword(auth, email, password)
+  return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
       let user = userCredential.user;
       if (user) {
         if (!user.emailVerified) {
           auth.signOut();
-          return alert("Email is not verified");
+          return 0;
         } else {
-          // alert("Login success");
-         }
+          return true;
+        }
       }
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert(errorCode, errorMessage);
+      return 2;
     });
 };

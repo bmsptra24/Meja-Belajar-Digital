@@ -6,11 +6,10 @@ const LandingPage = lazy(() => import("./Pages/LandingPage"));
 const SignIn = lazy(() => import("./Pages/SignIn"));
 const SignUp = lazy(() => import("./Pages/SignUp"));
 const Home = lazy(() => import("./Pages/Home"));
-// const Navigator = lazy(() => import("./Pages/Navigator"));
 
 function App() {
   return (
-    <>
+    <div>
       <Suspense
         fallback={
           <div className="bg-loading d-flex vh-100 justify-center align-items-center">
@@ -20,7 +19,6 @@ function App() {
           </div>
         }
       >
-        {/* {user ? <Home /> : <Navigator />} */}
         <Routes>
           <Route path="*" element={<LandingPage />} />
           <Route path="/" element={<LandingPage />} />
@@ -30,7 +28,7 @@ function App() {
           <Route path="/setting" element={<Setting />} />
         </Routes>
       </Suspense>
-    </>
+    </div>
   );
 }
 export default App;
