@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { fetchDataRealtime, updateData } from "../Store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
-import validator from "validator";
 import { AiOutlineClear } from "react-icons/ai";
 import { ImSpinner9 } from "react-icons/im";
 import { BsFillClipboard2Fill } from "react-icons/bs";
 import { getAnswer } from "../Store/OpenAI";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsGeneratingGpt } from "../features/loading/isLoading";
+import { HandleEnterPress } from "../Store/HandleEnterPress";
 // // get answer from api
 // const getAnswer = async (user, log, input, setState) => {
 //   //DEFAULT SYSTEM GPT
@@ -45,31 +45,6 @@ const Search = () => {
   const [user] = useAuthState(auth);
   const { isGeneratingGpt } = useSelector((state) => state.isLoading);
   const dispatch = useDispatch();
-
-  const handleKeyPress = async (event) => {
-    if (event.key === "Enter" && event.shiftKey) return null;
-    if (
-      event.key === "Enter" &&
-      !validator.isEmpty(inputSearch) &&
-      !validator.isWhitelisted(inputSearch, " \n")
-    ) {
-      const defaultSystem = {
-        content:
-          "Your name is Meja Belajar Digital. You are a helpful search engine designed to assist students in their learning journey.",
-        role: "system",
-      };
-      dispatch(setIsGeneratingGpt(true));
-      await getAnswer(
-        ["users/" + user.uid + "/search"],
-        log,
-        inputSearch,
-        setInputSearch,
-        defaultSystem
-      );
-      setInputSearch("");
-      dispatch(setIsGeneratingGpt(false));
-    }
-  };
 
   useEffect(() => {
     fetchDataRealtime(`users/${user.uid}/search`, (snapshot) => {
@@ -162,7 +137,25 @@ const Search = () => {
               placeholder="search"
               maxLength={15000}
               value={inputSearch}
-              onKeyDown={handleKeyPress}
+              onKeyDown={(event) =>
+                HandleEnterPress(event, inputSearch, async () => {
+                  const defaultSystem = {
+                    content:
+                      "Your name is Meja Belajar Digital. You are a helpful search engine designed to assist students in their learning journey.",
+                    role: "system",
+                  };
+                  dispatch(setIsGeneratingGpt(true));
+                  await getAnswer(
+                    ["users/" + user.uid + "/search"],
+                    log,
+                    inputSearch,
+                    setInputSearch,
+                    defaultSystem
+                  );
+                  setInputSearch("");
+                  dispatch(setIsGeneratingGpt(false));
+                })
+              }
               onChange={inputHandle}
             ></textarea>
           </div>

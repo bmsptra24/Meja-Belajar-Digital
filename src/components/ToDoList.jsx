@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { updateData, fetchDataRealtime } from "../Store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
+import { HandleEnterPress } from "../Store/HandleEnterPress";
 
 const ToDoList = () => {
   const [user] = useAuthState(auth);
@@ -22,6 +23,16 @@ const ToDoList = () => {
 
   const getInputValue = (event) => {
     setInputValue(event.target.value);
+  };
+
+  const addNewTask = () => {
+    // ubah isi tasks di database
+    updateData(`users/${user.uid}/tasks`, [
+      ...tasks,
+      { task: inputValue, checked: false },
+    ]);
+    // kosongkan value state inputValue
+    setInputValue("");
   };
 
   return (
@@ -50,19 +61,14 @@ const ToDoList = () => {
               className="transition ease-out grow h-5/6 border-2 bg-slate-50 lg:bg-blue-50 border-slate-400 focus:outline-none focus:bg-slate-50 focus:ring-slate-300 focus:ring-2 rounded-lg p-3"
               placeholder="New Task"
               onChange={getInputValue}
+              onKeyDown={(event) =>
+                HandleEnterPress(event, inputValue, addNewTask)
+              }
               value={inputValue}
             />
             <button
               className="transition ease-out icon bg-blue-300 border-2 border-blue-500 hover:bg-blue-400 hover:border-r-blue-600 hover:shadow-md focus:bg-blue-400 focus:shadow-md focus:outline-none focus:border-r-blue-600"
-              onClick={() => {
-                // ubah isi tasks di database
-                updateData(`users/${user.uid}/tasks`, [
-                  ...tasks,
-                  { task: inputValue, checked: false },
-                ]);
-                // kosongkan value state inputValue
-                setInputValue("");
-              }}
+              onClick={addNewTask}
             >
               <BsPlusLg />
             </button>

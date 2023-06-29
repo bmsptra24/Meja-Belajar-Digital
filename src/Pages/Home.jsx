@@ -7,7 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
 import ToDoList from "../components/ToDoList";
 import Note from "../components/Note";
-import Blurting from "../components/Blurting"; 
+import Blurting from "../components/Blurting";
 import FlashCard from "../components/FlashCard";
 import FeynMan from "../components/FeynMan";
 import Music from "../components/Music";
@@ -16,8 +16,10 @@ import Pomodoro from "../components/Pomodoro";
 import { HandlerMusic } from "../features/music/HandlerMusic";
 import { HandlerPomodoro } from "../features/pomodoro/HandlerPomodoro";
 import { useSelector } from "react-redux";
-import imgErrorHandling from "../assets/wallpaper/img1.jpg";
+// import dumyImage from "../assets/wallpaper/dumyImage.jpg";
+import dumyVideo from "../assets/wallpaper/dumyVideo.mp4";
 import unsplashApi from "../Store/Unsplash";
+import ReactPlayer from "react-player";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -59,11 +61,12 @@ const Home = () => {
       <HandlerPomodoro />
       <div className="absolute inset-0 z-0">
         <img
-          // src={photos.length > 0 ? photos[0].urls.regular : imgErrorHandling} //for production
+          // src={photos.length > 0 ? photos[0].urls.regular : dumyImage} //for production
           src={"https://picsum.photos/1920/1080"} //for dev
           alt="wallpaper"
           className="w-full h-full"
         />
+        {/* <ReactPlayer url="<https://www.youtube.com/watch?v=ysz5S6PUM-U>" height={'100%'} width={'100%'} muted/> */}
       </div>
       <div className="grow flex justify-center items-center w-full overflow-hidden">
         {/* if the state is true so display component  */}

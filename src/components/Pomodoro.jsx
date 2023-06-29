@@ -51,7 +51,7 @@ const Pomodoro = () => {
             type="number"
             name="pomodoro-duration"
             id="pomodoro-duration"
-            className="rounded border-2 focus:outline-none focus:border-blue-300 focus:shadow-md w-full "
+            className="rounded border-2 focus:outline-none focus:border-blue-300 focus:shadow-md w-full px-2"
             value={pomodoroDuration}
             onChange={(event) => {
               {
@@ -95,7 +95,7 @@ const Pomodoro = () => {
             type="number"
             name="pomodoro-duration"
             id="pomodoro-duration"
-            className="rounded border-2 focus:outline-none focus:border-blue-300 focus:shadow-md w-full "
+            className="rounded border-2 focus:outline-none focus:border-blue-300 focus:shadow-md w-full px-2"
             value={shortBreakDuration}
             onChange={(event) => {
               updateData(
@@ -133,7 +133,7 @@ const Pomodoro = () => {
             type="number"
             name="pomodoro-duration"
             id="pomodoro-duration"
-            className="rounded border-2 focus:outline-none focus:border-blue-300 focus:shadow-md w-full "
+            className="rounded border-2 focus:outline-none focus:border-blue-300 focus:shadow-md w-full px-2"
             value={longBreakDuration}
             onChange={(event) => {
               updateData(

@@ -18,7 +18,7 @@ const Task = ({ tasks, index, user, setTasks }) => {
   return (
     tasks.length !== 0 && (
       <>
-        <div className="text-lg flex justify-between mt-3">
+        <div className="text-lg flex justify-between items-center border-b-2 px-2 h-10 cursor-pointer hover:bg-blue-100">
           <div className="flex">
             <input
               type="checkbox"
@@ -35,7 +35,6 @@ const Task = ({ tasks, index, user, setTasks }) => {
             className="cursor-pointer transition hover:text-red-700"
           />
         </div>
-        <hr className="mt-1" />
       </>
     )
   );
