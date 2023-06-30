@@ -9,7 +9,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 const addNote = async (user) => {
   const template = {
     title: "",
-    text: "", 
+    text: "",
   };
   const key = newKey("notes");
   updateData(["users/" + user.uid + "/notes/" + key], template);
@@ -70,7 +70,7 @@ const Note = () => {
   }, [data]);
 
   // set the note
-  useEffect(() => {
+  useEffect(() => { 
     if (lastOpen >= 0 && data.length !== 0) {
       setNote(data[lastOpen][1]);
     }
@@ -81,9 +81,9 @@ const Note = () => {
   };
 
   return (
-    <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
-      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
-        <div className=" flex h-full flex-col lg:flex-row overflow-scroll lg:overflow-hidden ">
+    <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 lg:rounded-xl lg:bg-blue-300">
+      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 lg:rounded-xl lg:bg-blue-400">
+        <div className=" flex h-full flex-col lg:flex-row overflow-hidden">
           <div
             className={
               "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 p-2 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +

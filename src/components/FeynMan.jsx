@@ -5,36 +5,6 @@ import { auth } from "../Store/Firebase";
 import validator from "validator";
 import { AiOutlineClear } from "react-icons/ai";
 import { getAnswer } from "../Store/OpenAI";
-// import "../styles/Search.css";
-
-// // get answer from api
-// const getAnswer = async (user, log, input, setState, defaultSystem) => {
-//   //DEFAULT SYSTEM GPT
-//   const defaultSystem = {
-//     content:
-//       "Your name is Digital Learning Desk. You are a tool for learning with the Feynman Technique. If at the beginning of the chat the user has not told you about the topic, you should ask what the topic is. If you already know what the topic is, now you should ask the user to explain what he knows about the topic. Then you will critique what the user said and don't forget to make questions to the user about the topic, so that the user can improve his long-term memory (you are like an innocent child and always ask questions about the topic being discussed and don't ask like this 'Do you have any questions?') or if it turns out that the user doesn't know anything about the topic. Repeat this step.",
-//     role: "system",
-//   };
-
-//   // reset state
-//   setState("");
-//   if (input.length !== 0) {
-//     const templateUser = [
-//       defaultSystem,
-//       ...log,
-//       { content: input, role: "user" },
-//     ];
-//     await updateData(["users/" + user.uid + "/feynman"], templateUser);
-
-//     const data = await getDataFromChatGPT(templateUser);
-//     if (data) {
-//       updateData(["users/" + user.uid + "/feynman"], [...templateUser, data]);
-//     } else {
-//       const templateError = { role: "assistant", content: "error" };
-//       updateData(["users/" + user.uid + "/feynman"], templateError);
-//     }
-//   }
-// };
 
 const Feynman = () => {
   const [inputFeynman, setInputFeynman] = useState("");
@@ -86,7 +56,7 @@ const Feynman = () => {
   return (
     <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
       <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
-        <div className="flex h-full flex-col overflow-scroll lg:overflow-hidden p-3 bg-blue-50 border-0 lg:border-2 border-slate-800 rounded-lg justify-between">
+        <div className="flex h-full flex-col p-3 bg-blue-50 border-0 lg:border-2 border-slate-800 rounded-lg justify-between">
           <div className="grow overflow-y-scroll">
             {log.length > 0 ? (
               log.map((e, idx) => {

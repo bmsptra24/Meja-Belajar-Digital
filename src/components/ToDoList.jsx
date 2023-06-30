@@ -29,16 +29,16 @@ const ToDoList = () => {
     // ubah isi tasks di database
     updateData(`users/${user.uid}/tasks`, [
       ...tasks,
-      { task: inputValue, checked: false },
+      { task: inputValue, checked: false, date: "" },
     ]);
     // kosongkan value state inputValue
     setInputValue("");
   };
 
   return (
-    <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
-      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
-        <div className="h-full w-full rounded-md lg:border-2 border-black py-3 pr-3 pl-6 bg-slate-50 lg:bg-blue-50 flex flex-col">
+    <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 lg:rounded-xl lg:bg-blue-300">
+      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 lg:rounded-xl lg:bg-blue-400">
+        <div className="h-full w-full lg:rounded-md lg:border-2 border-black py-3 pr-3 pl-6 bg-slate-50 lg:bg-blue-50 flex flex-col">
           <h1 className="font-bold mt-2 text-4xl">To Do List</h1>
           <div className="grow overflow-y-scroll pr-3 mt-3">
             {tasks.length !== 0 ? (

@@ -136,7 +136,7 @@ const Note = () => {
   return (
     <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
       <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
-        <div className="flex h-full flex-col lg:flex-row overflow-scroll lg:overflow-hidden">
+        <div className="flex h-full flex-col lg:flex-row overflow-y-scroll lg:overflow-hidden">
           {!isPlay && (
             <>
               <div
@@ -147,7 +147,7 @@ const Note = () => {
                     : "hidden lg:visible")
                 }
               >
-                <div className="overflow-y-scroll mr-3 lg:mr-0 grow h-9/10 lg:h-auto mb-0 lg:mb-1">
+                <div className="lg:overflow-y-scroll mr-3 lg:mr-0 grow h-9/10 lg:h-auto mb-0 lg:mb-1">
                   {lastOpen >= 0
                     ? data.map((e, idx) => {
                         if (idx !== data.length - 1) {
@@ -221,7 +221,7 @@ const Note = () => {
                   </div>
                 </div>
               </div>
-              <div className="rounded-lg lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 ml-0 lg:ml-2 p-3 pt-2 grow flex flex-col">
+              <div className="relative rounded-lg lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 ml-0 lg:ml-2 p-3 pt-2 grow flex flex-col">
                 {lastOpen >= 0 ? (
                   <>
                     <div className="flex justify-between mb-3 pb-1 border-b-2">
@@ -246,13 +246,13 @@ const Note = () => {
                         <BsTrash className="hover:text-red-700 cursor-pointer transition ease-out text-xl" />
                       </div>
                       {!isListCardsClicked && (
-                        <div
-                          className="visible lg:hidden text-xl hover:text-slate-400 absolute left-10 right-10 flex justify-center"
-                          onClick={() => {
-                            setIsListCardsClicked((e) => !e);
-                          }}
-                        >
-                          <RxHamburgerMenu />
+                        <div className="visible lg:hidden absolute left-0 right-0 m-auto flex justify-center w-7">
+                          <RxHamburgerMenu
+                          className=" text-xl hover:text-slate-400"
+                            onClick={() => {
+                              setIsListCardsClicked((e) => !e);
+                            }}
+                          />
                         </div>
                       )}
                       <div className="flex align-items-center ">
@@ -288,7 +288,7 @@ const Note = () => {
                       ref={refTitle}
                     ></textarea>
 
-                    <div className="overflow-y-scroll h-full">
+                    <div className="lg:overflow-y-scroll h-full">
                       {cards !== null &&
                         cards.map((e, idx) => {
                           return (
@@ -386,8 +386,7 @@ const Note = () => {
                   {isStart && (
                     <>
                       <p className="absolute top-3 left-4 font-bold text-slate-500">
-                        {checkPoint + 1} |{" "}
-                        {isSeeAnswer ? "Answer" : "Question"}
+                        {checkPoint + 1} | {isSeeAnswer ? "Answer" : "Question"}
                       </p>
                       <div className="grow flex justify-center items-center text-center">
                         {!isSeeAnswer ? (

@@ -7,7 +7,7 @@ const Music = () => {
 
   const dispatch = useDispatch();
   return (
-    <div className="w-72 h-96 rounded-3xl border-2 border-slate-800 absolute bg-blue-400 z-20 p-4 flex justify-between flex-col lg:right-0 bottom-16 mr-1">
+    <div className="w-72 h-96 rounded-3xl border-2 border-slate-800 absolute bg-blue-400 z-30 p-4 flex justify-between flex-col lg:right-0 bottom-16 mr-1">
       <div className="items-center flex justify-between">
         <p className="font-bold text-2xl ml-2">Sound</p>
         {playAudio !== "stop" ? (
