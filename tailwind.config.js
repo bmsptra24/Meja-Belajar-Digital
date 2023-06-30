@@ -30,6 +30,18 @@ module.exports = {
           950: '#182039',
         },
       },
+      keyframes: {
+        'slide-right': {
+          '0%': { opacity: 0, transform: 'translate3d(100%, 0, 0)' },
+        },
+        'slide-top': {
+          '0%': { opacity: 0, transform: 'translate3d(0, -100%, 0)' },
+        },
+      },
+      animation: {
+        'slide-right': 'slide-right 1s',
+        'slide-top': 'slide-top 0.5s',
+      },
     },
   },
   variant: {

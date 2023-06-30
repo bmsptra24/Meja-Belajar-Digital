@@ -72,7 +72,7 @@ const Footer = () => {
   };
 
   return (
-    <div className="z-50 footer-container bg-slate-50 ring-2 ring-slate-800 flex justify-center items-center border-solid border-x-0 border-b-0 w-screen h-13 lg:rounded-ss-3xl lg:rounded-se-3xl">
+    <div className="z-40 footer-container bg-slate-50 ring-2 ring-slate-800 flex justify-center items-center border-solid border-x-0 border-b-0 w-screen h-13 lg:rounded-ss-3xl lg:rounded-se-3xl">
       {/* large screen */}
       <div className="w-full justify-center items-center hidden lg:flex">
         <div className="absolute left-0 ml-3 flex">
