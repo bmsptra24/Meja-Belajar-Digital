@@ -17,13 +17,6 @@ const addNote = async (user) => {
   updateData(["users/" + user.uid + "/notes/" + key], template);
 };
 
-// remove a note
-const removeNote = async (user, data, lastOpen) => {
-  const key = data[lastOpen][0];
-  updateData(["users/" + user.uid + "/notes/" + key], null);
-  // console.log("modul berhasil dihapus");
-};
-
 const Note = () => {
   const [user] = useAuthState(auth);
   const [data, setData] = useState([]); // all data notes
@@ -88,7 +81,11 @@ const Note = () => {
     if (data.length - 2 === lastOpen) {
       updateData(["users/" + user.uid + "/notes/" + "lastOpen"], lastOpen - 1);
     }
-    removeNote(user, data, lastOpen);
+
+    // remove a note
+    const key = data[lastOpen][0];
+    updateData(["users/" + user.uid + "/notes/" + key], null);
+
     setIsDelete(false);
   };
 
@@ -99,7 +96,7 @@ const Note = () => {
           Icon={RiErrorWarningFill}
           title={"Delete Confirmation"}
           body={`Are you sure you want to delete the note?`}
-          buttonName={'Delete'}
+          buttonName={"Delete"}
           trueCallback={handleDelete}
           falseCallback={() => setIsDelete(false)}
           color="red"

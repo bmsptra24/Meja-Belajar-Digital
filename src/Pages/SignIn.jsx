@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logoFB from "../assets/icon/fb_logo.png";
 import logoGoogle from "../assets/icon/google_logo.png";
+import { VscEyeClosed, VscEye } from "react-icons/vsc";
 import { signIn } from "../Store/Firebase";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isSeePassword, setIsSeePassword] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -24,13 +26,22 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <input
-              type="password"
-              className="placeholder:text-slate-500 mt-4 h-12 rounded px-3 bg-slate-200 focus:outline-none focus:ring-slate-300 focus:ring-2"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="w-full relative flex items-center">
+              <button
+                className="absolute right-2 mt-4 p-2 hover:bg-slate-300 rounded-full text-lg"
+                onClick={() => setIsSeePassword((e) => !e)}
+              >
+                {password !== "" && !isSeePassword && <VscEyeClosed />}
+                {password !== "" && isSeePassword && <VscEye />}
+              </button>
+              <input
+                type={isSeePassword ? "text" : "password"}
+                className="pr-11 w-full placeholder:text-slate-500 mt-4 h-12 rounded px-3 bg-slate-200 focus:outline-none focus:ring-slate-300 focus:ring-2"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
             <button
               className="transition ease-in-out hover:to-blue-600 hover:from-blue-400 bg-gradient-to-l from-cyan-400 to-blue-500 h-12 rounded mt-4"
               onClick={async () => {
