@@ -9,6 +9,7 @@ import { getAnswer } from "../store/OpenAI";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsGeneratingGpt } from "../features/loading/isLoading";
 import { HandleEnterPress } from "../store/HandleEnterPress";
+
 // // get answer from api
 // const getAnswer = async (user, log, input, setState) => {
 //   //DEFAULT SYSTEM GPT
