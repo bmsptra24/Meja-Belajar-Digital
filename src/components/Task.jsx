@@ -1,5 +1,5 @@
 import { BsTrash } from "react-icons/bs";
-import { updateData } from "../Store/Database";
+import { updateData } from "../store/Database";
 import { useState } from "react";
 
 const Task = ({ tasks, index, user, setTasks }) => {

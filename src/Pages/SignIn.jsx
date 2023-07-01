@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import logoFB from "../assets/icon/fb_logo.png";
 import logoGoogle from "../assets/icon/google_logo.png";
 import { VscEyeClosed, VscEye } from "react-icons/vsc";
-import { signIn } from "../Store/Firebase";
+import { signIn } from "../store/Firebase";
 
 const Login = () => {
   const [email, setEmail] = useState("");

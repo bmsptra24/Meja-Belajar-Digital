@@ -4,9 +4,9 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 import { useState } from "react";
-import { updateData } from "../Store/Database";
+import { updateData } from "../store/Database";
 import validator from "validator";
-import { auth } from "../Store/Firebase";
+import { auth } from "../store/Firebase";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {

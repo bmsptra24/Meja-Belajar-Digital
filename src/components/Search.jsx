@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { fetchDataRealtime, updateData } from "../Store/Database";
+import { fetchDataRealtime, updateData } from "../store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../Store/Firebase";
+import { auth } from "../store/Firebase";
 import { AiOutlineClear } from "react-icons/ai";
 import { ImSpinner9 } from "react-icons/im";
 import { BsFillClipboard2Fill } from "react-icons/bs";
-import { getAnswer } from "../Store/OpenAI";
+import { getAnswer } from "../store/OpenAI";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsGeneratingGpt } from "../features/loading/isLoading";
-import { HandleEnterPress } from "../Store/HandleEnterPress";
+import { HandleEnterPress } from "../store/HandleEnterPress";
 // // get answer from api
 // const getAnswer = async (user, log, input, setState) => {
 //   //DEFAULT SYSTEM GPT

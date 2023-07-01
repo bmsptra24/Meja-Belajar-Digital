@@ -15,7 +15,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { BiLogOutCircle } from "react-icons/bi";
 import "../styles/Icon.css";
 import "../styles/Footer.css";
-import { signOutBtn } from "../Store/Firebase";
+import { signOutBtn } from "../store/Firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {

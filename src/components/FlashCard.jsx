@@ -1,6 +1,6 @@
-import { fetchDataRealtime, newKey, updateData } from "../Store/Database";
+import { fetchDataRealtime, newKey, updateData } from "../store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../Store/Firebase";
+import { auth } from "../store/Firebase";
 import { useEffect, useRef, useState } from "react";
 import {
   BsTrash,
@@ -252,7 +252,7 @@ const Note = () => {
                         <div
                           title="Delete flashcard"
                           onClick={() => {
-                            setIsDelete(true)
+                            setIsDelete(true);
                           }}
                         >
                           <BsTrash className="hover:text-red-700 cursor-pointer transition ease-out text-xl" />

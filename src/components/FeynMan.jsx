@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { updateData, fetchDataRealtime } from "../Store/Database";
+import { updateData, fetchDataRealtime } from "../store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../Store/Firebase";
+import { auth } from "../store/Firebase";
 import validator from "validator";
 import { AiOutlineClear } from "react-icons/ai";
-import { getAnswer } from "../Store/OpenAI";
+import { getAnswer } from "../store/OpenAI";
 
 const Feynman = () => {
   const [inputFeynman, setInputFeynman] = useState("");

@@ -4,10 +4,10 @@ import beachSound from "../../assets/sound/beach-sound.mp3";
 import forestSound from "../../assets/sound/forest-sound.mp3";
 import cafeSound from "../../assets/sound/cafe-sound.mp3";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../Store/Firebase";
-import { updateData } from "../../Store/Database";
+import { auth } from "../../store/Firebase";
+import { updateData } from "../../store/Database";
 import { useSelector } from "react-redux";
-import { fetchDataRealtime } from "../../Store/Database";
+import { fetchDataRealtime } from "../../store/Database";
 import { useEffect, useState } from "react";
 
 export const HandlerMusic = () => {

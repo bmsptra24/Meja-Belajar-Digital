@@ -1,6 +1,6 @@
-import { updateData } from "../Store/Database";
+import { updateData } from "../store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../Store/Firebase";
+import { auth } from "../store/Firebase";
 import { useSelector, useDispatch } from "react-redux";
 import { setPomodoroStatus } from "../features/pomodoro/Pomodoro";
 import { BsClock, BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";

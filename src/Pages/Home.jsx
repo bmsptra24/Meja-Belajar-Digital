@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
 import Footer from "../components/Footer";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../Store/Firebase";
+import { auth } from "../store/Firebase";
 import ToDoList from "../components/ToDoList";
 import Note from "../components/Note";
 import Blurting from "../components/Blurting";
@@ -18,7 +18,7 @@ import { HandlerPomodoro } from "../features/pomodoro/HandlerPomodoro";
 import { useSelector } from "react-redux";
 // import dumyImage from "../assets/wallpaper/dumyImage.jpg";
 import dumyVideo from "../assets/wallpaper/dumyVideo.mp4";
-import unsplashApi from "../Store/Unsplash";
+import unsplashApi from "../store/Unsplash";
 import ReactPlayer from "react-player";
 
 const Home = () => {
