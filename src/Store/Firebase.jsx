@@ -1,7 +1,14 @@
 import { initializeApp } from "firebase/app";
-import { signOut, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signOut,
+  getAuth,
+  signInWithEmailAndPassword,
+  signInWithRedirect,
+  getRedirectResult,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+} from "firebase/auth";
 
-//key
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -11,12 +18,12 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
   databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 
+// Sign In / Out with email and password
 export const signOutBtn = () => {
   const auth = getAuth();
   return signOut(auth)
@@ -51,4 +58,22 @@ export const signIn = (email, password) => {
       console.log({ errorCode }, { errorMessage });
       return 2;
     });
+};
+
+// Sign In / Out with google
+export const signInWithGoogle = async () => {
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
+  provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+  auth.useDeviceLanguage();
+  signInWithRedirect(auth, provider);
+};
+
+// Sign In / Out with facebook
+export const signInWithFacebook = () => {
+  const auth = getAuth();
+  const provider = new FacebookAuthProvider();
+  provider.addScope("public_profile");
+  auth.useDeviceLanguage();
+  signInWithRedirect(auth, provider);
 };

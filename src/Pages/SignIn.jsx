@@ -1,15 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logoFB from "../assets/icon/fb_logo.png";
 import logoGoogle from "../assets/icon/google_logo.png";
 import { VscEyeClosed, VscEye } from "react-icons/vsc";
-import { signIn } from "../store/Firebase";
+import {
+  signIn,
+  signInWithGoogle,
+  signInWithFacebook,
+} from "../store/Firebase";
+import { auth } from "../store/Firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Login = () => {
+  const [user] = useAuthState(auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSeePassword, setIsSeePassword] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  }, [user, navigate]);
 
   return (
     <div className="App">
@@ -48,8 +61,7 @@ const Login = () => {
                 if (password === "") {
                   return alert("Password Empty!");
                 }
-                await signIn(email, password);
-                navigate("/home");
+                signIn(email, password);
               }}
             >
               Login
@@ -78,7 +90,10 @@ const Login = () => {
             </div>
           </div>
           <div className="flex flex-col">
-            <button className="transition ease-in-out hover:bg-slate-200 relative bg-blue-50 h-12 rounded border-2 border-slate-300 flex justify-center items-center">
+            <button
+              className="transition ease-in-out hover:bg-slate-200 relative bg-blue-50 h-12 rounded border-2 border-slate-300 flex justify-center items-center"
+              onClick={signInWithGoogle}
+            >
               <img
                 src={logoGoogle}
                 alt="Logo Google"
@@ -86,7 +101,10 @@ const Login = () => {
               />
               Login with Google
             </button>
-            <button className="transition ease-in-out hover:bg-fb-600 bg-fb-500 relative text-blue-50 h-12 rounded border mt-4 mb-1 flex justify-center items-center">
+            <button
+              className="transition ease-in-out hover:bg-fb-600 bg-fb-500 relative text-blue-50 h-12 rounded border mt-4 mb-1 flex justify-center items-center"
+              onClick={signInWithFacebook}
+            >
               <div className="absolute w-7 left-0 ml-3 bg-blue-50 rounded-full p-1">
                 <img src={logoFB} alt="Logo Google" className="rounded-full" />
               </div>

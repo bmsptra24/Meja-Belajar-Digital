@@ -23,10 +23,12 @@ export const HandlerMusic = () => {
   };
 
   useEffect(() => {
-    fetchDataRealtime(`users/${user.uid}/music/log`, (snapshot) => {
-      setMusicLog(snapshot);
-    });
-  }, [user.uid]);
+    if (user !== null) {
+      fetchDataRealtime(`users/${user.uid}/music/log`, (snapshot) => {
+        setMusicLog(snapshot);
+      });
+    }
+  }, [user]);
 
   useEffect(() => {
     if (playAudio === "stop") {

@@ -1,5 +1,5 @@
 // inport module
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Home.css";
 import Footer from "../components/Footer";
@@ -36,10 +36,11 @@ const Home = () => {
     pomodoro,
   } = useSelector((state) => state.home);
 
-  if (!user) {
-    navigate("/signin");
-    return <></>;
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate("/signin");
+    }
+  }, [user, navigate]);
 
   const fetchPhotos = async () => {
     try {

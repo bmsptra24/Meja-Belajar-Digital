@@ -31,12 +31,14 @@ export const HandlerPomodoro = () => {
 
   // get data from database
   useEffect(() => {
-    fetchDataRealtime(`users/${user.uid}/pomodoro`, (snapshot) => {
-      dispatch(setPomodoroDuration(snapshot.pomodoroDuration));
-      dispatch(setShortBreakDuration(snapshot.shortBreak));
-      dispatch(setLongBreakDuration(snapshot.longBreak));
-    });
-  }, [user.uid, dispatch]);
+    if (user !== null) {
+      fetchDataRealtime(`users/${user.uid}/pomodoro`, (snapshot) => {
+        dispatch(setPomodoroDuration(snapshot.pomodoroDuration));
+        dispatch(setShortBreakDuration(snapshot.shortBreak));
+        dispatch(setLongBreakDuration(snapshot.longBreak));
+      });
+    }
+  }, [user, dispatch]);
 
   useEffect(() => {
     // stop timer
