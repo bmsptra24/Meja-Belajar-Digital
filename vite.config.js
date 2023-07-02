@@ -4,6 +4,6 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export default defineConfig({
-  base: '/Meja-Belajar-Digital/',
+  base: '/',
   plugins: [react()],
 })

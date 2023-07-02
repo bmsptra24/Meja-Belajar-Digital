@@ -50,7 +50,7 @@ const LandingPage = () => {
             )}
             <div
               className={
-                "flex justify-between gap-3 lg:gap-10 font-medium flex-col lg:flex-row absolute right-0 -top-3 lg:static text-center bg-blue-50 py-3 lg:py-0 rounded-lg shadow-lg lg:shadow-none border " +
+                "flex justify-between gap-3 lg:gap-10 font-medium flex-col lg:flex-row absolute right-0 -top-3 lg:static text-center bg-blue-50 py-3 lg:py-0 rounded-lg shadow-lg lg:shadow-none border lg:border-0 " +
                 (!isBurger ? "hidden lg:flex" : "")
               }
             >

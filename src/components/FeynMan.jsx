@@ -56,7 +56,7 @@ const Feynman = () => {
                       {e.content.split("\n").map((e, i) => {
                         return (
                           <div key={i}>
-                            <p>{e}</p>
+                            {e} <br />
                           </div>
                         );
                       })}

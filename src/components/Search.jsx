@@ -87,7 +87,7 @@ const Search = () => {
                       {e.content.split("\n").map((e, i) => {
                         return (
                           <div key={i}>
-                            <p>{e}</p>
+                            {e} <br />
                           </div>
                         );
                       })}
@@ -154,7 +154,7 @@ const Search = () => {
                 HandleEnterPress(event, inputSearch, async () => {
                   const defaultSystem = {
                     content:
-                      "Your name is Meja Belajar Digital. You are a helpful search engine designed to assist students in their learning journey.",
+                      "Your name is Meja Belajar Digital. You are a helpful search engine designed to assist students in their learning journey. But if someone asking 'what is meja belajar digital?', you have to answer with 'Meja Belajar Digital is an application that can facilitate students in learning independently effectively by utilizing existing technology, using several learning methods like Blurting, Feynman, and Flashcard method.'",
                     role: "system",
                   };
                   dispatch(setIsGeneratingGpt(true));
