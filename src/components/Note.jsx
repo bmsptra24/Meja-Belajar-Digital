@@ -51,10 +51,12 @@ const Note = () => {
 
   // get data from database
   useEffect(() => {
-    fetchDataRealtime(`users/${user.uid}/notes`, (snapshot) => {
-      setData(Object.entries(snapshot || {}).map((entry) => entry));
-    });
-  }, [user.uid]);
+    if (user) {
+      fetchDataRealtime(`users/${user.uid}/notes`, (snapshot) => {
+        setData(Object.entries(snapshot || {}).map((entry) => entry));
+      });
+    }
+  }, [user]);
 
   // set last open data for navigate in first modul
   useEffect(() => {
@@ -102,18 +104,18 @@ const Note = () => {
           color="red"
         />
       )}
-      <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 lg:rounded-xl lg:bg-blue-300">
-        <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 lg:rounded-xl lg:bg-blue-400">
+      <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-300">
+        <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-400 ">
           <div className=" flex h-full flex-col lg:flex-row overflow-hidden">
             <div
               className={
-                "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 p-2 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +
+                "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 pl-2 lg:pr-2 rounded-none lg:rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto relative lg:static " +
                 (isListNotesClicked === true
                   ? "visible lg:visible"
                   : "hidden lg:visible")
               }
             >
-              <div className="overflow-y-scroll mr-3 lg:mr-0 grow h-9/10 lg:h-auto mb-0 lg:mb-1">
+              <div className="overflow-y-scroll mr-3 lg:mr-0 grow h-full lg:h-auto mb-0 lg:mb-1">
                 {lastOpen >= 0
                   ? data.map((e, idx) => {
                       if (idx !== data.length - 1) {
@@ -159,7 +161,7 @@ const Note = () => {
                   ? "Loading..."
                   : "Tidak ada modul..."}
               </div>
-              <div className="w-full flex justify-end lg:justify-start pr-3 lg:pr-0 h-1/10 lg:h-auto items-center">
+              <div className="w-full z-40 bottom-4 absolute lg:static flex justify-end lg:justify-start pr-3 lg:pr-0 h-1/10 lg:h-auto items-center">
                 <div
                   title="Add note"
                   className="icon transition ease-out bg-blue-200 hover:bg-blue-300 border-2 border-blue-500"
@@ -186,7 +188,7 @@ const Note = () => {
                 </div>
               </div>
             </div>
-            <div className="rounded-lg lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 ml-0 lg:ml-2 p-3 pt-2 grow">
+            <div className="rounded-none lg:rounded-lg lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 ml-0 lg:ml-2 p-3 pt-2 grow">
               {lastOpen >= 0 ? (
                 <div className="flex flex-col justify-between w-full h-full">
                   <div className="flex justify-between mb-3 pb-1 border-b-2">

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logoFB from "../assets/icon/fb_logo.png";
+import mbd from "../assets/logo/mbd.png";
 import logoGoogle from "../assets/icon/google_logo.png";
 import { VscEyeClosed, VscEye } from "react-icons/vsc";
 import {
@@ -26,10 +27,11 @@ const Login = () => {
 
   return (
     <div className="App">
-      <div className="flex lg:w-4/5 xl:w-3/5 lg:h-3/4 lg:shadow-2xl rounded-3xl">
+      <div className="absolute w-full h-full pattern-box"></div>
+      <div className="flex lg:w-4/5 xl:w-3/5 lg:h-3/4 lg:shadow-2xl rounded-3xl z-10">
         <div className="h-screen lg:h-auto w-screen lg:w-1/2 p-4 px-7 pb-7 flex flex-col justify-evenly lg:justify-between bg-blue-50 lg:rounded-s-3xl">
           <div className="flex justify-center my-7">
-            <p className="font-black text-4xl">Login</p>
+            <p className="font-bold text-4xl text-slate-600">Login</p>
           </div>
           <div className="flex flex-col">
             <input
@@ -113,8 +115,16 @@ const Login = () => {
           </div>
         </div>
         <div className="lg:flex hidden w-1/2 bg-gradient-to-bl from-cyan-500 to-blue-500 justify-center items-center rounded-e-3xl">
-          <div className="px-7 flex flex-col text-center text-blue-50">
-            <p className="font-black text-4xl mb-5">Meja Belajar Digital</p>
+          <div className="px-7 flex flex-col items-center text-center text-blue-50">
+            <p className="font-bold text-4xl mb-5 relative flex flex-col items-center mt-5">
+              <img
+                src={mbd}
+                alt="Logo MBD"
+                className="w-10/12 absolute -top-40 cursor-pointer"
+                onClick={() => navigate("/")}
+              />
+              Meja Belajar Digital
+            </p>
             <p className="px-7">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
               ut consequatur vero excepturi officia repellendus.

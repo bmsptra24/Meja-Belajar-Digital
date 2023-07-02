@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 .disabled-production-btn {
   pointer-events: none;
@@ -8,4 +9,12 @@
 
 .disabled-production-div {
   cursor: not-allowed;
+}
+
+.pattern-box {
+  background-color: #e2e8f0;
+  opacity: 0.8;
+  background-image: linear-gradient(#bfdbfe 1px, transparent 1px),
+    linear-gradient(to right, #bfdbfe 1px, #e2e8f0 1px);
+  background-size: 20px 20px;
 }

@@ -13,17 +13,17 @@ import { useEffect, useState } from "react";
 export const HandlerMusic = () => {
   const [user] = useAuthState(auth);
   const [musicLog, setMusicLog] = useState("");
-  const { playAudio } = useSelector((state) => state.music);
+  const { playAudio, isPlaying } = useSelector((state) => state.music);
 
   const startSound = (elementHTML) => {
-    elementHTML.play();
+    elementHTML?.play();
   };
   const pauseAllSound = () => {
     document.querySelectorAll("audio").forEach((el) => el.pause());
   };
 
   useEffect(() => {
-    if (user !== null) {
+    if (user) {
       fetchDataRealtime(`users/${user.uid}/music/log`, (snapshot) => {
         setMusicLog(snapshot);
       });
@@ -42,7 +42,7 @@ export const HandlerMusic = () => {
     pauseAllSound();
     startSound(document.getElementById(playAudio));
     updateData(["users/" + user.uid + "/music/log"], playAudio);
-  }, [playAudio, user, musicLog]);
+  }, [playAudio, musicLog]);
 
   return (
     <>

@@ -84,10 +84,12 @@ const Blurting = () => {
   };
 
   useEffect(() => {
-    fetchDataRealtime(`users/${user.uid}/moduls`, (snapshot) => {
-      setData(Object.entries(snapshot).map((e) => e));
-    });
-  }, [user.uid]);
+    if (user) {
+      fetchDataRealtime(`users/${user.uid}/moduls`, (snapshot) => {
+        setData(Object.entries(snapshot).map((e) => e));
+      });
+    }
+  }, [user]);
 
   useEffect(() => {
     if (data.length > 1) {
@@ -117,11 +119,11 @@ const Blurting = () => {
         />
       )}
       <div className="z-10 lg:h-5/6 lg:w-11/12 xl:w-5/6 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
-        <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
+      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-400 ">
           <div className="bg-slate-50 lg:bg-transparent flex-col overflow-x-hidden overflow-y-scroll lg:overflow-hidden lg:flex-row flex justify-between h-full">
             <div
               className={
-                "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 p-2 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +
+                "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 pl-2 lg:pr-2 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +
                 (isListModuksClicked === true
                   ? "visible lg:visible"
                   : "hidden lg:visible")
@@ -173,10 +175,10 @@ const Blurting = () => {
                   ? "Loading..."
                   : "Tidak ada modul..."}
               </div>
-              <div className="w-full flex justify-end lg:justify-start pr-3 lg:pr-0 h-1/10 lg:h-auto items-center">
+              <div className="w-full z-40 bottom-20 right-0 absolute lg:static flex justify-end lg:justify-start pr-3 lg:pr-0 h-1/10 lg:h-auto items-center">
                 <div
                   title="Add new module"
-                  className="icon text-2xl transition ease-out bg-blue-200 hover:bg-blue-300 border-2 border-blue-500"
+                  className="icon transition ease-out bg-blue-200 hover:bg-blue-300 border-2 border-blue-500"
                   onClick={async () => {
                     setIsListModuksClicked(false);
                     addModule(user);

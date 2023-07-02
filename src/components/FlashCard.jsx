@@ -63,10 +63,12 @@ const Note = () => {
 
   // get data from database
   useEffect(() => {
-    fetchDataRealtime(`users/${user.uid}/flashcard`, (snapshot) => {
-      setData(Object.entries(snapshot).map((e) => e));
-    });
-  }, [user.uid]);
+    if (user) {
+      fetchDataRealtime(`users/${user.uid}/flashcard`, (snapshot) => {
+        setData(Object.entries(snapshot).map((e) => e));
+      });
+    }
+  }, [user]);
 
   // change state
   const changeState = {
@@ -158,20 +160,20 @@ const Note = () => {
           color="red"
         />
       )}
-      <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
-        <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
-          <div className="flex h-full flex-col lg:flex-row overflow-y-scroll lg:overflow-hidden">
+      <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-300 ">
+        <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400 ">
+          <div className="flex h-full flex-col lg:flex-row overflow-y-scroll lg:overflow-hidden ">
             {!isPlay && (
               <>
                 <div
                   className={
-                    "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 p-2 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +
+                    "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 pl-2 lg:pr-2 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +
                     (isListCardsClicked === true
                       ? "visible lg:visible"
                       : "hidden lg:visible")
                   }
                 >
-                  <div className="lg:overflow-y-scroll mr-3 lg:mr-0 grow h-9/10 lg:h-auto mb-0 lg:mb-1">
+                  <div className="overflow-y-scroll mr-3 lg:mr-0 grow h-9/10 lg:h-auto mb-0 lg:mb-1">
                     {lastOpen >= 0
                       ? data.map((e, idx) => {
                           if (idx !== data.length - 1) {
@@ -218,7 +220,7 @@ const Note = () => {
                       ? "Loading..."
                       : "Tidak ada modul..."}
                   </div>
-                  <div className="w-full flex justify-end lg:justify-start pr-3 lg:pr-0 h-1/10 lg:h-auto items-center">
+                  <div className="w-full z-40 bottom-20 right-0 absolute lg:static flex justify-end lg:justify-start pr-3 lg:pr-0 h-1/10 lg:h-auto items-center">
                     <div
                       title="Add flashcard"
                       className="icon transition ease-out bg-blue-200 hover:bg-blue-300 border-2 border-blue-500 text-2xl"
@@ -367,7 +369,7 @@ const Note = () => {
             )}
             {isPlay && (
               <>
-                <div className="flex w-full h-full relative justify-center flex-col items-center rounded-xl border-0 mb-1 lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 p-3 pt-2">
+                <div className="flex w-full h-full relative justify-center flex-col items-center rounded-none lg:rounded-xl border-0 lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 p-3 pt-2">
                   <>
                     {!isStart && (
                       <div

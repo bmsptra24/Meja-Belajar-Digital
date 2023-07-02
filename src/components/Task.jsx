@@ -29,7 +29,7 @@ const Task = ({ tasks, index, user, setTasks }) => {
           className={
             isTaskClicked
               ? "text-lg flex flex-col justify-between items-start border-b-2 px-2 pt-1 pb-1 cursor-pointer bg-blue-100 hover:bg-blue-100"
-              : "text-lg flex flex-col justify-center items-center border-b-2 px-2 h-10 cursor-pointer hover:bg-blue-100"
+              : "text-lg flex flex-col justify-center items-center border-b-2 p-2 cursor-pointer hover:bg-blue-100"
           }
           onClick={() => {
             setIsTaskClicked(true);
@@ -39,23 +39,24 @@ const Task = ({ tasks, index, user, setTasks }) => {
             <div className="flex">
               <input
                 type="checkbox"
-                className="mr-3 cursor-pointer w-4 rounded-full"
+                className="mr-3 cursor-pointer w-4 rounded-full mt-2 lg:mt-0"
                 checked={tasks[index].checked}
                 onChange={handleCheckboxChange}
               />
-              <p className={tasks[index].checked ? "selected" : "unselected"}>
+              <div className={tasks[index].checked ? "selected" : "unselected"}>
                 {tasks[index].task}
-              </p>
+                {!isTaskClicked && tasks[index].date !== "" && (
+                  <div className="text-sm bg-blue-200 px-2 rounded-3xl w-max mt-2">
+                    <p>{tasks[index].date}</p>
+                  </div>
+                )}
+              </div>
             </div>
             <div className="flex items-center">
-              {!isTaskClicked && tasks[index].date !== "" && (
-                <div className="text-sm bg-blue-200 px-3 py-1 rounded-3xl">
-                  <p>{tasks[index].date}</p>
-                </div>
-              )}
+  
               <BsTrash
                 onClick={handleDeleteTask}
-                className="ml-10 cursor-pointer transition hover:text-red-700"
+                className="ml-3 cursor-pointer transition hover:text-red-700"
               />
             </div>
           </div>

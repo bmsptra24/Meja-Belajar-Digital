@@ -31,7 +31,7 @@ export const HandlerPomodoro = () => {
 
   // get data from database
   useEffect(() => {
-    if (user !== null) {
+    if (user) {
       fetchDataRealtime(`users/${user.uid}/pomodoro`, (snapshot) => {
         dispatch(setPomodoroDuration(snapshot.pomodoroDuration));
         dispatch(setShortBreakDuration(snapshot.shortBreak));

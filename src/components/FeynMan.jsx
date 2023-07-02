@@ -1,25 +1,33 @@
 import { useEffect, useState } from "react";
-import { updateData, fetchDataRealtime } from "../store/Database";
+import { fetchDataRealtime, updateData } from "../store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../store/Firebase";
-import validator from "validator";
 import { AiOutlineClear } from "react-icons/ai";
+import { ImSpinner9 } from "react-icons/im";
+import { BsFillClipboard2Fill } from "react-icons/bs";
 import { getAnswer } from "../store/OpenAI";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsGeneratingGpt } from "../features/loading/isLoading";
+import { HandleEnterPress } from "../store/HandleEnterPress";
 
 const Feynman = () => {
   const [inputFeynman, setInputFeynman] = useState("");
   const [log, setLog] = useState([]);
   const [user] = useAuthState(auth);
+  const { isGeneratingGpt } = useSelector((state) => state.isLoading);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchDataRealtime(`users/${user.uid}/feynman`, (snapshot) => {
-      setLog(
-        Object.entries(snapshot)
-          .slice(1) // remove first element
-          .map((e) => e[1])
-      );
-    });
-  }, [user.uid]);
+    if (user) {
+      fetchDataRealtime(`users/${user.uid}/feynman`, (snapshot) => {
+        setLog(
+          Object.entries(snapshot)
+            .slice(1) // remove first element
+            .map((e) => e[1])
+        );
+      });
+    }
+  }, [user]);
 
   const inputHandle = (event) => {
     setInputFeynman(event.target.value);
@@ -30,33 +38,10 @@ const Feynman = () => {
     aiMessage: "flex justify-start mt-6 mr-12 ml-2",
   };
 
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter" && event.shiftKey) return null;
-    if (
-      event.key === "Enter" &&
-      !validator.isEmpty(inputFeynman) &&
-      !validator.isWhitelisted(inputFeynman, " \n")
-    ) {
-      const defaultSystem = {
-        content:
-          "Your name is Digital Learning Desk. You are a tool for learning with the Feynman Technique. If at the beginning of the chat the user has not told you about the topic, you should ask what the topic is. If you already know what the topic is, now you should ask the user to explain what he knows about the topic. Then you will critique what the user said and don't forget to make questions to the user about the topic, so that the user can improve his long-term memory (you are like an innocent child and always ask questions about the topic being discussed and don't ask like this 'Do you have any questions?') or if it turns out that the user doesn't know anything about the topic. Repeat this step.",
-        role: "system",
-      };
-      getAnswer(
-        ["users/" + user.uid + "/feynman"],
-        log,
-        inputFeynman,
-        setInputFeynman,
-        defaultSystem
-      );
-      setInputFeynman("");
-    }
-  };
-
   return (
-    <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
-      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
-        <div className="flex h-full flex-col p-3 bg-blue-50 border-0 lg:border-2 border-slate-800 rounded-lg justify-between">
+    <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-300">
+      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-400">
+        <div className="flex h-full flex-col p-3 bg-blue-50 border-0 lg:border-2 border-slate-800 rounded-none lg:rounded-lg justify-between">
           <div className="grow overflow-y-scroll">
             {log.length > 0 ? (
               log.map((e, idx) => {
@@ -68,8 +53,21 @@ const Feynman = () => {
                     }
                   >
                     <div className="p-3 bg-blue-200 rounded-lg text-justify justify-end">
-                      {""}
-                      {e.content}
+                      {e.content.split("\n").map((e, i) => {
+                        return (
+                          <div key={i}>
+                            <p>{e}</p>
+                          </div>
+                        );
+                      })}
+                      <div
+                        className="transition-all ease-in-out m-1 shadow-sm hover:shadow-lg opacity-0 group-hover:opacity-100 absolute right-0 top-0 bg-slate-200/75 hover:bg-slate-100 p-1.5 rounded-md cursor-pointer"
+                        onClick={() => {
+                          navigator.clipboard.writeText(e.content);
+                        }}
+                      >
+                        <BsFillClipboard2Fill className="text-slate-600" />
+                      </div>
                     </div>
                   </div>
                 );
@@ -81,29 +79,65 @@ const Feynman = () => {
                 </div>
               </div>
             )}
+            {isGeneratingGpt && (
+              <div className={style.aiMessage}>
+                <div className="p-3 bg-blue-200 rounded-lg flex">
+                  <ImSpinner9 className="animate-spin" />
+                </div>
+              </div>
+            )}
           </div>
           <div className="flex items-end pt-2">
-            <div
-              className="group transition-all ease-out duration-700 w-14 h-14 rounded-full flex justify-center items-center bg-blue-300 border-2 border-blue-500 mr-2 cursor-pointer hover:w-36"
+            <button
+              disabled={isGeneratingGpt}
+              className={
+                "group transition-all ease-out duration-700 w-14 h-14 rounded-full flex justify-center items-center bg-blue-300 border-2 border-blue-500 mr-2 hover:bg-blue-400 hover:drop-shadow-md " +
+                (isGeneratingGpt
+                  ? "opacity-60 cursor-not-allowed"
+                  : "hover:w-36")
+              }
               onClick={() => {
                 setLog([]);
-                setInputFeynman("");
                 updateData(["users/" + user.uid + "/feynman"], []);
+                dispatch(setIsGeneratingGpt(false));
               }}
             >
               <AiOutlineClear className="text-3xl" />
-              <p className="ml-2 hidden group-hover:block whitespace-nowrap">
+              <p
+                className={
+                  "ml-2 hidden whitespace-nowrap " +
+                  (isGeneratingGpt ? "" : "group-hover:block")
+                }
+              >
                 New topic
               </p>
-            </div>
+            </button>
             <textarea
               autoFocus
               className="transition-all ease-in-out grow h-14 border-2 focus:outline-none border-slate-300 rounded-lg p-2 focus:h-24 focus:shadow-md focus:border-slate-400 hover:shadow-md"
-              placeholder="type here..."
+              placeholder="search"
               maxLength={15000}
               value={inputFeynman}
+              onKeyDown={(event) =>
+                HandleEnterPress(event, inputFeynman, async () => {
+                  const defaultSystem = {
+                    content:
+                      "Your name is Digital Learning Desk. You are a tool for learning with the Feynman Technique. If at the beginning of the chat the user has not told you about the topic, you should ask what the topic is. If you already know what the topic is, now you should ask the user to explain what he knows about the topic. Then you will critique what the user said and don't forget to make questions to the user about the topic, so that the user can improve his long-term memory (you are like an innocent child and always ask questions about the topic being discussed and don't ask like this 'Do you have any questions?') or if it turns out that the user doesn't know anything about the topic. Repeat this step.",
+                    role: "system",
+                  };
+                  dispatch(setIsGeneratingGpt(true));
+                  await getAnswer(
+                    ["users/" + user.uid + "/feynman"],
+                    log,
+                    inputFeynman,
+                    setInputFeynman,
+                    defaultSystem
+                  );
+                  setInputFeynman("");
+                  dispatch(setIsGeneratingGpt(false));
+                })
+              }
               onChange={inputHandle}
-              onKeyDown={handleKeyPress}
             ></textarea>
           </div>
         </div>

@@ -8,6 +8,7 @@ const SignUp = lazy(() => import("./pages/SignUp"));
 const Home = lazy(() => import("./pages/Home"));
 
 function App() {
+  
   return (
     <div>
       <Suspense

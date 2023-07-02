@@ -14,10 +14,12 @@ const ToDoList = () => {
   // 0 : {checked: false, task: 'ngoding'}
 
   useEffect(() => {
-    fetchDataRealtime(`users/${user.uid}/tasks`, (snapshot) => {
-      setTasks(Object.values(snapshot));
-    });
-  }, [user.uid]);
+    if (user) {
+      fetchDataRealtime(`users/${user.uid}/tasks`, (snapshot) => {
+        setTasks(Object.values(snapshot));
+      });
+    }
+  }, [user]);
 
   const [inputValue, setInputValue] = useState("");
 

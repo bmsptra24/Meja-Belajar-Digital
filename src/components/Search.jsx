@@ -48,15 +48,17 @@ const Search = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchDataRealtime(`users/${user.uid}/search`, (snapshot) => {
-      snapshot !== null &&
-        setLog(
-          Object.entries(snapshot)
-            .slice(1) // remove first element
-            .map((e) => e[1])
-        );
-    });
-  }, [user.uid]);
+    if (user) {
+      fetchDataRealtime(`users/${user.uid}/search`, (snapshot) => {
+        snapshot !== null &&
+          setLog(
+            Object.entries(snapshot)
+              .slice(1) // remove first element
+              .map((e) => e[1])
+          );
+      });
+    }
+  }, [user]);
 
   const inputHandle = (event) => {
     setInputSearch(event.target.value);
@@ -68,9 +70,9 @@ const Search = () => {
   };
 
   return (
-    <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
-      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400">
-        <div className="flex h-full flex-col p-3 bg-blue-50 border-0 lg:border-2 border-slate-800 rounded-lg justify-between">
+    <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-300">
+      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-400">
+        <div className="flex h-full flex-col p-3 bg-blue-50 border-0 lg:border-2 border-slate-800 rounded-none lg:rounded-lg justify-between">
           <div className="grow overflow-y-scroll">
             {log.length > 0 ? (
               log.map((e, idx) => {
@@ -117,20 +119,30 @@ const Search = () => {
             )}
           </div>
           <div className="flex items-end pt-2">
-            <div
-              className="group transition-all ease-out duration-700 w-14 h-14 rounded-full flex justify-center items-center bg-blue-300 border-2 border-blue-500 mr-2 cursor-pointer hover:w-36 hover:bg-blue-400 hover:drop-shadow-md"
+            <button
+              disabled={isGeneratingGpt}
+              className={
+                "group transition-all ease-out duration-700 w-14 h-14 rounded-full flex justify-center items-center bg-blue-300 border-2 border-blue-500 mr-2 hover:bg-blue-400 hover:drop-shadow-md " +
+                (isGeneratingGpt
+                  ? "opacity-60 cursor-not-allowed"
+                  : "hover:w-36")
+              }
               onClick={() => {
                 setLog([]);
-                setInputSearch("");
                 updateData(["users/" + user.uid + "/search"], []);
                 dispatch(setIsGeneratingGpt(false));
               }}
             >
               <AiOutlineClear className="text-3xl" />
-              <p className="ml-2 hidden group-hover:block whitespace-nowrap">
+              <p
+                className={
+                  "ml-2 hidden whitespace-nowrap " +
+                  (isGeneratingGpt ? "" : "group-hover:block")
+                }
+              >
                 New topic
               </p>
-            </div>
+            </button>
 
             <textarea
               autoFocus

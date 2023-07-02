@@ -60,12 +60,25 @@ const Home = () => {
     <div className="home bg-slate-100 flex flex-col justify-between relative">
       <HandlerMusic />
       <HandlerPomodoro />
-      <div className="absolute inset-0 z-0">
+      <div
+        className={
+          "absolute inset-0 z-0 " +
+          (toDoList || note || blurting || flashCard || feynman
+            ? "hidden lg:block"
+            : "")
+        }
+      >
         <img
           // src={photos.length > 0 ? photos[0].urls.regular : dumyImage} //for production
           src={"https://picsum.photos/1920/1080"} //for dev
           alt="wallpaper"
-          className="w-full h-full"
+          className="w-full h-full hidden lg:block"
+        />
+        <img
+          // src={photos.length > 0 ? photos[0].urls.regular : dumyImage} //for production
+          src={"https://picsum.photos/1080/1920"} //for dev
+          alt="wallpaper"
+          className="w-full h-full block lg:hidden"
         />
         {/* <ReactPlayer url="<https://www.youtube.com/watch?v=ysz5S6PUM-U>" height={'100%'} width={'100%'} muted/> */}
       </div>
