@@ -10,6 +10,7 @@ const ToDoList = () => {
   const [user] = useAuthState(auth);
 
   // membuat state tasks
+  const [numberTaskClicked, setNumberTaskClicked] = useState(-1);
   const [tasks, setTasks] = useState([]);
   // 0 : {checked: false, task: 'ngoding'}
 
@@ -51,13 +52,18 @@ const ToDoList = () => {
                   user={user}
                   key={"task-" + index}
                   setTasks={setTasks}
+                  numberTaskClicked={numberTaskClicked}
+                  setNumberTaskClicked={setNumberTaskClicked}
                 />
               ))
             ) : (
               <div>Tidak ada task</div>
             )}
           </div>
-          <div className="flex justify-between items-center mt-3 drop-shadow-md lg:drop-shadow-none">
+          <div
+            className="flex justify-between items-center mt-3 drop-shadow-md lg:drop-shadow-none z-20"
+            onClick={() => setNumberTaskClicked(-1)}
+          >
             <input
               type="text"
               className="transition ease-out grow h-5/6 border-2 bg-slate-50 lg:bg-blue-50 border-slate-400 focus:outline-none focus:bg-slate-50 focus:ring-slate-300 focus:ring-2 rounded-lg p-3"
