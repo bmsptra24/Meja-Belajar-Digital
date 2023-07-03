@@ -1,4 +1,5 @@
 import { RiErrorWarningFill } from "react-icons/ri";
+import TextareaAutosize from "react-textarea-autosize";
 import { useEffect, useState } from "react";
 import {
   fetchDataRealtime,
@@ -119,11 +120,11 @@ const Blurting = () => {
         />
       )}
       <div className="z-10 lg:h-5/6 lg:w-11/12 xl:w-5/6 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
-      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-400 ">
+        <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-400 ">
           <div className="bg-slate-50 lg:bg-transparent flex-col overflow-x-hidden overflow-y-scroll lg:overflow-hidden lg:flex-row flex justify-between h-full">
             <div
               className={
-                "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 pl-2 lg:pr-2 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +
+                "bg-slate-50 w-screen lg:w-1/5 py-3 pl-2 lg:pr-2 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +
                 (isListModuksClicked === true
                   ? "visible lg:visible"
                   : "hidden lg:visible")
@@ -202,7 +203,7 @@ const Blurting = () => {
                 </div>
               </div>
             </div>
-            <div className="grow rounded-xl h-full border-0 lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 ml-0 lg:ml-2 p-3 pt-2 flex flex-col w-screen lg:w-auto">
+            <div className="grow rounded-xl h-full border-0 lg:border-2 border-slate-800 bg-slate-50 ml-0 lg:ml-2 p-3 pt-2 flex flex-col w-screen lg:w-auto">
               {lastOpen >= 0 ? (
                 <>
                   <div className="flex justify-between mb-3 pb-1 border-b-2 ">
@@ -227,17 +228,28 @@ const Blurting = () => {
                     </div>
                   </div>
                   <div className="flex flex-col justify-between grow w-full lg:w-auto h-screen lg:h-auto">
-                    <textarea
+                    <TextareaAutosize
                       autoFocus
                       spellCheck={false}
-                      className="resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-0 rounded-lg py-3 px-1 lg:px-3 h-16 text-2xl"
+                      className="resize-none transition ease-in-out bg-slate-50 focus:outline-none focus:border-0 rounded-lg py-3 px-1 lg:px-3 h-16 text-2xl"
                       placeholder="Judul"
                       maxLength={44}
                       rows={5}
                       onChange={changeState.title}
                       value={modul.title}
                       ref={refTitle}
-                    ></textarea>
+                    />
+                    {/* <textarea
+                      autoFocus
+                      spellCheck={false}
+                      className="resize-none transition ease-in-out bg-slate-50 focus:outline-none focus:border-0 rounded-lg py-3 px-1 lg:px-3 h-16 text-2xl"
+                      placeholder="Judul"
+                      maxLength={44}
+                      rows={5}
+                      onChange={changeState.title}
+                      value={modul.title}
+                      ref={refTitle}
+                    ></textarea> */}
                     <label
                       htmlFor="remembered"
                       className="lg:ml-3 text-slate-400 font-semibold"
@@ -246,7 +258,7 @@ const Blurting = () => {
                     </label>
                     <textarea
                       id="remembered"
-                      className="grow border-2 lg:border-0 mt-3 lg:mt-0 focus:border-slate-300 resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none rounded-lg px-3 py-2 lg:py-0 mr-2 lg:mr-0"
+                      className="grow border-2 lg:border-0 mt-3 lg:mt-0 focus:border-slate-300 resize-none transition ease-in-out bg-slate-50 focus:outline-none rounded-lg px-3 py-2 lg:py-0 mr-2 lg:mr-0"
                       placeholder="..."
                       spellCheck={false}
                       rows={5}
@@ -261,7 +273,7 @@ const Blurting = () => {
               )}
             </div>
             <div className="min-h-screen lg:min-h-0 lg:h-full lg:w-4/12 p-0 flex justify-between flex-col mt-3 lg:mt-0 ml-0 lg:ml-2 lg:mr-0 gap-3 lg:px-0">
-              <div className="h-1/2 rounded-xl border-0 lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50  p-3 pt-1 flex flex-col">
+              <div className="h-1/2 rounded-xl border-0 lg:border-2 border-slate-800 bg-slate-50 p-3 pt-1 flex flex-col">
                 {lastOpen >= 0 ? (
                   <>
                     <label
@@ -271,7 +283,7 @@ const Blurting = () => {
                       Hal yang dilupa
                     </label>
                     <textarea
-                      className="grow border-2 lg:border-0 lg:mt-0 focus:border-slate-300 mt-1 resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none rounded-lg px-3 lg:px-0 py-2 lg:py-0"
+                      className="grow border-2 lg:border-0 lg:mt-0 focus:border-slate-300 mt-1 resize-none transition ease-in-out bg-slate-50 focus:outline-none rounded-lg px-3 lg:px-0 py-2 lg:py-0"
                       id="forgotten"
                       spellCheck={false}
                       placeholder="..."
@@ -285,7 +297,7 @@ const Blurting = () => {
                   <div>...</div>
                 )}
               </div>
-              <div className="h-1/2 rounded-xl border-0 lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 p-3 pt-1 flex flex-col ">
+              <div className="h-1/2 rounded-xl border-0 lg:border-2 border-slate-800 bg-slate-50 p-3 pt-1 flex flex-col ">
                 {lastOpen >= 0 ? (
                   <>
                     <label
@@ -298,7 +310,7 @@ const Blurting = () => {
                       spellCheck={false}
                       id="questions"
                       placeholder="..."
-                      className="grow border-2 lg:border-0 lg:mt-0 mt-1 focus:border-slate-300 resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none rounded-lg px-3 lg:px-0 py-2 lg:py-0"
+                      className="grow border-2 lg:border-0 lg:mt-0 mt-1 focus:border-slate-300 resize-none transition ease-in-out bg-slate-50 focus:outline-none rounded-lg px-3 lg:px-0 py-2 lg:py-0"
                       rows={5}
                       maxLength={5000}
                       onChange={changeState.questions}

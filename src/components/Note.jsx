@@ -6,6 +6,7 @@ import { BsTrash, BsPlusLg } from "react-icons/bs";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { Confirmation } from "./Confirmation";
+import TextareaAutosize from "react-textarea-autosize";
 
 // add new note
 const addNote = async (user) => {
@@ -109,7 +110,7 @@ const Note = () => {
           <div className=" flex h-full flex-col lg:flex-row overflow-hidden">
             <div
               className={
-                "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 pl-2 lg:pr-2 rounded-none lg:rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto relative lg:static " +
+                "bg-slate-50 w-screen lg:w-1/5 py-3 pl-2 lg:pr-2 rounded-none lg:rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto relative lg:static " +
                 (isListNotesClicked === true
                   ? "visible lg:visible"
                   : "hidden lg:visible")
@@ -188,7 +189,7 @@ const Note = () => {
                 </div>
               </div>
             </div>
-            <div className="rounded-none lg:rounded-lg lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 ml-0 lg:ml-2 p-3 pt-2 grow">
+            <div className="rounded-none lg:rounded-lg lg:border-2 border-slate-800 bg-slate-50 ml-0 lg:ml-2 p-3 pt-2 grow">
               {lastOpen >= 0 ? (
                 <div className="flex flex-col justify-between w-full h-full">
                   <div className="flex justify-between mb-3 pb-1 border-b-2">
@@ -206,21 +207,21 @@ const Note = () => {
                       <BsTrash className="hover:text-red-700 cursor-pointer text-xl transition ease-out" />
                     </div>
                   </div>
-
-                  <textarea
+                  
+                  <TextareaAutosize
                     autoFocus
                     spellCheck={false}
-                    className="resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-none rounded-lg p-3 h-16 text-2xl"
+                    className="resize-none transition ease-in-out bg-slate-50 focus:outline-none focus:border-none rounded-lg p-3 h-16 text-2xl"
                     placeholder="title"
                     maxLength={44}
                     rows={5}
                     onChange={changeState.title}
                     value={note.title}
                     ref={refTitle}
-                  ></textarea>
+                  />
 
                   <textarea
-                    className="resize-none transition ease-in-out grow bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-none rounded-lg p-3"
+                    className="resize-none transition ease-in-out grow bg-slate-50 focus:outline-none focus:border-none rounded-lg p-3"
                     placeholder="note"
                     spellCheck={false}
                     rows={5}

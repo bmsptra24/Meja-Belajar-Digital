@@ -10,36 +10,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { setIsGeneratingGpt } from "../features/loading/isLoading";
 import { HandleEnterPress } from "../store/HandleEnterPress";
 
-// // get answer from api
-// const getAnswer = async (user, log, input, setState) => {
-//   //DEFAULT SYSTEM GPT
-//   const defaultSystem = {
-//     content:
-//       "Your name is Meja Belajar Digital. You are a helpful search engine designed to assist students in their learning journey.",
-//     role: "system",
-//   };
-
-//   // reset state
-//   setState("");
-
-//   if (input.length !== 0) {
-//     const templateUser = [
-//       defaultSystem,
-//       ...log,
-//       { content: input, role: "user" },
-//     ];
-//     await updateData(["users/" + user.uid + "/search"], templateUser);
-
-//     const data = await getDataFromChatGPT(templateUser);
-//     if (data) {
-//       updateData(["users/" + user.uid + "/search"], [...templateUser, data]);
-//     } else {
-//       const templateError = { role: "assistant", content: "error" };
-//       updateData(["users/" + user.uid + "/search"], templateError);
-//     }
-//   }
-// };
-
 const Search = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [log, setLog] = useState([]);
@@ -73,7 +43,7 @@ const Search = () => {
   return (
     <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-300">
       <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-400">
-        <div className="flex h-full flex-col p-3 bg-blue-50 border-0 lg:border-2 border-slate-800 rounded-none lg:rounded-lg justify-between">
+        <div className="flex h-full flex-col p-3 bg-slate-50 border-0 lg:border-2 border-slate-800 rounded-none lg:rounded-lg justify-between">
           <div className="grow overflow-y-scroll">
             {log.length > 0 ? (
               log.map((e, idx) => {

@@ -24,31 +24,31 @@ const Music = () => {
       </div>
       <div className="rounded-xl bg-blue-200 mb-3 pb-3 p-3  grow mt-5 flex flex-col gap-2">
         <p
-          className="bg-blue-50 hover:bg-slate-300 rounded py-1 px-2 cursor-pointer"
+          className="bg-slate-50 hover:bg-slate-200 hover:shadow-sm transition-all ease-in-out rounded py-1 px-2 cursor-pointer"
           onClick={() => dispatch(setPlayAudio("rainSound"))}
         >
           Rain
         </p>
         <p
-          className="bg-blue-50 hover:bg-slate-300 rounded py-1 px-2 cursor-pointer"
+          className="bg-slate-50 hover:bg-slate-200 hover:shadow-sm transition-all ease-in-out rounded py-1 px-2 cursor-pointer"
           onClick={() => dispatch(setPlayAudio("fireSound"))}
         >
           Fire
         </p>
         <p
-          className="bg-blue-50 hover:bg-slate-300 rounded py-1 px-2 cursor-pointer"
+          className="bg-slate-50 hover:bg-slate-200 hover:shadow-sm transition-all ease-in-out rounded py-1 px-2 cursor-pointer"
           onClick={() => dispatch(setPlayAudio("beachSound"))}
         >
           Beach
         </p>
         <p
-          className="bg-blue-50 hover:bg-slate-300 rounded py-1 px-2 cursor-pointer"
+          className="bg-slate-50 hover:bg-slate-200 hover:shadow-sm transition-all ease-in-out rounded py-1 px-2 cursor-pointer"
           onClick={() => dispatch(setPlayAudio("forestSound"))}
         >
           Forest
         </p>
         <p
-          className="bg-blue-50 hover:bg-slate-300 rounded py-1 px-2 cursor-pointer"
+          className="bg-slate-50 hover:bg-slate-200 hover:shadow-sm transition-all ease-in-out rounded py-1 px-2 cursor-pointer"
           onClick={() => dispatch(setPlayAudio("cafeSound"))}
         >
           Coffee

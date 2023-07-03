@@ -1,6 +1,6 @@
 import { BsTrash } from "react-icons/bs";
 import { updateData } from "../store/Database";
-
+import TextareaAutosize from "react-textarea-autosize";
 const Task = ({
   tasks,
   index,
@@ -42,8 +42,8 @@ const Task = ({
         <div
           className={
             numberTaskClicked === index
-              ? "text-lg flex flex-col justify-between items-start border-b-2 px-2 pt-1 pb-1 bg-blue-100 hover:bg-blue-100 relative z-20"
-              : "text-lg flex flex-col justify-center items-center border-b-2 p-2 relative hover:bg-blue-100 z-20"
+              ? "text-lg flex flex-col justify-between items-start border-b-2 px-2 pt-1 pb-1 bg-blue-100 hover:bg-blue-100 relative z-20 transition-all ease-in-out"
+              : "text-lg flex flex-col justify-center items-center border-b-2 p-2 relative hover:bg-blue-100 z-20 transition-all ease-in-out"
           }
         >
           <div className="flex w-full justify-between items-center">
@@ -60,18 +60,24 @@ const Task = ({
                 }
                 onClick={() => setNumberTaskClicked(index)}
               >
-                <input
+                {/* <input
                   type="text"
                   value={tasks[index].task}
                   onChange={handleTaskEdit}
-                  className="w-full bg-transparent focus:outline-none"
+                  className="w-full h-auto overflow-hidden bg-transparent focus:outline-none"
+                /> */}
+                <TextareaAutosize
+                  value={tasks[index].task}
+                  onChange={handleTaskEdit}
+                  spellcheck="false"
+                  className="w-full h-auto overflow-hidden bg-transparent focus:outline-none resize-none"
                 />
                 {numberTaskClicked !== index && tasks[index].date !== "" && (
                   <div className="flex gap-1 cursor-pointer">
-                    <div className="text-sm bg-blue-200 px-2 rounded-3xl w-max mt-2">
+                    <div className="text-sm bg-blue-200 px-2 rounded-3xl w-max">
                       <p>{tasks[index].date.slice(0, 10)}</p>
                     </div>
-                    <div className="text-sm bg-blue-200 px-2 rounded-3xl w-max mt-2">
+                    <div className="text-sm bg-blue-200 px-2 rounded-3xl w-max">
                       <p>{tasks[index].date.slice(11, 16)}</p>
                     </div>
                   </div>

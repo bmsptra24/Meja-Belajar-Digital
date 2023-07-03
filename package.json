@@ -20,6 +20,7 @@
     "react-dom": "^18.2.0",
     "react-player": "^2.12.0",
     "react-redux": "^8.1.0",
+    "react-textarea-autosize": "^8.5.1",
     "unsplash-js": "^7.0.18"
   },
   "devDependencies": {

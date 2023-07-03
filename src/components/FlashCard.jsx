@@ -2,6 +2,7 @@ import { fetchDataRealtime, newKey, updateData } from "../store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../store/Firebase";
 import { useEffect, useRef, useState } from "react";
+import TextareaAutosize from "react-textarea-autosize";
 import {
   BsTrash,
   BsPlusLg,
@@ -167,7 +168,7 @@ const Note = () => {
               <>
                 <div
                   className={
-                    "bg-slate-50 lg:bg-blue-50 w-screen lg:w-1/5 py-3 pl-2 lg:pr-2 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +
+                    "bg-slate-50 w-screen lg:w-1/5 py-3 pl-2 lg:pr-2 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static " +
                     (isListCardsClicked === true
                       ? "visible lg:visible"
                       : "hidden lg:visible")
@@ -247,7 +248,7 @@ const Note = () => {
                     </div>
                   </div>
                 </div>
-                <div className="relative rounded-lg lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 ml-0 lg:ml-2 p-3 pt-2 grow flex flex-col">
+                <div className="relative rounded-lg lg:border-2 border-slate-800 bg-slate-50 ml-0 lg:ml-2 p-3 pt-2 grow flex flex-col">
                   {lastOpen >= 0 ? (
                     <>
                       <div className="flex justify-between mb-3 pb-1 border-b-2">
@@ -289,19 +290,19 @@ const Note = () => {
                           </div>
                         </div>
                       </div>
-
-                      <textarea
-                        autoFocus
-                        spellCheck={false}
-                        className="resize-none transition ease-in-out bg-slate-50 lg:bg-blue-50 focus:outline-none focus:border-0 rounded-lg p-3 h-16 text-2xl"
-                        placeholder="title"
-                        maxLength={44}
-                        rows={5}
-                        onChange={changeState.title}
-                        value={title}
-                        ref={refTitle}
-                      ></textarea>
-
+                      <div className="w-full">
+                        <TextareaAutosize
+                          autoFocus
+                          spellCheck={false}
+                          className="w-full resize-none overflow-hidden transition ease-in-out bg-slate-50 focus:outline-none focus:border-0 rounded-lg p-3 h-16 text-2xl"
+                          placeholder="title"
+                          maxLength={44}
+                          rows={5}
+                          onChange={changeState.title}
+                          value={title}
+                          ref={refTitle}
+                        />
+                      </div>
                       <div className="lg:overflow-y-scroll h-full">
                         {cards !== null &&
                           cards.map((e, idx) => {
@@ -369,7 +370,7 @@ const Note = () => {
             )}
             {isPlay && (
               <>
-                <div className="flex w-full h-full relative justify-center flex-col items-center rounded-none lg:rounded-xl border-0 lg:border-2 border-slate-800 bg-slate-50 lg:bg-blue-50 p-3 pt-2">
+                <div className="flex w-full h-full relative justify-center flex-col items-center rounded-none lg:rounded-xl border-0 lg:border-2 border-slate-800 bg-slate-50 p-3 pt-2">
                   <>
                     {!isStart && (
                       <div
