@@ -4,7 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../store/Firebase";
 import { AiOutlineClear } from "react-icons/ai";
 import { ImSpinner9 } from "react-icons/im";
-import { BsFillClipboard2Fill } from "react-icons/bs";
+import { BsFillClipboard2Fill, BsCheckLg } from "react-icons/bs";
 import { getAnswer } from "../store/OpenAI";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsGeneratingGpt } from "../features/loading/isLoading";
@@ -43,6 +43,7 @@ import { HandleEnterPress } from "../store/HandleEnterPress";
 const Search = () => {
   const [inputSearch, setInputSearch] = useState("");
   const [log, setLog] = useState([]);
+  const [isCopied, setIsCopied] = useState(false);
   const [user] = useAuthState(auth);
   const { isGeneratingGpt } = useSelector((state) => state.isLoading);
   const dispatch = useDispatch();
@@ -95,9 +96,16 @@ const Search = () => {
                         className="transition-all ease-in-out m-1 shadow-sm hover:shadow-lg opacity-0 group-hover:opacity-100 absolute right-0 top-0 bg-slate-200/75 hover:bg-slate-100 p-1.5 rounded-md cursor-pointer"
                         onClick={() => {
                           navigator.clipboard.writeText(e.content);
+                          setIsCopied(true);
+                          setTimeout(() => {
+                            setIsCopied(false);
+                          }, 3000);
                         }}
                       >
-                        <BsFillClipboard2Fill className="text-slate-600" />
+                        {!isCopied && (
+                          <BsFillClipboard2Fill className="text-slate-600" />
+                        )}
+                        {isCopied && <BsCheckLg className="text-slate-600" />}
                       </div>
                     </div>
                   </div>

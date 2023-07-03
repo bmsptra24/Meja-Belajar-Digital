@@ -16,8 +16,8 @@ import Pomodoro from "../components/Pomodoro";
 import { HandlerMusic } from "../features/music/HandlerMusic";
 import { HandlerPomodoro } from "../features/pomodoro/HandlerPomodoro";
 import { useSelector } from "react-redux";
-// import dumyImage from "../assets/wallpaper/dumyImage.jpg";
-import dumyVideo from "../assets/wallpaper/dumyVideo.mp4";
+import dumyImage2 from "../assets/wallpaper/dumyImage2.jpg";
+// import dumyVideo from "../assets/wallpaper/dumyVideo.mp4";
 import unsplashApi from "../store/Unsplash";
 import ReactPlayer from "react-player";
 
@@ -69,13 +69,13 @@ const Home = () => {
         }
       >
         <img
-          // src={photos.length > 0 ? photos[0].urls.regular : dumyImage} //for production
+          // src={photos.length > 0 ? photos[0].urls.regular : dumyImage1} //for production
           src={"https://picsum.photos/1920/1080"} //for dev
           alt="wallpaper"
           className="w-full h-full hidden lg:block"
         />
         <img
-          // src={photos.length > 0 ? photos[0].urls.regular : dumyImage} //for production
+          // src={photos.length > 0 ? photos[0].urls.regular : dumyImage2} //for production
           src={"https://picsum.photos/1080/1920"} //for dev
           alt="wallpaper"
           className="w-full h-full block lg:hidden"
