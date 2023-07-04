@@ -25,7 +25,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="w-full flex justify-center flex-col items-center bg-blue-600">
+    <div className="w-full flex justify-center flex-col items-center bg-gradient-to-bl bg-blue-500">
       <Link
         to={"/#product"}
         onClick={() => {
@@ -95,7 +95,7 @@ const LandingPage = () => {
       {/* content 1 */}
       <div
         ref={ref.mainRef}
-        className="w-full flex justify-center bg-gradient-to-tr bg-blue-600 -mt-20 lg:-mt-16 lg:h-screen text-blue-50 z-20 "
+        className="w-full flex justify-center bg-gradient-to-tr bg-blue-500 -mt-20 lg:-mt-16 lg:h-screen text-blue-50 z-20 "
       >
         <div className="w-11/12 lg:w-4/6 flex flex-col lg:flex-row justify-between items-center">
           <div className="w-full lg:w-1/2 h-screen lg:h-auto flex flex-col gap-12 lg:gap-8 mt-20 lg:mt-7 text-center lg:text-start items-center lg:items-start justify-center">
@@ -121,7 +121,7 @@ const LandingPage = () => {
       </div>
       <div
         ref={ref.productRef}
-        className="w-full flex justify-center mt-16 lg:-mt-5 bg-blue-600"
+        className="w-full flex justify-center mt-16 lg:-mt-5 bg-blue-500"
       >
         <div className="w-11/12 lg:w-4/6 h-screen flex justify-center bg-blue-50 rounded-2xl px-8 pt-20 z-10 lg:z-20">
           Product
@@ -129,7 +129,7 @@ const LandingPage = () => {
       </div>
       <div
         ref={ref.aboutRef}
-        className="w-full flex justify-center bg-blue-600 mt-32"
+        className="w-full flex justify-center bg-blue-500 mt-32"
       >
         <div className="w-11/12 lg:w-4/6 h-screen flex justify-center bg-blue-50 rounded-2xl px-8 pt-20 z-10">
           About
@@ -137,7 +137,7 @@ const LandingPage = () => {
       </div>
       <div
         ref={ref.contactRef}
-        className="w-full flex justify-center bg-blue-600 mt-32"
+        className="w-full flex justify-center bg-blue-500 mt-32"
       >
         <div className="w-11/12 lg:w-4/6 h-screen flex justify-center bg-blue-50 rounded-2xl px-8 pt-20 z-10">
           Contact
@@ -145,7 +145,7 @@ const LandingPage = () => {
       </div>
       <div
         ref={ref.footerRef}
-        className="w-full flex justify-center bg-blue-600 mt-32"
+        className="w-full flex justify-center bg-blue-500 mt-32"
       >
         <div className="w-11/12 lg:w-4/6 h-screen flex justify-center bg-blue-50 rounded-2xl px-8 pt-20 z-10">
           Footer
