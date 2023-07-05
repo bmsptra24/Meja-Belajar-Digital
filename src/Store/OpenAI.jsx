@@ -1,43 +1,16 @@
-import { Configuration, OpenAIApi } from "openai";
 import { updateData } from "./Database";
-
-const configuration = new Configuration({
-  apiKey: import.meta.env.VITE_APP_OPENAI_KEY,
-  organization: import.meta.env.VITE_APP_OPENAI_OGRANIZATION,
-});
-
-configuration.baseOptions.headers = {
-  Authorization: `Bearer ${import.meta.env.VITE_APP_OPENAI_KEY}`,
-};
-
-const openai = new OpenAIApi(configuration);
+import axios from "axios";
 
 // get data from api
 export const getDataFromChatGPT = async (input) => {
-  const params = {
-    messages: input,
-    model: import.meta.env.VITE_APP_OPENAI_MODEL,
-    temperature: Number(import.meta.env.VITE_APP_OPENAI_TEMPERATURE),
-    max_tokens: Number(import.meta.env.VITE_APP_OPENAI_MAX_TOKEN),
-    top_p: Number(import.meta.env.VITE_APP_OPENAI_TOP_P),
-    frequency_penalty: Number(
-      import.meta.env.VITE_APP_OPENAI_FREQUENCY_PENALTY
-    ),
-    presence_penalty: Number(import.meta.env.VITE_APP_OPENAI_PRESENCE_PENALTY),
-  };
+  const link = import.meta.env.VITE_APP_LINK_API_GPT;
+  const data = await axios
+    .put(link, input)
+    .then((data) => data.data)
+    .catch((error) => error.response.data.body);
 
-  try {
-    const response = await openai.createChatCompletion(params);
-
-    const data = response.data.choices[0].message;
-    return data;
-  } catch (error) {
-    console.log("Error:", error);
-    return { role: "assistant", content: "Error...404" };
-  }
-
-  // data static dev
-  // return (data = "oke!");
+  // console.log(data);
+  return data;
 };
 
 // get answer from api
