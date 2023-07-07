@@ -20,6 +20,7 @@ import dumyImage2 from "../assets/wallpaper/dumyImage2.jpg";
 // import dumyVideo from "../assets/wallpaper/dumyVideo.mp4";
 import unsplashApi from "../store/Unsplash";
 import ReactPlayer from "react-player";
+import { TbHelpSquareRoundedFilled } from "react-icons/tb";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -68,6 +69,12 @@ const Home = () => {
             : "")
         }
       >
+        <TbHelpSquareRoundedFilled
+          className="absolute top-3 right-3 text-4xl text-slate-50/30 cursor-pointer hover:text-slate-50/70 transition-all ease-in-out"
+          onClick={() => {
+            navigate("/help");
+          }}
+        />
         <img
           // src={photos.length > 0 ? photos[0].urls.regular : dumyImage1} //for production
           src={"https://picsum.photos/1920/1080"} //for dev

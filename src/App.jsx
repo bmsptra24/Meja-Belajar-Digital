@@ -1,6 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
+const Help = lazy(() => import("./pages/Help"));
 const Setting = lazy(() => import("./pages/Setting"));
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 const SignIn = lazy(() => import("./pages/SignIn"));
@@ -8,7 +9,6 @@ const SignUp = lazy(() => import("./pages/SignUp"));
 const Home = lazy(() => import("./pages/Home"));
 
 function App() {
-  
   return (
     <div>
       <Suspense
@@ -26,6 +26,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/help" element={<Help />} />
           <Route path="/setting" element={<Setting />} />
         </Routes>
       </Suspense>
