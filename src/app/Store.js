@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import pomodoroReducer from '../Features/pomodoro/Pomodoro'
-import homeReducer from '../Features/home/Home'
-import isLoadingReducer from '../Features/loading/isLoading'
-import toastsReducer from '../Features/toasts/Toasts'
-import musicReducer from '../Features/music/Music'
+import pomodoroReducer from '../Features/Pomodoro/Pomodoro'
+import homeReducer from '../Features/Home/Home'
+import isLoadingReducer from '../Features/Loading/isLoading'
+import toastsReducer from '../Features/Toasts/Toasts'
+import musicReducer from '../Features/Music/Music'
 
 export default configureStore({
   reducer: {
