@@ -6,7 +6,7 @@
 //   setTimeIncrement,
 //   setTimeReset,
 //   setTimeString,
-// } from "../features/pomodoro/Pomodoro";
+// } from "../Features/pomodoro/Pomodoro";
 
 // export const SendNotification = () => {
 //   const { categoryRef } = useSelector((state) => state.pomodoro);

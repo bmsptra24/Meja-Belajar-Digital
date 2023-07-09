@@ -1,5 +1,5 @@
 import { BsTrash } from "react-icons/bs";
-import { updateData } from "../store/Database";
+import { updateData } from "../Store/Database";
 import TextareaAutosize from "react-textarea-autosize";
 const Task = ({
   tasks,

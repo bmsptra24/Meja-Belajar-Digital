@@ -1,5 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
-import mbd from "../assets/image/avatar.png";
+import mbd from "../Assets/image/avatar.png";
 import { useRef, useState } from "react";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { RxHamburgerMenu } from "react-icons/rx";

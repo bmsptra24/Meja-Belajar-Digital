@@ -1,6 +1,6 @@
-import { fetchDataRealtime, newKey, updateData } from "../store/Database";
+import { fetchDataRealtime, newKey, updateData } from "../Store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../store/Firebase";
+import { auth } from "../Store/Firebase";
 import { useEffect, useRef, useState } from "react";
 import { BsTrash, BsPlusLg } from "react-icons/bs";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -207,7 +207,7 @@ const Note = () => {
                       <BsTrash className="hover:text-red-700 cursor-pointer text-xl transition ease-out" />
                     </div>
                   </div>
-                  
+
                   <TextareaAutosize
                     autoFocus
                     spellCheck={false}

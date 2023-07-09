@@ -1,6 +1,6 @@
-import { fetchDataRealtime, newKey, updateData } from "../store/Database";
+import { fetchDataRealtime, newKey, updateData } from "../Store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../store/Firebase";
+import { auth } from "../Store/Firebase";
 import { useEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import {

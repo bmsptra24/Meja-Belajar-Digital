@@ -1,5 +1,5 @@
 import ReactPlayer from "react-player";
-import videoTutorial from "../assets/videos/MBD-Tutorial.mp4";
+import videoTutorial from "../Assets/videos/MBD-Tutorial.mp4";
 import { AiFillHome } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 

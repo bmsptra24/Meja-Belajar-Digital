@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logoFB from "../assets/icon/fb_logo.png";
-import mbd from "../assets/logo/mbd.png";
-import logoGoogle from "../assets/icon/google_logo.png";
+import logoFB from "../Assets/icon/fb_logo.png";
+import mbd from "../Assets/logo/mbd.png";
+import logoGoogle from "../Assets/icon/google_logo.png";
 import { VscEyeClosed, VscEye } from "react-icons/vsc";
 import {
   signIn,
   signInWithGoogle,
   signInWithFacebook,
-} from "../store/Firebase";
-import { auth } from "../store/Firebase";
+} from "../Store/Firebase";
+import { auth } from "../Store/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const Login = () => {

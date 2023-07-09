@@ -1,12 +1,12 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
-const Help = lazy(() => import("./pages/Help"));
-const Setting = lazy(() => import("./pages/Setting"));
-const LandingPage = lazy(() => import("./pages/LandingPage"));
-const SignIn = lazy(() => import("./pages/SignIn"));
-const SignUp = lazy(() => import("./pages/SignUp"));
-const Home = lazy(() => import("./pages/Home"));
+const Help = lazy(() => import("./Pages/Help"));
+const Setting = lazy(() => import("./Pages/Setting"));
+const LandingPage = lazy(() => import("./Pages/LandingPage"));
+const SignIn = lazy(() => import("./Pages/SignIn"));
+const SignUp = lazy(() => import("./Pages/SignUp"));
+const Home = lazy(() => import("./Pages/Home"));
 
 function App() {
   return (

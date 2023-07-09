@@ -1,13 +1,13 @@
-import rainSound from "../../assets/sound/rain-sound.mp3";
-import fireSound from "../../assets/sound/fireplace-sound.mp3";
-import beachSound from "../../assets/sound/beach-sound.mp3";
-import forestSound from "../../assets/sound/forest-sound.mp3";
-import cafeSound from "../../assets/sound/cafe-sound.mp3";
+import rainSound from "../../Assets/sound/rain-sound.mp3";
+import fireSound from "../../Assets/sound/fireplace-sound.mp3";
+import beachSound from "../../Assets/sound/beach-sound.mp3";
+import forestSound from "../../Assets/sound/forest-sound.mp3";
+import cafeSound from "../../Assets/sound/cafe-sound.mp3";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../store/Firebase";
-import { updateData } from "../../store/Database";
+import { auth } from "../../Store/Firebase";
+import { updateData } from "../../Store/Database";
 import { useSelector } from "react-redux";
-import { fetchDataRealtime } from "../../store/Database";
+import { fetchDataRealtime } from "../../Store/Database";
 import { useEffect, useState } from "react";
 
 export const HandlerMusic = () => {

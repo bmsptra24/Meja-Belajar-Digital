@@ -1,13 +1,13 @@
-import { Toasts } from "../components/Toasts";
+import { Toasts } from "../Components/Toasts";
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from "firebase/auth";
 import { useState } from "react";
-import { updateData } from "../store/Database";
+import { updateData } from "../Store/Database";
 import validator from "validator";
-import { auth } from "../store/Firebase";
-import mbd from "../assets/logo/mbd.png";
+import { auth } from "../Store/Firebase";
+import mbd from "../Assets/logo/mbd.png";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {

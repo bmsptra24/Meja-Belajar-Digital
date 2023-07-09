@@ -1,10 +1,10 @@
 import { BsPlusLg } from "react-icons/bs";
 import Task from "./Task";
 import { useState, useEffect } from "react";
-import { updateData, fetchDataRealtime } from "../store/Database";
+import { updateData, fetchDataRealtime } from "../Store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../store/Firebase";
-import { HandleEnterPress } from "../store/HandleEnterPress";
+import { auth } from "../Store/Firebase";
+import { HandleEnterPress } from "../Store/HandleEnterPress";
 
 const ToDoList = () => {
   const [user] = useAuthState(auth);

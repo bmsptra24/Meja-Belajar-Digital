@@ -6,9 +6,9 @@ import {
   newKey,
   timestamp,
   updateData,
-} from "../store/Database";
+} from "../Store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../store/Firebase";
+import { auth } from "../Store/Firebase";
 import "../styles/Icon.css";
 import { useRef } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";

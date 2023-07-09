@@ -7,10 +7,10 @@ import {
   setPomodoroStatus,
 } from "./Pomodoro";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchDataRealtime } from "../../store/Database";
-import { SendNotification } from "../../store/SendNotification";
+import { fetchDataRealtime } from "../../Store/Database";
+import { SendNotification } from "../../Store/SendNotification";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../store/Firebase";
+import { auth } from "../../Store/Firebase";
 import { useEffect, useRef } from "react";
 
 export const HandlerPomodoro = () => {

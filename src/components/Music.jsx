@@ -1,5 +1,5 @@
 import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
-import { setPlayAudio } from "../features/music/Music";
+import { setPlayAudio } from "../Features/music/Music";
 import { useDispatch, useSelector } from "react-redux";
 
 const Music = () => {

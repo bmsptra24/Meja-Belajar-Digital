@@ -15,7 +15,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { BiLogOutCircle } from "react-icons/bi";
 import "../styles/Icon.css";
 import "../styles/Footer.css";
-import { signOutBtn } from "../store/Firebase";
+import { signOutBtn } from "../Store/Firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -27,7 +27,7 @@ import {
   setPomodoro,
   setSearch,
   setToDoList,
-} from "../features/home/Home";
+} from "../Features/home/Home";
 import { useState } from "react";
 
 const Footer = () => {

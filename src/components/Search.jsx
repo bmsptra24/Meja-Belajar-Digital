@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { fetchDataRealtime, updateData } from "../store/Database";
+import { fetchDataRealtime, updateData } from "../Store/Database";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../store/Firebase";
+import { auth } from "../Store/Firebase";
 import { AiOutlineClear } from "react-icons/ai";
 import { ImSpinner9 } from "react-icons/im";
 import { BsFillClipboard2Fill, BsCheckLg } from "react-icons/bs";
-import { getAnswer } from "../store/OpenAI";
+import { getAnswer } from "../Store/OpenAI";
 import { useSelector, useDispatch } from "react-redux";
-import { setIsGeneratingGpt } from "../features/loading/isLoading";
-import { HandleEnterPress } from "../store/HandleEnterPress";
+import { setIsGeneratingGpt } from "../Features/loading/isLoading";
+import { HandleEnterPress } from "../Store/HandleEnterPress";
 
 const Search = () => {
   const [inputSearch, setInputSearch] = useState("");
