@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logoFB from "../Assets/icon/fb_logo.png";
-import mbd from "../Assets/logo/mbd.png";
+import mbd from "../Assets/logo/logo.png";
 import logoGoogle from "../Assets/icon/google_logo.png";
 import { VscEyeClosed, VscEye } from "react-icons/vsc";
 import {
@@ -115,7 +115,25 @@ const Login = () => {
           </div>
         </div>
         <div className="lg:flex hidden w-1/2 bg-gradient-to-bl from-cyan-500 to-blue-500 justify-center items-center rounded-e-3xl">
-          <div className="px-7 flex flex-col items-center text-center text-blue-50">
+          <div className="px-7 flex flex-col text-center text-blue-50 h-full justify-center ">
+            <div className="relative flex flex-col items-center mt-5 h-8/10">
+              <img
+                src={mbd}
+                alt="Logo MBD"
+                className="w-10/12 cursor-pointer"
+                onClick={() => navigate("/")}
+              />
+              <div>
+                <p className="font-bold text-4xl">Meja Belajar Digital</p>
+                <p className="px-7">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Ducimus ut consequatur vero excepturi officia repellendus.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* <div className="px-7 flex flex-col items-center text-center text-blue-50">
             <p className="font-bold text-4xl mb-5 relative flex flex-col items-center mt-5">
               <img
                 src={mbd}
@@ -123,13 +141,13 @@ const Login = () => {
                 className="w-10/12 absolute -top-40 cursor-pointer"
                 onClick={() => navigate("/")}
               />
-              Meja Belajar Digital
+              <p className="mt-7">Meja Belajar Digital</p>
             </p>
             <p className="px-7">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus
               ut consequatur vero excepturi officia repellendus.
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -74,6 +74,7 @@ const Home = () => {
           onClick={() => {
             navigate("/help");
           }}
+          title="Help"
         />
         <img
           // src={photos.length > 0 ? photos[0].urls.regular : dumyImage1} //for production

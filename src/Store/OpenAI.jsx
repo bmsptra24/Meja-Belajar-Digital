@@ -4,14 +4,9 @@ import axios from "axios";
 // get data from api
 export const getDataFromChatGPT = async (input) => {
   const link = import.meta.env.VITE_APP_LINK_API_GPT;
-  const config = {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-    },
-  };
+
   const data = await axios
-    .put(link, input, config)
+    .put(link, input)
     .then((data) => data.data)
     .catch((error) => error.response.data.body);
 
