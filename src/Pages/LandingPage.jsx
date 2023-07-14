@@ -1,11 +1,12 @@
 import { useNavigate, Link } from "react-router-dom";
-import avatar from "../Assets/image/avatar.png";
+// import avatar from "../Assets/image/avatar.png";
 import logo from "../Assets/Logo/logo.png";
 import { useRef, useState } from "react";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { RxHamburgerMenu } from "react-icons/rx";
 import ReactPlayer from "react-player";
 import videoTutorial from "../Assets/videos/MBD-Tutorial.mp4";
+import welcomeScene from "../Assets/Videos/welcome-scene.webm";
 
 const LandingPage = () => {
   const [isBurger, setIsBurger] = useState(false);
@@ -117,7 +118,16 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="w-11/12 lg:w-1/2 lg:mt-auto h-96 pb-10 lg:pb-0 lg:h-full justify-start items-center flex pl-0 lg:pl-16 ">
-            <img src={avatar} alt="Logo MBD" />
+            {/* <img src={welcomeScene} alt="Logo MBD" className="bg-transparent" /> */}
+            <video src={welcomeScene} type="video/webm" autoPlay={true} loop={true} muted></video>
+            {/* <ReactPlayer
+              url={welcomeScene}
+              height={"auto"}
+              width={"100%"}
+              // controls={true}
+              playing={true}
+              loop={true}
+            /> */}
           </div>
         </div>
       </div>

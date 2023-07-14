@@ -21,6 +21,7 @@ import dumyImage2 from "../Assets/wallpaper/dumyImage2.jpg";
 import unsplashApi from "../Store/Unsplash";
 import ReactPlayer from "react-player";
 import { TbHelpSquareRoundedFilled } from "react-icons/tb";
+import videoTutorial from "../Assets/videos/MBD-Tutorial.mp4";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -90,6 +91,17 @@ const Home = () => {
         />
         {/* <ReactPlayer url="<https://www.youtube.com/watch?v=ysz5S6PUM-U>" height={'100%'} width={'100%'} muted/> */}
       </div>
+
+      {/* <div className="absolute left-10 top-10 w-2/6 h-80 px-5 bg-slate-50 rounded-3xl flex justify-center items-center">
+        <ReactPlayer
+          url={videoTutorial}
+          height={"auto"}
+          width={"100%"}
+          controls={true}
+          playing={true}
+        />
+      </div> */}
+      
       <div className="grow flex justify-center items-center w-full overflow-hidden">
         {/* if the state is true so display component  */}
         {toDoList && <ToDoList />}
