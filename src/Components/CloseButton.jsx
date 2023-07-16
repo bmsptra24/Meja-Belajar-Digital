@@ -10,6 +10,7 @@ import {
   setPomodoro,
   setSearch,
   setToDoList,
+  setSetting,
 } from "../Features/home/Home";
 
 const CloseButton = ({ className }) => {
@@ -24,6 +25,7 @@ const CloseButton = ({ className }) => {
     dispatch(setMusic(false));
     dispatch(setSearch(false));
     dispatch(setPomodoro(false));
+    dispatch(setSetting(false));
   };
   return (
     <MdClose

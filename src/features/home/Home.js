@@ -12,6 +12,7 @@ export const homeSlice = createSlice({
     music: false,
     search: false,
     pomodoro: false,
+    setting: false,
   },
   reducers: {
     setMenu: (state, action) => {
@@ -41,6 +42,9 @@ export const homeSlice = createSlice({
     setPomodoro: (state, action) => {
       state.pomodoro = action.payload
     },
+    setSetting: (state, action) => {
+      state.setting = action.payload
+    },
   },
 })
 
@@ -54,6 +58,7 @@ export const {
   setMusic,
   setSearch,
   setPomodoro,
+  setSetting,
 } = homeSlice.actions
 
 export default homeSlice.reducer

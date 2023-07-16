@@ -23,6 +23,8 @@ import ReactPlayer from "react-player";
 import { TbHelpSquareRoundedFilled } from "react-icons/tb";
 import videoTutorial from "../Assets/videos/MBD-Tutorial.mp4";
 import Menu from "../Components/Menu";
+import Setting from "../Components/Setting";
+import { Background } from "../Store/Background";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -38,6 +40,7 @@ const Home = () => {
     music,
     search,
     pomodoro,
+    setting,
   } = useSelector((state) => state.home);
 
   useEffect(() => {
@@ -61,7 +64,7 @@ const Home = () => {
   };
 
   return (
-    <div className="home bg-slate-100 flex flex-col justify-between relative">
+    <div className="home bg-slate-100 flex flex-col justify-between relative font-roboto text-slate-950">
       <HandlerMusic />
       <HandlerPomodoro />
       <div
@@ -79,12 +82,13 @@ const Home = () => {
           }}
           title="Help"
         />
-        <img
+        <Background className="w-full h-full hidden lg:block" />
+        {/* <img
           // src={photos.length > 0 ? photos[0].urls.regular : dumyImage1} //for production
           src={"https://picsum.photos/1920/1080"} //for dev
           alt="wallpaper"
           className="w-full h-full hidden lg:block"
-        />
+        /> */}
         <img
           // src={photos.length > 0 ? photos[0].urls.regular : dumyImage2} //for production
           src={"https://picsum.photos/1080/1920"} //for dev
@@ -104,6 +108,7 @@ const Home = () => {
         />
       </div> */}
 
+      {setting && <Setting />}
       {menu && <Menu />}
 
       <div className="grow flex justify-center items-center w-full overflow-hidden">

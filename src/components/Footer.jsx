@@ -28,9 +28,10 @@ import {
   setPomodoro,
   setSearch,
   setToDoList,
+  setSetting,
 } from "../Features/home/Home";
 import { useState } from "react";
-
+ 
 const Footer = () => {
   const navigate = useNavigate();
   const {
@@ -57,6 +58,7 @@ const Footer = () => {
     dispatch(setMusic(false));
     dispatch(setSearch(false));
     dispatch(setPomodoro(false));
+    dispatch(setSetting(false));
   };
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
   const [isSettingClicked, setIsSettingClicked] = useState(false);
@@ -159,7 +161,10 @@ const Footer = () => {
           <div
             title="Setting"
             onClick={() => {
-              navigate("/setting");
+              dispatch(setMusic(false));
+              dispatch(setPomodoro(false));
+              dispatch(setMenu(false));
+              dispatch(setSetting(true));
             }}
           >
             <Icon Icon={AiOutlineSetting} />
@@ -168,6 +173,7 @@ const Footer = () => {
             title="Music"
             onClick={() => {
               dispatch(setMusic(!music));
+              dispatch(setMenu(false));
               dispatch(setPomodoro(false));
             }}
           >
@@ -178,6 +184,7 @@ const Footer = () => {
             className="pomodoro hover:bg-slate-300"
             onClick={() => {
               dispatch(setPomodoro(!pomodoro));
+              dispatch(setMenu(false));
               dispatch(setMusic(false));
             }}
           >

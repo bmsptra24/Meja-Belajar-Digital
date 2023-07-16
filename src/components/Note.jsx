@@ -19,7 +19,7 @@ const addNote = async (user) => {
   updateData(["users/" + user.uid + "/notes/" + key], template);
 };
 
-const Note = () => {
+const Note = () => { 
   const [user] = useAuthState(auth);
   const [data, setData] = useState([]); // all data notes
   const [note, setNote] = useState([]); // a note was selected
