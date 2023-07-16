@@ -11,6 +11,7 @@ import {
   setSearch,
   setToDoList,
   setSetting,
+  setHelp,
 } from "../Features/home/Home";
 
 const CloseButton = ({ className }) => {
@@ -26,6 +27,7 @@ const CloseButton = ({ className }) => {
     dispatch(setSearch(false));
     dispatch(setPomodoro(false));
     dispatch(setSetting(false));
+    dispatch(setHelp(false));
   };
   return (
     <MdClose

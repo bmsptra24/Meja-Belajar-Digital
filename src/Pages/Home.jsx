@@ -26,6 +26,7 @@ import Menu from "../Components/Menu";
 import Setting from "../Components/Setting";
 import { Background } from "../Store/Background";
 import FetchData from "../Store/FetchData";
+import Help from "../Components/Help";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ const Home = () => {
     search,
     pomodoro,
     setting,
+    help,
   } = useSelector((state) => state.home);
 
   useEffect(() => {
@@ -123,6 +125,7 @@ const Home = () => {
         {music && <Music />}
         {search && <Search />}
         {pomodoro && <Pomodoro />}
+        {help && <Help />}
       </div>
       <Footer />
     </div>

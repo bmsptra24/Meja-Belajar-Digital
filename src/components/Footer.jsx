@@ -29,6 +29,7 @@ import {
   setSearch,
   setToDoList,
   setSetting,
+  setHelp,
 } from "../Features/home/Home";
 import { useState } from "react";
 
@@ -60,6 +61,7 @@ const Footer = () => {
     dispatch(setSearch(false));
     dispatch(setPomodoro(false));
     dispatch(setSetting(false));
+    dispatch(setHelp(false));
   };
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
   const [isSettingClicked, setIsSettingClicked] = useState(false);
@@ -153,6 +155,8 @@ const Footer = () => {
           >
             <Icon Icon={FaChalkboardTeacher} isOpened={feynman} />
           </div>
+        </div>
+        <div className="absolute right-0 mr-3 flex">
           <div
             title="Search"
             onClick={() => {
@@ -162,8 +166,6 @@ const Footer = () => {
           >
             <Icon Icon={BsSearch} isOpened={search} />
           </div>
-        </div>
-        <div className="absolute right-0 mr-3 flex">
           <div
             title="Setting"
             onClick={() => {

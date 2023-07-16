@@ -13,6 +13,7 @@ export const homeSlice = createSlice({
     search: false,
     pomodoro: false,
     setting: false,
+    help: false,
   },
   reducers: {
     setMenu: (state, action) => {
@@ -45,6 +46,9 @@ export const homeSlice = createSlice({
     setSetting: (state, action) => {
       state.setting = action.payload
     },
+    setHelp: (state, action) => {
+      state.help = action.payload
+    },
   },
 })
 
@@ -59,6 +63,7 @@ export const {
   setSearch,
   setPomodoro,
   setSetting,
+  setHelp,
 } = homeSlice.actions
 
 export default homeSlice.reducer

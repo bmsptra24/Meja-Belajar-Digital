@@ -9,13 +9,14 @@ import {
   setPomodoro,
   setSearch,
   setToDoList,
+  setHelp,
 } from "../Features/home/Home";
 import {
   FaClipboardList,
   FaChalkboardTeacher,
   FaRegStickyNote,
 } from "react-icons/fa";
-import { BsFire, BsCardHeading } from "react-icons/bs";
+import { BsFire, BsCardHeading, BsQuestionLg } from "react-icons/bs";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const Menu = () => {
     dispatch(setMusic(false));
     dispatch(setSearch(false));
     dispatch(setPomodoro(false));
+    dispatch(setHelp(false));
   };
 
   const Icon = ({ Icon, describe, onClick }) => {
@@ -86,6 +88,14 @@ const Menu = () => {
         onClick={() => {
           hideAllComponents();
           dispatch(setFeynman(true));
+        }}
+      />
+      <Icon
+        Icon={BsQuestionLg}
+        describe={"Help"}
+        onClick={() => {
+          hideAllComponents();
+          dispatch(setHelp(true));
         }}
       />
     </div>
