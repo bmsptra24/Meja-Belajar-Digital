@@ -14,6 +14,7 @@ import { useRef } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { BsTrash, BsPlusLg } from "react-icons/bs";
 import { Confirmation } from "./Confirmation";
+import CloseButton from "./CloseButton";
 
 // add new module
 const addModule = async (user) => {
@@ -278,9 +279,10 @@ const Blurting = () => {
                   <>
                     <label
                       htmlFor="forgotten"
-                      className="text-lsm mt-1 text-slate-400 font-semibold"
+                      className="text-lsm mt-1 text-slate-400 font-semibold relative flex justify-between"
                     >
                       Hal yang dilupa
+                      <CloseButton className="right-2" />
                     </label>
                     <textarea
                       className="grow border-2 lg:border-0 lg:mt-0 focus:border-slate-300 mt-1 resize-none transition ease-in-out bg-slate-50 focus:outline-none rounded-lg px-3 lg:px-0 py-2 lg:py-0"

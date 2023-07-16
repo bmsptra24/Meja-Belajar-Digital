@@ -19,6 +19,7 @@ import { signOutBtn } from "../Store/Firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  setMenu,
   setBlurting,
   setFeynman,
   setFlashCard,
@@ -33,6 +34,7 @@ import { useState } from "react";
 const Footer = () => {
   const navigate = useNavigate();
   const {
+    menu,
     toDoList,
     note,
     blurting,
@@ -46,6 +48,7 @@ const Footer = () => {
   const dispatch = useDispatch();
 
   const hideAllComponents = () => {
+    dispatch(setMenu(false));
     dispatch(setToDoList(false));
     dispatch(setNote(false));
     dispatch(setBlurting(false));
@@ -79,7 +82,10 @@ const Footer = () => {
           <div
             title="Home"
             onClick={() => {
-              hideAllComponents();
+              // hideAllComponents();
+              dispatch(setMusic(false));
+              dispatch(setPomodoro(false));
+              dispatch(setMenu(!menu));
             }}
           >
             <Icon Icon={BsCircle} />

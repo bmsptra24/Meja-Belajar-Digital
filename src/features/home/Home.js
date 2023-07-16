@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const homeSlice = createSlice({
   name: 'home',
   initialState: {
+    menu: false,
     toDoList: false,
     note: false,
     blurting: false,
@@ -13,6 +14,9 @@ export const homeSlice = createSlice({
     pomodoro: false,
   },
   reducers: {
+    setMenu: (state, action) => {
+      state.menu = action.payload
+    },
     setToDoList: (state, action) => {
       state.toDoList = action.payload
     },
@@ -41,6 +45,7 @@ export const homeSlice = createSlice({
 })
 
 export const {
+  setMenu,
   setToDoList,
   setNote,
   setBlurting,

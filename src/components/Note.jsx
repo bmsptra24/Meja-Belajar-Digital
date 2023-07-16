@@ -7,6 +7,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { Confirmation } from "./Confirmation";
 import TextareaAutosize from "react-textarea-autosize";
+import CloseButton from "./CloseButton";
 
 // add new note
 const addNote = async (user) => {
@@ -203,8 +204,13 @@ const Note = () => {
                         <RxHamburgerMenu />
                       </div>
                     </div>
-                    <div title="Delete note" onClick={() => setIsDelete(true)}>
+                    <div
+                      className="relative flex gap-4"
+                      title="Delete note"
+                      onClick={() => setIsDelete(true)}
+                    >
                       <BsTrash className="hover:text-red-700 cursor-pointer text-xl transition ease-out" />
+                      <CloseButton className="right-2" />
                     </div>
                   </div>
 

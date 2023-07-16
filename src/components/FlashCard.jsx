@@ -14,6 +14,7 @@ import {
 import { RiErrorWarningFill } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { Confirmation } from "./Confirmation";
+import CloseButton from "./CloseButton";
 
 // add new note
 const addCardModule = async (user, setCards, key = newKey("flashcard")) => {
@@ -270,10 +271,9 @@ const Note = () => {
                             />
                           </div>
                         )}
-                        <div className="flex align-items-center ">
+                        <div className="flex align-items-center gap-4">
                           <div
                             title="Add card"
-                            className="me-2"
                             onClick={() => {
                               addCardModule(user, setCards, currentKeyCard);
                             }}
@@ -288,6 +288,7 @@ const Note = () => {
                           >
                             <BsPlayFill className="hover:text-slate-400 cursor-pointer transition ease-out text-2xl" />
                           </div>
+                            <CloseButton className="right-2" />
                         </div>
                       </div>
                       <div className="w-full">

@@ -9,6 +9,7 @@ import { getAnswer } from "../Store/OpenAI";
 import { useSelector, useDispatch } from "react-redux";
 import { setIsGeneratingGpt } from "../Features/loading/isLoading";
 import { HandleEnterPress } from "../Store/HandleEnterPress";
+import CloseButton from "./CloseButton";
 
 const Search = () => {
   const [inputSearch, setInputSearch] = useState("");
@@ -43,7 +44,8 @@ const Search = () => {
   return (
     <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-300">
       <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-400">
-        <div className="flex h-full flex-col p-3 bg-slate-50 border-0 lg:border-2 border-slate-800 rounded-none lg:rounded-lg justify-between">
+        <div className="relative flex h-full flex-col p-3 bg-slate-50 border-0 lg:border-2 border-slate-800 rounded-none lg:rounded-lg justify-between">
+          <CloseButton className="right-2 absolute bg-slate-50" />
           <div className="grow overflow-y-scroll">
             {log.length > 0 ? (
               log.map((e, idx) => {

@@ -22,12 +22,14 @@ import unsplashApi from "../Store/Unsplash";
 import ReactPlayer from "react-player";
 import { TbHelpSquareRoundedFilled } from "react-icons/tb";
 import videoTutorial from "../Assets/videos/MBD-Tutorial.mp4";
+import Menu from "../Components/Menu";
 
 const Home = () => {
   const navigate = useNavigate();
   const [user] = useAuthState(auth);
   const [photos, setPhotos] = useState([]);
   const {
+    menu,
     toDoList,
     note,
     blurting,
@@ -101,7 +103,9 @@ const Home = () => {
           playing={true}
         />
       </div> */}
-      
+
+      {menu && <Menu />}
+
       <div className="grow flex justify-center items-center w-full overflow-hidden">
         {/* if the state is true so display component  */}
         {toDoList && <ToDoList />}
