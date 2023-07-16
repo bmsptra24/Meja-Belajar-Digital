@@ -25,6 +25,7 @@ import videoTutorial from "../Assets/videos/MBD-Tutorial.mp4";
 import Menu from "../Components/Menu";
 import Setting from "../Components/Setting";
 import { Background } from "../Store/Background";
+import FetchData from "../Store/FetchData";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -67,6 +68,7 @@ const Home = () => {
     <div className="home bg-slate-100 flex flex-col justify-between relative font-roboto text-slate-950">
       <HandlerMusic />
       <HandlerPomodoro />
+      <FetchData />
       <div
         className={
           "absolute inset-0 z-0 " +

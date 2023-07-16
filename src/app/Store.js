@@ -4,6 +4,7 @@ import homeReducer from '../Features/Home/Home'
 import isLoadingReducer from '../Features/Loading/isLoading'
 import toastsReducer from '../Features/Toasts/Toasts'
 import musicReducer from '../Features/Music/Music'
+import databaseReducer from '../Features/Database'
 
 export default configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
     isLoading: isLoadingReducer,
     toasts: toastsReducer,
     music: musicReducer,
+    database: databaseReducer,
   },
 })

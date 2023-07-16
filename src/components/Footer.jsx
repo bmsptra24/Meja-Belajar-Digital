@@ -31,7 +31,7 @@ import {
   setSetting,
 } from "../Features/home/Home";
 import { useState } from "react";
- 
+
 const Footer = () => {
   const navigate = useNavigate();
   const {
@@ -46,6 +46,7 @@ const Footer = () => {
     pomodoro,
   } = useSelector((state) => state.home);
   const { timeRemainingString } = useSelector((state) => state.pomodoro);
+  const { config } = useSelector((state) => state.database);
   const dispatch = useDispatch();
 
   const hideAllComponents = () => {
@@ -108,6 +109,7 @@ const Footer = () => {
               hideAllComponents();
               dispatch(setToDoList(!toDoList));
             }}
+            className={`${config?.taskbar?.todolist ? "block" : "hidden"}`}
           >
             <Icon Icon={FaClipboardList} isOpened={toDoList} />
           </div>
@@ -117,6 +119,7 @@ const Footer = () => {
               hideAllComponents();
               dispatch(setNote(!note));
             }}
+            className={`${config?.taskbar?.notes ? "block" : "hidden"}`}
           >
             <Icon Icon={FaRegStickyNote} isOpened={note} />
           </div>
@@ -126,6 +129,7 @@ const Footer = () => {
               hideAllComponents();
               dispatch(setBlurting(!blurting));
             }}
+            className={`${config?.taskbar?.blurting ? "block" : "hidden"}`}
           >
             <Icon Icon={BsFire} isOpened={blurting} />
           </div>
@@ -135,6 +139,7 @@ const Footer = () => {
               hideAllComponents();
               dispatch(setFlashCard(!flashCard));
             }}
+            className={`${config?.taskbar?.flashcard ? "block" : "hidden"}`}
           >
             <Icon Icon={BsCardHeading} isOpened={flashCard} />
           </div>
@@ -144,6 +149,7 @@ const Footer = () => {
               hideAllComponents();
               dispatch(setFeynman(!feynman));
             }}
+            className={`${config?.taskbar?.feynman ? "block" : "hidden"}`}
           >
             <Icon Icon={FaChalkboardTeacher} isOpened={feynman} />
           </div>

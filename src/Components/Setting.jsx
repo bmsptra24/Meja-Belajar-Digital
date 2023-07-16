@@ -13,7 +13,7 @@ const Setting = () => {
   const [account, setAccount] = useState(true);
   const [themes, setThemes] = useState(false);
   const [config, setConfig] = useState({});
-  console.log({ config });
+
   // get data from database
   useEffect(() => {
     if (user) {
