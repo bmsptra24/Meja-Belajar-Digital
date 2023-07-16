@@ -105,6 +105,15 @@ const Footer = () => {
           </div>
         </div>
         <div className="w-screen lg:w-auto justify-evenly flex">
+          {!config?.taskbar?.todolist &&
+            !config?.taskbar?.notes &&
+            !config?.taskbar?.blurting &&
+            !config?.taskbar?.flashcard &&
+            !config?.taskbar?.feynman && (
+              <div className="invisible">
+                <Icon Icon={FaClipboardList} isOpened={toDoList} />
+              </div>
+            )}
           <div
             title="To Do List"
             onClick={() => {

@@ -161,7 +161,7 @@ const Setting = () => {
                       <p>Todolist</p>
                     </div>
                     <div className="flex items-center">
-                      Off
+                      {config.taskbar.todolist ? "On" : "Off"}
                       <input
                         type="checkbox"
                         name="app"
@@ -184,7 +184,7 @@ const Setting = () => {
                       <p>Notes</p>
                     </div>
                     <div className="flex items-center">
-                      Off
+                      {config.taskbar.notes ? "On" : "Off"}
                       <input
                         type="checkbox"
                         name="app"
@@ -218,7 +218,7 @@ const Setting = () => {
                       <p>Bluriting</p>
                     </div>
                     <div className="flex items-center">
-                      Off
+                      {config.taskbar.blurting ? "On" : "Off"}
                       <input
                         type="checkbox"
                         name="app"
@@ -237,7 +237,7 @@ const Setting = () => {
                       <p>Flashcard</p>
                     </div>
                     <div className="flex items-center">
-                      Off
+                      {config.taskbar.flashcard ? "On" : "Off"}
                       <input
                         type="checkbox"
                         name="app"
@@ -256,7 +256,7 @@ const Setting = () => {
                       <p>Feynman</p>
                     </div>
                     <div className="flex items-center">
-                      Off
+                      {config.taskbar.feynman ? "On" : "Off"}
                       <input
                         type="checkbox"
                         name="app"

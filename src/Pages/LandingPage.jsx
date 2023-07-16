@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
 import { RxHamburgerMenu } from "react-icons/rx";
 import ReactPlayer from "react-player";
-import videoTutorial from "../Assets/videos/MBD-Tutorial.mp4";
+// import videoTutorial from "../Assets/videos/MBD-Tutorial.mp4";
 import welcomeScene from "../Assets/Videos/welcome-scene.webm";
 import iconLamp from "../Assets/Icon/lamp-insight.png";
 import iconLightning from "../Assets/Icon/lighning.png";

@@ -5,8 +5,11 @@ import { useEffect, useState } from "react";
 import img1 from "../Assets/Wallpaper/img1.jpg";
 import img2 from "../Assets/Wallpaper/img2.jpg";
 import img3 from "../Assets/Wallpaper/img3.jpg";
+import img4 from "../Assets/Wallpaper/img4.jpg";
+import img5 from "../Assets/Wallpaper/img5.jpg";
+import img6 from "../Assets/Wallpaper/img6.jpg";
 
-export const images = [img1, img2, img3];
+export const images = [img1, img2, img3, img4, img5, img6];
 
 export const Background = ({ className }) => {
   const [user] = useAuthState(auth);
