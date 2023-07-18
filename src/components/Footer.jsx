@@ -3,16 +3,10 @@ import {
   FaChalkboardTeacher,
   FaRegStickyNote,
 } from "react-icons/fa";
-import {
-  BsCircle,
-  BsFire,
-  BsCardHeading,
-  BsSoundwave,
-  BsSearch,
-} from "react-icons/bs";
+import { BsFire, BsCardHeading, BsSoundwave, BsSearch } from "react-icons/bs";
+import { CgMenuGridR } from "react-icons/cg";
 import { AiOutlineSetting } from "react-icons/ai";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { BiLogOutCircle } from "react-icons/bi";
 import "../styles/Icon.css";
 import "../styles/Footer.css";
 import { signOutBtn } from "../Store/Firebase";
@@ -85,7 +79,7 @@ const Footer = () => {
       <div className="w-full justify-center items-center hidden lg:flex">
         <div className="absolute left-0 ml-3 flex">
           <div
-            title="Home"
+            title="Menu"
             onClick={() => {
               // hideAllComponents();
               dispatch(setMusic(false));
@@ -93,15 +87,7 @@ const Footer = () => {
               dispatch(setMenu(!menu));
             }}
           >
-            <Icon Icon={BsCircle} />
-          </div>
-          <div
-            title="Logout"
-            onClick={() => {
-              signOutBtn();
-            }}
-          >
-            <Icon Icon={BiLogOutCircle} />
+            <Icon Icon={CgMenuGridR} />
           </div>
         </div>
         <div className="w-screen lg:w-auto justify-evenly flex">

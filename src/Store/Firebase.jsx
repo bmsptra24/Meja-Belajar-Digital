@@ -7,6 +7,8 @@ import {
   getRedirectResult,
   GoogleAuthProvider,
   FacebookAuthProvider,
+  deleteUser,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -76,4 +78,32 @@ export const signInWithFacebook = () => {
   provider.addScope("public_profile");
   auth.useDeviceLanguage();
   signInWithRedirect(auth, provider);
+};
+
+export const deleteUserAccount = () => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  deleteUser(user)
+    .then(() => {
+      // User deleted.
+      alert("Account removed!");
+    })
+    .catch((error) => {
+      // An error ocurred
+      alert(error);
+    });
+};
+
+export const resetPassword = (email) => {
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      // Password reset email sent!
+      alert("Password reset email sent!");
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(errorCode, errorMessage);
+    });
 };

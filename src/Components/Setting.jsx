@@ -1,4 +1,4 @@
-import { auth } from "../Store/Firebase";
+import { auth, deleteUserAccount, resetPassword } from "../Store/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { fetchDataRealtime, updateData } from "../Store/Database";
 import { BsPerson, BsCheckLg } from "react-icons/bs";
@@ -6,6 +6,8 @@ import { VscSymbolColor } from "react-icons/vsc";
 import CloseButton from "./CloseButton";
 import { useState, useEffect } from "react";
 import { images } from "../Store/Background";
+import { BiLogOutCircle } from "react-icons/bi";
+import { signOutBtn } from "../Store/Firebase";
 
 const Setting = () => {
   const [user] = useAuthState(auth);
@@ -13,6 +15,7 @@ const Setting = () => {
   const [account, setAccount] = useState(true);
   const [themes, setThemes] = useState(false);
   const [config, setConfig] = useState({});
+  const [inputNewName, setInputNewName] = useState("");
 
   // get data from database
   useEffect(() => {
@@ -44,47 +47,62 @@ const Setting = () => {
     updateData(["users/" + user.uid + "/config/background"], value);
   };
 
+  const handleInput = (event, setState) => {
+    setState(event.target.value);
+  };
+
   return (
     <>
       <div className="absolute z-50 w-full h-full bg-slate-950/50"></div>
       <div className="absolute z-50 w-8/12 h-9/10 flex">
         {/* menu */}
-        <div className="w-64 h-full bg-slate-100 border-r-2 rounded-s-xl">
+        <div className="w-64 h-full bg-slate-100 border-r-2 rounded-s-xl flex flex-col">
           <div className="border-b-2 p-5">
             <p className="text-xl font-bold ">Setting</p>
           </div>
-          <div className="py-5 px-3 flex flex-col gap-2">
-            <div
-              className={
-                "flex gap-3 items-center hover:bg-slate-300/50 py-2 px-2 rounded-lg transition-all ease-in-out " +
-                (account
-                  ? "bg-slate-300/50 text-blue-600 cursor-default"
-                  : "cursor-pointer")
-              }
-              onClick={() => {
-                hideAll();
-                setAccount(true);
-              }}
-            >
-              <BsPerson className="text-xl mt-px" />
-              <p>My Account</p>
-            </div>
+          <div className="py-5 px-3 flex flex-col justify-between grow">
+            <div className="flex flex-col gap-2">
+              <div
+                className={
+                  "flex gap-3 items-center hover:bg-slate-300/50 py-2 px-2 rounded-lg transition-all ease-in-out " +
+                  (account
+                    ? "bg-slate-300/50 text-blue-600 cursor-default"
+                    : "cursor-pointer")
+                }
+                onClick={() => {
+                  hideAll();
+                  setAccount(true);
+                }}
+              >
+                <BsPerson className="text-xl mt-px" />
+                <p>My Account</p>
+              </div>
 
-            <div
-              className={
-                "flex gap-3 items-center hover:bg-slate-300/50 py-2 px-2 rounded-lg transition-all ease-in-out " +
-                (themes
-                  ? "bg-slate-300/50 text-blue-600 cursor-default"
-                  : "cursor-pointer")
-              }
+              <div
+                className={
+                  "flex gap-3 items-center hover:bg-slate-300/50 py-2 px-2 rounded-lg transition-all ease-in-out " +
+                  (themes
+                    ? "bg-slate-300/50 text-blue-600 cursor-default"
+                    : "cursor-pointer")
+                }
+                onClick={() => {
+                  hideAll();
+                  setThemes(true);
+                }}
+              >
+                <VscSymbolColor className="text-xl mt-px" />
+                <p>Themes</p>
+              </div>
+            </div>
+            <button
+              className="border-slate-400 hover:bg-slate-200 hover:shadow-sm border-2 flex gap-2 items-center text-slate-700 text-sm py-2 px-3 rounded hover:border-slate-500 transition-all ease-in-out"
               onClick={() => {
-                hideAll();
-                setThemes(true);
+                signOutBtn();
               }}
             >
-              <VscSymbolColor className="text-xl mt-px" />
-              <p>Themes</p>
-            </div>
+              <BiLogOutCircle className="text-xl" />
+              <p>Logout</p>
+            </button>
           </div>
         </div>
         {/* describe */}
@@ -100,7 +118,7 @@ const Setting = () => {
                 <div>
                   {/* nama */}
                   <div>
-                    <p className="font-bold">Nama</p>
+                    <p className="font-bold">Name</p>
                     <p className="text-xs mt-1 mb-2.5">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     </p>
@@ -109,10 +127,20 @@ const Setting = () => {
                       name="name"
                       id="name"
                       className="border-2 border-slate-300 px-2 py-1 rounded focus:border-blue-500 focus:outline-none"
+                      value={inputNewName}
+                      onChange={(event) => handleInput(event, setInputNewName)}
                     />
                   </div>
 
-                  <button className="bg-blue-500 mt-5 text-slate-50 text-sm py-2 px-3 rounded hover:bg-blue-600 transition-all ease-in-out">
+                  <button
+                    className="bg-blue-500 mt-5 text-slate-50 text-sm py-2 px-3 rounded hover:bg-blue-600 transition-all ease-in-out"
+                    onClick={() => {
+                      updateData(
+                        ["users/" + user.uid + "/config/name"],
+                        inputNewName
+                      ).then(alert("Data berhasil disimpan!"));
+                    }}
+                  >
                     Simpan Perubahan
                   </button>
                 </div>
@@ -123,7 +151,19 @@ const Setting = () => {
                   <p className="text-xs mt-1 mb-2.5">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   </p>
-                  <button className="bg-blue-500 text-slate-50 text-sm py-2 px-3 rounded hover:bg-blue-600 transition-all ease-in-out">
+                  <button
+                    className="bg-blue-500 text-slate-50 text-sm py-2 px-3 rounded hover:bg-blue-600 transition-all ease-in-out"
+                    onClick={() => {
+                      if (
+                        confirm("Are you sure want to change your password?")
+                      ) {
+                        const email = prompt("Type your email:");
+                        if (email) {
+                          resetPassword(email);
+                        }
+                      }
+                    }}
+                  >
                     Ganti Kata Sandi
                   </button>
                 </div>
@@ -135,10 +175,20 @@ const Setting = () => {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   </p>
                   <div className="flex gap-3">
-                    <button className="bg-red-500 text-slate-50 text-sm py-2 px-3 rounded hover:bg-red-600 transition-all ease-in-out">
-                      Nonaktifkan Akun
-                    </button>
-                    <button className="border-red-500 border-2 text-slate-950 text-sm py-2 px-3 rounded hover:text-slate-50 hover:bg-red-500 transition-all ease-in-out">
+                    <button
+                      className="bg-red-500 text-slate-50 text-sm py-2 px-3 rounded hover:bg-red-600 transition-all ease-in-out"
+                      onClick={() => {
+                        if (
+                          confirm("Are you sure want to delete your account?")
+                        ) {
+                          if (
+                            confirm("All your data will remove. Are you sure?")
+                          ) {
+                            deleteUserAccount();
+                          }
+                        }
+                      }}
+                    >
                       Hapus Akun
                     </button>
                   </div>
@@ -195,19 +245,19 @@ const Setting = () => {
                           handleTaskbar(!config.taskbar.notes, "notes")
                         }
                         // onClick={() => {
-                        //   updateData(["users/" + user.uid + "/config"], {
-                        //     name: "your name",
-                        //     taskbar: {
-                        //       todolist: false,
-                        //       notes: false,
-                        //       blurting: true,
-                        //       flashcard: true,
-                        //       feynman: true,
-                        //     },
-                        //     darkTheme: true,
-                        //     color: "blue",
-                        //     background: 0,
-                        //   });
+                        // updateData(["users/" + user.uid + "/config"], {
+                        //   name: "your name",
+                        //   taskbar: {
+                        //     todolist: false,
+                        //     notes: false,
+                        //     blurting: true,
+                        //     flashcard: true,
+                        //     feynman: true,
+                        //   },
+                        //   darkTheme: true,
+                        //   color: "blue",
+                        //   background: 0,
+                        // });
                         // }}
                       />
                     </div>
