@@ -18,6 +18,8 @@ const Feynman = () => {
   const [user] = useAuthState(auth);
   const { isGeneratingGpt } = useSelector((state) => state.isLoading);
   const dispatch = useDispatch();
+  const { config } = useSelector((state) => state.database);
+  const color = config.color;
 
   useEffect(() => {
     if (user) {
@@ -41,10 +43,14 @@ const Feynman = () => {
   };
 
   return (
-    <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-300">
-      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-400">
+    <div
+      className={`z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-${color}-300`}
+    >
+      <div
+        className={`h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-${color}-400`}
+      >
         <div className="flex h-full flex-col p-3 bg-slate-50 border-0 lg:border-2 border-slate-800 rounded-none lg:rounded-lg justify-between relative">
-        <CloseButton className="right-2 absolute bg-slate-50" />
+          <CloseButton className="right-2 absolute bg-slate-50" />
 
           <div className="grow overflow-y-scroll">
             {log.length > 0 ? (
@@ -56,7 +62,9 @@ const Feynman = () => {
                       e.role === "user" ? style.message : style.aiMessage
                     }
                   >
-                    <div className="p-3 bg-blue-200 rounded-lg text-justify justify-end">
+                    <div
+                      className={`p-3 bg-${color}-200 rounded-lg text-justify justify-end`}
+                    >
                       {e.content.split("\n").map((e, i) => {
                         return (
                           <div key={i}>
@@ -85,14 +93,14 @@ const Feynman = () => {
               })
             ) : (
               <div className={style.aiMessage}>
-                <div className="p-3 bg-blue-200 rounded-lg">
+                <div className={`p-3 bg-${color}-200 rounded-lg`}>
                   what topic do you want to learn about?
                 </div>
               </div>
             )}
             {isGeneratingGpt && (
               <div className={style.aiMessage}>
-                <div className="p-3 bg-blue-200 rounded-lg flex">
+                <div className={`p-3 bg-${color}-200 rounded-lg flex`}>
                   <ImSpinner9 className="animate-spin" />
                 </div>
               </div>
@@ -101,12 +109,9 @@ const Feynman = () => {
           <div className="flex items-end pt-2">
             <button
               disabled={isGeneratingGpt}
-              className={
-                "group transition-all ease-out duration-700 w-14 h-14 rounded-full flex justify-center items-center bg-blue-300 border-2 border-blue-500 mr-2 hover:bg-blue-400 hover:drop-shadow-md " +
-                (isGeneratingGpt
-                  ? "opacity-60 cursor-not-allowed"
-                  : "hover:w-36")
-              }
+              className={`group transition-all ease-out duration-700 w-14 h-14 rounded-full flex justify-center items-center bg-${color}-300 border-2 border-${color}-500 mr-2 hover:bg-${color}-400 hover:drop-shadow-md ${
+                isGeneratingGpt ? "opacity-60 cursor-not-allowed" : "hover:w-36"
+              }`}
               onClick={() => {
                 setLog([]);
                 updateData(["users/" + user.uid + "/feynman"], []);

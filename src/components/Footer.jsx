@@ -10,7 +10,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import "../styles/Icon.css";
 import "../styles/Footer.css";
 import { signOutBtn } from "../Store/Firebase";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setMenu,
@@ -28,7 +28,7 @@ import {
 import { useState } from "react";
 
 const Footer = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const {
     menu,
     toDoList,
@@ -42,6 +42,7 @@ const Footer = () => {
   } = useSelector((state) => state.home);
   const { timeRemainingString } = useSelector((state) => state.pomodoro);
   const { config } = useSelector((state) => state.database);
+  const color = config.color;
   const dispatch = useDispatch();
 
   const hideAllComponents = () => {
@@ -65,7 +66,7 @@ const Footer = () => {
       <div
         className={
           "icon text-2xl select-none transition ease-out hover:bg-slate-300 " +
-            (isOpened && "border-blue-500 border-4 shadow-md") || ""
+            (isOpened && `border-${color}-500 border-4 shadow-md`) || ""
         }
       >
         <Icon />

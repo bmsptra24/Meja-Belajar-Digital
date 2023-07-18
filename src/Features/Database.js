@@ -10,7 +10,7 @@ export const DatabaseSlice = createSlice({
       state.config = action.payload
     },
   },
-})
+}) 
 
 export const { setConfig } = DatabaseSlice.actions
 

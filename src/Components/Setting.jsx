@@ -24,7 +24,7 @@ const Setting = () => {
         setConfig(snapshot);
       });
     }
-  }, [user]);
+  }, [user]); 
 
   const hideAll = () => {
     setAccount(false);

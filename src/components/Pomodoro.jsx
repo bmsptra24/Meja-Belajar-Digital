@@ -14,15 +14,21 @@ const Pomodoro = () => {
     longBreakDuration,
     timeRemainingString,
   } = useSelector((state) => state.pomodoro);
+  const { config } = useSelector((state) => state.database);
+  const color = config.color;
 
   const dispatch = useDispatch();
 
   return (
-    <div className="z-20 w-72 h-96 rounded-3xl border-2 border-slate-800 absolute bg-blue-400 p-4 flex justify-between flex-col lg:right-0 bottom-16 mr-1">
+    <div
+      className={`z-20 w-72 h-96 rounded-3xl border-2 border-slate-800 absolute bg-${color}-400 p-4 flex justify-between flex-col lg:right-0 bottom-16 mr-1`}
+    >
       <div className="items-center flex justify-between">
         <p className="font-bold text-2xl ml-2">Pomodoro</p>
       </div>
-      <div className="grow mt-3 h-75 w-full bg-blue-200 rounded-xl mb-4 pb-3 flex flex-col justify-between">
+      <div
+        className={`grow mt-3 h-75 w-full bg-${color}-200 rounded-xl mb-4 pb-3 flex flex-col justify-between`}
+      >
         <div className="w-full px-4 pt-3">
           <p className="flex justify-between">
             Pomodoro duration
@@ -51,7 +57,7 @@ const Pomodoro = () => {
             type="number"
             name="pomodoro-duration"
             id="pomodoro-duration"
-            className="rounded border-2 focus:outline-none focus:border-blue-300 focus:shadow-md w-full px-2"
+            className={`rounded border-2 focus:outline-none focus:border-${color}-300 focus:shadow-md w-full px-2`}
             value={pomodoroDuration}
             onChange={(event) => {
               {
@@ -95,7 +101,7 @@ const Pomodoro = () => {
             type="number"
             name="pomodoro-duration"
             id="pomodoro-duration"
-            className="rounded border-2 focus:outline-none focus:border-blue-300 focus:shadow-md w-full px-2"
+            className={`rounded border-2 focus:outline-none focus:border-${color}-300 focus:shadow-md w-full px-2`}
             value={shortBreakDuration}
             onChange={(event) => {
               updateData(
@@ -133,7 +139,7 @@ const Pomodoro = () => {
             type="number"
             name="pomodoro-duration"
             id="pomodoro-duration"
-            className="rounded border-2 focus:outline-none focus:border-blue-300 focus:shadow-md w-full px-2"
+            className={`rounded border-2 focus:outline-none focus:border-${color}-300 focus:shadow-md w-full px-2`}
             value={longBreakDuration}
             onChange={(event) => {
               updateData(

@@ -15,6 +15,7 @@ import { RiErrorWarningFill } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { Confirmation } from "./Confirmation";
 import CloseButton from "./CloseButton";
+import { useSelector } from "react-redux";
 
 // add new note
 const addCardModule = async (user, setCards, key = newKey("flashcard")) => {
@@ -47,6 +48,9 @@ const Note = () => {
   const [checkPoint, setCheckPoint] = useState(-1);
   const [isListCardsClicked, setIsListCardsClicked] = useState(false);
   const refTitle = useRef(null);
+
+  const { config } = useSelector((state) => state.database);
+  const color = config.color;
 
   // remove a module card
   const handleDelete = () => {
@@ -162,8 +166,12 @@ const Note = () => {
           color="red"
         />
       )}
-      <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-300 ">
-        <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-blue-400 ">
+      <div
+        className={`z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-${color}-300`}
+      >
+        <div
+          className={`h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-xl lg:bg-${color}-400`}
+        >
           <div className="flex h-full flex-col lg:flex-row overflow-y-scroll lg:overflow-hidden ">
             {!isPlay && (
               <>
@@ -184,8 +192,8 @@ const Note = () => {
                                 key={"note-" + idx}
                                 className={`${
                                   idx === lastOpen
-                                    ? "bg-slate-50 border-2 border-blue-300 drop-shadow-lg"
-                                    : "bg-slate-200 border-2 border-blue-50 hover:border-slate-300 hover:bg-slate-300"
+                                    ? `bg-slate-50 border-2 border-${color}-300 drop-shadow-lg`
+                                    : `bg-slate-200 border-2 border-${color}-50 hover:border-slate-300 hover:bg-slate-300`
                                 } px-2 py-1 rounded-lg mb-1`}
                                 style={
                                   ({ cursor: "pointer" }, { minHeight: "35px" })
@@ -225,7 +233,7 @@ const Note = () => {
                   <div className="w-full z-40 bottom-20 right-0 absolute lg:static flex justify-end lg:justify-start pr-3 lg:pr-0 h-1/10 lg:h-auto items-center">
                     <div
                       title="Add flashcard"
-                      className="icon transition ease-out bg-blue-200 hover:bg-blue-300 border-2 border-blue-500 text-2xl"
+                      className={`icon transition ease-out bg-${color}-200 hover:bg-${color}-300 border-2 border-${color}-500 text-2xl`}
                       onClick={async () => {
                         setIsListCardsClicked(false);
                         addCardModule(user, setCards);
@@ -288,7 +296,7 @@ const Note = () => {
                           >
                             <BsPlayFill className="hover:text-slate-400 cursor-pointer transition ease-out text-2xl" />
                           </div>
-                            <CloseButton className="right-2" />
+                          <CloseButton className="right-2" />
                         </div>
                       </div>
                       <div className="w-full">
@@ -375,7 +383,7 @@ const Note = () => {
                   <>
                     {!isStart && (
                       <div
-                        className="transition ease-in-out bg-blue-300 p-3 rounded-lg px-6 hover:bg-blue-400 cursor-pointer"
+                        className={`transition ease-in-out bg-${color}-300 p-3 rounded-lg px-6 hover:bg-${color}-400 cursor-pointer`}
                         onClick={() => {
                           setCheckPoint(0);
                           setIsStart(true);

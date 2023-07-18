@@ -6,9 +6,13 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../Store/Firebase";
 import { HandleEnterPress } from "../Store/HandleEnterPress";
 import CloseButton from "./CloseButton";
+import { useSelector } from "react-redux";
 
 const ToDoList = () => {
   const [user] = useAuthState(auth);
+
+  const { config } = useSelector((state) => state.database);
+  const color = config.color;
 
   // membuat state tasks
   const [numberTaskClicked, setNumberTaskClicked] = useState(-1);
@@ -40,8 +44,12 @@ const ToDoList = () => {
   };
 
   return (
-    <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 lg:rounded-xl lg:bg-blue-300">
-      <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 lg:rounded-xl lg:bg-blue-400">
+    <div
+      className={`z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 lg:rounded-xl lg:bg-${color}-300`}
+    >
+      <div
+        className={`h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 lg:rounded-xl lg:bg-${color}-400`}
+      >
         <div className="h-full w-full lg:rounded-md lg:border-2 border-black py-3 pr-3 pl-6 bg-slate-50 flex flex-col relative">
           <CloseButton className="right-2 absolute" />
           <h1 className="font-bold mt-2 text-4xl">To Do List</h1>
@@ -77,7 +85,7 @@ const ToDoList = () => {
               value={inputValue}
             />
             <button
-              className="transition ease-out icon bg-blue-300 border-2 border-blue-500 hover:bg-blue-400 hover:border-r-blue-600 hover:shadow-md focus:bg-blue-400 focus:shadow-md focus:outline-none focus:border-r-blue-600"
+              className={`transition ease-out icon bg-${color}-300 border-2 border-${color}-500 hover:bg-${color}-400 hover:border-r-${color}-600 hover:shadow-md focus:bg-${color}-400 focus:shadow-md focus:outline-none focus:border-r-${color}-600`}
               onClick={addNewTask}
             >
               <BsPlusLg />

@@ -15,6 +15,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { BsTrash, BsPlusLg } from "react-icons/bs";
 import { Confirmation } from "./Confirmation";
 import CloseButton from "./CloseButton";
+import { useSelector } from "react-redux";
 
 // add new module
 const addModule = async (user) => {
@@ -37,6 +38,9 @@ const Blurting = () => {
   const [data, setData] = useState([]);
   const [isListModuksClicked, setIsListModuksClicked] = useState(false);
   const refTitle = useRef(null);
+
+  const { config } = useSelector((state) => state.database);
+  const color = config.color;
 
   // change state
   const changeState = {
@@ -120,8 +124,12 @@ const Blurting = () => {
           color="red"
         />
       )}
-      <div className="z-10 lg:h-5/6 lg:w-11/12 xl:w-5/6 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-blue-300">
-        <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-400 ">
+      <div
+        className={`z-10 lg:h-5/6 lg:w-11/12 xl:w-5/6 h-full w-full lg:border-2 border-slate-800 rounded-xl lg:bg-${color}-300`}
+      >
+        <div
+          className={`h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-${color}-400 `}
+        >
           <div className="bg-slate-50 lg:bg-transparent flex-col overflow-x-hidden overflow-y-scroll lg:overflow-hidden lg:flex-row flex justify-between h-full">
             <div
               className={
@@ -140,8 +148,8 @@ const Blurting = () => {
                             key={"modul-" + idx}
                             className={`${
                               idx === lastOpen
-                                ? "bg-slate-50 border-2 border-blue-300 drop-shadow-lg"
-                                : "bg-slate-200 border-2 border-blue-50 hover:border-slate-300 hover:bg-slate-300"
+                                ? `bg-slate-50 border-2 border-${color}-300 drop-shadow-lg`
+                                : `bg-slate-200 border-2 border-${color}-50 hover:border-slate-300 hover:bg-slate-300`
                             } px-2 py-1 rounded-lg mb-1`}
                             style={
                               ({ cursor: "pointer" }, { minHeight: "35px" })
@@ -180,7 +188,7 @@ const Blurting = () => {
               <div className="w-full z-40 bottom-20 right-0 absolute lg:static flex justify-end lg:justify-start pr-3 lg:pr-0 h-1/10 lg:h-auto items-center">
                 <div
                   title="Add new module"
-                  className="icon transition ease-out bg-blue-200 hover:bg-blue-300 border-2 border-blue-500"
+                  className={`icon transition ease-out bg-${color}-200 hover:bg-${color}-300 border-2 border-${color}-500`}
                   onClick={async () => {
                     setIsListModuksClicked(false);
                     addModule(user);

@@ -12,7 +12,6 @@ export const Confirmation = ({
   return (
     <div className="animate-slide-top fixed z-50 top-3 flex bg-slate-50 p-3 rounded-lg border shadow-lg ">
       {/* this for repains bug that the color being transparant */}
-      <h6 className="bg-red-500"></h6>
       <div className={`bg-${color}-500 h-min p-1 rounded-lg mt-1`}>
         <Icon className="text-xl text-slate-50 " />
       </div>

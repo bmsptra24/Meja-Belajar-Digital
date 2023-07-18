@@ -1,6 +1,7 @@
 import { BsTrash } from "react-icons/bs";
 import { updateData } from "../Store/Database";
 import TextareaAutosize from "react-textarea-autosize";
+import { useSelector } from "react-redux";
 const Task = ({
   tasks,
   index,
@@ -9,6 +10,9 @@ const Task = ({
   numberTaskClicked,
   setNumberTaskClicked,
 }) => {
+  const { config } = useSelector((state) => state.database);
+  const color = config.color;
+
   const handleCheckboxChange = () => {
     const updatedCheckedValue = !tasks[index].checked;
     updateData(`users/${user.uid}/tasks/${index}/checked`, updatedCheckedValue);
@@ -29,7 +33,6 @@ const Task = ({
   const handleDate = (event) => {
     updateData(`users/${user.uid}/tasks/${index}/date`, event.target.value);
   };
-
   return (
     tasks.length !== 0 && (
       <>
@@ -42,8 +45,8 @@ const Task = ({
         <div
           className={
             numberTaskClicked === index
-              ? "text-lg flex flex-col justify-between items-start border-b-2 px-2 pt-1 pb-1 bg-blue-100 hover:bg-blue-100 relative z-20 transition-all ease-in-out"
-              : "text-lg flex flex-col justify-center items-center border-b-2 p-2 relative hover:bg-blue-100 z-20 transition-all ease-in-out"
+              ? `text-lg flex flex-col justify-between items-start border-b-2 px-2 pt-1 pb-1 bg-${color}-100 hover:bg-${color}-100 relative z-20 transition-all ease-in-out`
+              : `text-lg flex flex-col justify-center items-center border-b-2 p-2 relative hover:bg-${color}-100 z-20 transition-all ease-in-out`
           }
         >
           <div className="flex w-full justify-between items-center">
@@ -74,10 +77,10 @@ const Task = ({
                 />
                 {numberTaskClicked !== index && tasks[index].date !== "" && (
                   <div className="flex gap-1 cursor-pointer">
-                    <div className="text-sm bg-blue-200 px-2 rounded-3xl w-max">
+                    <div className={`text-sm bg-${color}-200 px-2 rounded-3xl w-max`}>
                       <p>{tasks[index].date.slice(0, 10)}</p>
                     </div>
-                    <div className="text-sm bg-blue-200 px-2 rounded-3xl w-max">
+                    <div className={`text-sm bg-${color}-200 px-2 rounded-3xl w-max`}>
                       <p>{tasks[index].date.slice(11, 16)}</p>
                     </div>
                   </div>

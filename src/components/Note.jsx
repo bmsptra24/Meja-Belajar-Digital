@@ -8,6 +8,7 @@ import { RiErrorWarningFill } from "react-icons/ri";
 import { Confirmation } from "./Confirmation";
 import TextareaAutosize from "react-textarea-autosize";
 import CloseButton from "./CloseButton";
+import { useSelector } from "react-redux";
 
 // add new note
 const addNote = async (user) => {
@@ -19,7 +20,7 @@ const addNote = async (user) => {
   updateData(["users/" + user.uid + "/notes/" + key], template);
 };
 
-const Note = () => { 
+const Note = () => {
   const [user] = useAuthState(auth);
   const [data, setData] = useState([]); // all data notes
   const [note, setNote] = useState([]); // a note was selected
@@ -27,6 +28,9 @@ const Note = () => {
   const [isListNotesClicked, setIsListNotesClicked] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const refTitle = useRef(null);
+ 
+  const { config } = useSelector((state) => state.database);
+  const color = config.color;
 
   // change state
   const changeState = {
@@ -106,8 +110,12 @@ const Note = () => {
           color="red"
         />
       )}
-      <div className="z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-300">
-        <div className="h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-blue-400 ">
+      <div
+        className={`z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-${color}-300`}
+      >
+        <div
+          className={`h-full w-full lg:mt-3 lg:ml-3 lg:p-3 lg:border-2 border-slate-800 rounded-none lg:rounded-xl lg:bg-${color}-400`}
+        >
           <div className=" flex h-full flex-col lg:flex-row overflow-hidden">
             <div
               className={
@@ -126,8 +134,8 @@ const Note = () => {
                             key={"note-" + idx}
                             className={`${
                               idx === lastOpen
-                                ? "bg-slate-50 border-2 border-blue-300 drop-shadow-lg"
-                                : "bg-slate-200 border-2 border-blue-50 hover:border-slate-300 hover:bg-slate-300"
+                                ? `bg-slate-50 border-2 border-${color}-300 drop-shadow-lg`
+                                : `bg-slate-200 border-2 border-${color}-50 hover:border-slate-300 hover:bg-slate-300`
                             } px-2 py-1 rounded-lg mb-1`}
                             style={
                               ({ cursor: "pointer" }, { minHeight: "35px" })
@@ -166,7 +174,7 @@ const Note = () => {
               <div className="w-full z-40 bottom-4 absolute lg:static flex justify-end lg:justify-start pr-3 lg:pr-0 h-1/10 lg:h-auto items-center">
                 <div
                   title="Add note"
-                  className="icon transition ease-out bg-blue-200 hover:bg-blue-300 border-2 border-blue-500"
+                  className={`icon transition ease-out bg-${color}-200 hover:bg-${color}-300 border-2 border-${color}-500`}
                   onClick={async () => {
                     setIsListNotesClicked(false);
                     addNote(user);
