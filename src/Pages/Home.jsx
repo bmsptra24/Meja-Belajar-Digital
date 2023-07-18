@@ -18,7 +18,7 @@ import { HandlerPomodoro } from "../Features/pomodoro/HandlerPomodoro";
 import { useSelector } from "react-redux";
 import dumyImage2 from "../Assets/wallpaper/dumyImage2.jpg";
 // import dumyVideo from "../Assets/wallpaper/dumyVideo.mp4";
-import unsplashApi from "../Store/Unsplash";
+// import unsplashApi from "../Store/Unsplash";
 import ReactPlayer from "react-player";
 import { TbHelpSquareRoundedFilled } from "react-icons/tb";
 import videoTutorial from "../Assets/videos/MBD-Tutorial.mp4";
@@ -27,11 +27,13 @@ import Setting from "../Components/Setting";
 import { Background } from "../Store/Background";
 import FetchData from "../Store/FetchData";
 import Help from "../Components/Help";
+import axios from "axios";
 
 const Home = () => {
   const navigate = useNavigate();
   const [user] = useAuthState(auth);
   const [photos, setPhotos] = useState([]);
+  const [quote, setQuote] = useState([]);
   const {
     menu,
     toDoList,
@@ -52,25 +54,27 @@ const Home = () => {
     }
   }, [user, navigate]);
 
-  const fetchPhotos = async () => {
-    try {
-      const response = await unsplashApi.get("/photos/random", {
-        params: {
-          count: 5,
-        },
-      });
-
-      setPhotos(response.data);
-    } catch (error) {
-      console.log("Error fetching photos from Unsplash:", error);
-    }
+  const getQuote = async () => {
+    const res = await axios("https://dummyjson.com/quotes/random");
+    setQuote(res.data);
   };
 
+  useEffect(() => {
+    getQuote();
+  }, []);
+
+  // console.log(quote);
   return (
     <div className="home bg-slate-100 flex flex-col justify-between relative font-roboto text-slate-950">
       <HandlerMusic />
       <HandlerPomodoro />
       <FetchData />
+
+      <div className="absolute z-10 top-20 left-20 w-2/5 text-slate-50">
+        <p className="text-3xl font-poppins">{quote?.quote}</p>
+        <p className="text-lg mt-3">{quote?.author}</p>
+      </div>
+
       <div
         className={
           "absolute inset-0 z-0 " +
