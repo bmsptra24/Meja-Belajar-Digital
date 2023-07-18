@@ -312,7 +312,7 @@ const Blurting = () => {
                   <>
                     <label
                       htmlFor="questions"
-                      className="text-lsm mt-1 text-slate-400 font-semibold"
+                      className="text-lsm mt-1 text-slate-400 font-poppins"
                     >
                       Pertanyaan
                     </label>
