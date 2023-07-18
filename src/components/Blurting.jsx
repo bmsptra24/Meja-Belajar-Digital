@@ -261,7 +261,7 @@ const Blurting = () => {
                     ></textarea> */}
                     <label
                       htmlFor="remembered"
-                      className="lg:ml-3 text-slate-400 font-semibold"
+                      className="lg:ml-3 text-slate-400 font-poppins"
                     >
                       Hal yang diingat
                     </label>
@@ -287,7 +287,7 @@ const Blurting = () => {
                   <>
                     <label
                       htmlFor="forgotten"
-                      className="text-lsm mt-1 text-slate-400 font-semibold relative flex justify-between"
+                      className="text-lsm mt-1 text-slate-400 font-poppins relative flex justify-between"
                     >
                       Hal yang dilupa
                       <CloseButton className="right-2" />
