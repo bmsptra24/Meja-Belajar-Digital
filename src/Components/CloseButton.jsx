@@ -33,7 +33,7 @@ const CloseButton = ({ className }) => {
     <MdClose
       onClick={hideAllComponents}
       className={
-        "transition-all ease-in-out cursor-pointer text-2xl text-slate-950 hover:text-red-500 hover:bg-slate-300/70 rounded-lg hidden lg:block " +
+        "z-40 transition-all ease-in-out cursor-pointer text-2xl text-slate-950 hover:text-red-500 hover:bg-slate-300/70 rounded-lg hidden lg:block " +
         (className ? className : "")
       }
     />

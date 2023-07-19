@@ -14,6 +14,7 @@ import iconMenu from "../Assets/Icon/menu.png";
 import iconTarget from "../Assets/Icon/target.png";
 import iconIndependent from "../Assets/Icon/independent.png";
 import iconInternet from "../Assets/Icon/internet-on-hand.png";
+import { Configuration } from "../../Configuration";
 
 const LandingPage = () => {
   const [isBurger, setIsBurger] = useState(false);
@@ -155,7 +156,7 @@ const LandingPage = () => {
           </p>
           <div className="h-full w-full flex justify-center items-center">
             <ReactPlayer
-              url={"https://youtu.be/X0-wFIBt0AU"}
+              url={Configuration.linkTutorialMBD}
               height={"546px"}
               width={"100%"}
               controls={true}

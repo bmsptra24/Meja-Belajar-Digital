@@ -10,9 +10,10 @@ import { BsPerson, BsCheckLg } from "react-icons/bs";
 import { VscSymbolColor } from "react-icons/vsc";
 import CloseButton from "./CloseButton";
 import { useState, useEffect } from "react";
-import { images } from "../Store/Background";
+import { Wallpaper } from "../../Configuration";
 import { BiLogOutCircle } from "react-icons/bi";
 import { signOutBtn } from "../Store/Firebase";
+import ReactPlayer from "react-player";
 
 const Setting = () => {
   const [user] = useAuthState(auth);
@@ -390,22 +391,47 @@ const Setting = () => {
                   <div>
                     {/* gambar 1 */}
                     <div className="flex gap-2 flex-wrap">
-                      {images &&
-                        images.map((img, idx) => {
+                      {Wallpaper &&
+                        Wallpaper.map((obj, idx) => {
                           return (
-                            <img
-                              loading="lazy"
-                              key={idx}
-                              src={img}
-                              alt="wallpaper"
-                              className={
-                                "w-52 rounded" +
-                                (config.background === idx
-                                  ? " ring-4 ring-blue-500 shadow"
-                                  : "")
-                              }
-                              onClick={() => handleBackground(idx)}
-                            />
+                            <>
+                              {obj.id === "img" && (
+                                <img
+                                  loading="lazy"
+                                  key={idx}
+                                  src={obj.src}
+                                  alt="wallpaper"
+                                  className={
+                                    "w-52 rounded" +
+                                    (config.background === idx
+                                      ? " ring-4 ring-blue-500 shadow"
+                                      : "")
+                                  }
+                                  onClick={() => handleBackground(idx)}
+                                />
+                              )}
+                              {obj.id === "video" && (
+                                <div
+                                  className={
+                                    "w-52 rounded" +
+                                    (config.background === idx
+                                      ? " ring-4 ring-blue-500 shadow "
+                                      : "")
+                                  }
+                                >
+                                  <div className="h-full w-full absolute z-10 bg-black"></div>
+                                  <ReactPlayer
+                                    url={obj.src}
+                                    // url={"https://youtu.be/kUSYA2z6Low"}
+                                    height={"100%"}
+                                    width={"100%"}
+                                    controls={false}
+                                    playing={true}
+                                    loop={true}
+                                  />
+                                </div>
+                              )}
+                            </>
                           );
                         })}
                     </div>

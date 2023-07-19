@@ -1,10 +1,12 @@
 import ReactPlayer from "react-player";
-import videoTutorial from "../Assets/videos/MBD-Tutorial.mp4";
 import { AiFillHome } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { Configuration } from "../../Configuration";
+import { useState } from "react";
 
 const Help = () => {
   const navigate = useNavigate();
+  const [isWatched, setIsWatched] = useState(false);
 
   return (
     <div className="App pattern-box">
@@ -16,12 +18,24 @@ const Help = () => {
       />
       <div className="w-full h-auto lg:h-full p-5 lg:p-20 flex justify-center items-center">
         <ReactPlayer
-          url={videoTutorial}
+          url={Configuration.linkTutorialMBD}
           height={"100%"}
-          width={"auto"}
+          width={"72%"}
           controls={true}
+          playing
+          onEnded={() => setIsWatched(true)}
         />
       </div>
+      {isWatched && (
+        <button
+          className="text-slate-100 absolute bottom-10 py-3 px-6 bg-gradient-to-l bg-blue-500 rounded-lg border-blue-400 border-4 text-3xl transition-all hover:bg-blue-600 hover:border-blue-400 hover:shadow-lg ease-in-out animate-pulse hover:animate-none"
+          onClick={() => {
+            navigate("/home");
+          }}
+        >
+          Continue
+        </button>
+      )}
     </div>
   );
 };

@@ -1,19 +1,14 @@
 import { useState } from "react";
-import img1 from "../Assets/Wallpaper/img1.jpg";
-import img2 from "../Assets/Wallpaper/img2.jpg";
-import img3 from "../Assets/Wallpaper/img3.jpg";
-import img4 from "../Assets/Wallpaper/img4.jpg";
-import img5 from "../Assets/Wallpaper/img5.jpg";
-import img6 from "../Assets/Wallpaper/img6.jpg";
 import { useSelector } from "react-redux";
 import { ImSpinner2 } from "react-icons/im";
-
-export const images = [img1, img2, img3, img4, img5, img6];
+import { Wallpaper } from "../../Configuration";
+import ReactPlayer from "react-player";
 
 export const Background = ({ className }) => {
   const { config } = useSelector((state) => state.database);
   const [loading, setLoading] = useState(true);
-  console.log(loading);
+  const [start, setStart] = useState(false);
+
   return (
     <>
       <div
@@ -23,15 +18,35 @@ export const Background = ({ className }) => {
       >
         <ImSpinner2 className="text-5xl text-slate-50 animate-spin" />
       </div>
-      <img
-        loading="lazy"
-        src={images[config?.background]}
-        alt="background"
-        className={`${className} ${
-          loading ? "invisible" : "visible"
-        } hidden lg:block`}
-        onLoad={() => setLoading(false)}
-      />
+      {Wallpaper[config?.background]?.id === "img" && (
+        <img
+          loading="lazy"
+          src={Wallpaper[config?.background]?.src}
+          alt="background"
+          className={`${className} ${
+            loading ? "invisible" : "visible"
+          } hidden lg:block`}
+          onLoad={() => setLoading(false)}
+        />
+      )}
+      {Wallpaper[config?.background]?.id === "video" && (
+        <div className="w-full h-full relative">
+          {start && <div className="h-full w-full absolute z-10"></div>}
+          <div className="h-full w-full absolute">
+            <ReactPlayer
+              url={Wallpaper[config?.background]?.src}
+              // url={"https://youtu.be/kUSYA2z6Low"}
+              height={"100%"}
+              width={"100%"}
+              controls={false}
+              playing={true}
+              loop={true}
+              onReady={() => setLoading(false)}
+              onPlay={() => setStart(true)}
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 };
