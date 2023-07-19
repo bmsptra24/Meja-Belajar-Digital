@@ -16,9 +16,6 @@ import Pomodoro from "../Components/Pomodoro";
 import { HandlerMusic } from "../Features/music/HandlerMusic";
 import { HandlerPomodoro } from "../Features/pomodoro/HandlerPomodoro";
 import { useSelector } from "react-redux";
-import dumyImage2 from "../Assets/wallpaper/dumyImage2.jpg";
-// import dumyVideo from "../Assets/wallpaper/dumyVideo.mp4";
-// import unsplashApi from "../Store/Unsplash";
 import ReactPlayer from "react-player";
 import { TbHelpSquareRoundedFilled } from "react-icons/tb";
 import videoTutorial from "../Assets/videos/MBD-Tutorial.mp4";
@@ -90,7 +87,7 @@ const Home = () => {
           }}
           title="Help"
         />
-        <Background className="w-full h-full hidden lg:block" />
+        <Background className="w-full h-full" />
         {/* <img
           // src={photos.length > 0 ? photos[0].urls.regular : dumyImage1} //for production
           src={"https://picsum.photos/1920/1080"} //for dev

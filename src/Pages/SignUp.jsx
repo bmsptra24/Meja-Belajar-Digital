@@ -1,7 +1,9 @@
 import { Toasts } from "../Components/Toasts";
 import {
   createUserWithEmailAndPassword,
+  getAuth,
   sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
 import { useState } from "react";
 import { updateData } from "../Store/Database";
@@ -24,6 +26,20 @@ const SignUp = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+
+        const auth = getAuth();
+        updateProfile(auth.currentUser, {
+          displayName: name,
+        })
+          .then(() => {
+            // Profile updated!
+            console.log("User created!");
+          })
+          .catch((error) => {
+            // An error occurred
+            console.log(error);
+          });
+
         // write user data to database
         updateData("users/" + user.uid, {
           email: email,

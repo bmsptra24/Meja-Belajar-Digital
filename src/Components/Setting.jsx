@@ -1,4 +1,9 @@
-import { auth, deleteUserAccount, resetPassword } from "../Store/Firebase";
+import {
+  auth,
+  deleteUserAccount,
+  resetPassword,
+  updateDataUser,
+} from "../Store/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { fetchDataRealtime, updateData } from "../Store/Database";
 import { BsPerson, BsCheckLg } from "react-icons/bs";
@@ -24,8 +29,11 @@ const Setting = () => {
         setConfig(snapshot);
       });
     }
-  }, [user]); 
+  }, [user]);
 
+  useEffect(() => {
+    setInputNewName(auth.currentUser.displayName);
+  }, []);
   const hideAll = () => {
     setAccount(false);
     setThemes(false);
@@ -50,7 +58,6 @@ const Setting = () => {
   const handleInput = (event, setState) => {
     setState(event.target.value);
   };
-
   return (
     <>
       <div className="absolute z-50 w-full h-full bg-slate-950/50"></div>
@@ -120,7 +127,7 @@ const Setting = () => {
                   <div>
                     <p className="font-bold">Name</p>
                     <p className="text-xs mt-1 mb-2.5">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Ganti nama kamu disini.
                     </p>
                     <input
                       type="text"
@@ -135,10 +142,7 @@ const Setting = () => {
                   <button
                     className="bg-blue-500 mt-5 text-slate-50 text-sm py-2 px-3 rounded hover:bg-blue-600 transition-all ease-in-out"
                     onClick={() => {
-                      updateData(
-                        ["users/" + user.uid + "/config/name"],
-                        inputNewName
-                      ).then(alert("Data berhasil disimpan!"));
+                      updateDataUser(inputNewName);
                     }}
                   >
                     Simpan Perubahan
@@ -148,9 +152,10 @@ const Setting = () => {
                 {/* password */}
                 <div>
                   <p className="font-bold">Password</p>
-                  <p className="text-xs mt-1 mb-2.5">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  </p>
+                  <div className="text-xs mt-1 mb-2.5 flex gap-1">
+                    Klik <p className="italic">Ganti Kata Sandi</p> untuk
+                    mengubah password kamu.
+                  </div>
                   <button
                     className="bg-blue-500 text-slate-50 text-sm py-2 px-3 rounded hover:bg-blue-600 transition-all ease-in-out"
                     onClick={() => {
@@ -172,7 +177,8 @@ const Setting = () => {
                 <div>
                   <p className="font-bold">Penghapusan Akun</p>
                   <p className="text-xs mt-1 mb-2.5">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Hapus akun dan semua data kamu. Semua data yang dihapus
+                    tidak dapat dipulihkan.
                   </p>
                   <div className="flex gap-3">
                     <button
@@ -388,6 +394,7 @@ const Setting = () => {
                         images.map((img, idx) => {
                           return (
                             <img
+                              loading="lazy"
                               key={idx}
                               src={img}
                               alt="wallpaper"

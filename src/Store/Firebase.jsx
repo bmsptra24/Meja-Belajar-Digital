@@ -9,6 +9,7 @@ import {
   FacebookAuthProvider,
   deleteUser,
   sendPasswordResetEmail,
+  updateProfile,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -105,5 +106,31 @@ export const resetPassword = (email) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       alert(errorCode, errorMessage);
+    });
+};
+
+export const dataUser = () => {
+  const auth = getAuth();
+  const user = auth.currentUser;
+
+  if (user !== null) {
+    return user.providerData;
+  }
+};
+
+export const updateDataUser = async (newName) => {
+  const auth = getAuth();
+  console.log(newName);
+  await updateProfile(auth.currentUser, {
+    displayName: newName,
+    photoURL: null,
+  })
+    .then(() => {
+      // Profile updated!
+      alert("Nama berhasil diubah!");
+    })
+    .catch((error) => {
+      // An error occurred
+      alert(error);
     });
 };
