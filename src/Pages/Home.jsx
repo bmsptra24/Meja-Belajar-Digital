@@ -24,13 +24,12 @@ import Setting from "../Components/Setting";
 import { Background } from "../Store/Background";
 import FetchData from "../Store/FetchData";
 import Help from "../Components/Help";
-import axios from "axios";
+import { Quote } from "../Components/Quote";
 
 const Home = () => {
   const navigate = useNavigate();
   const [user] = useAuthState(auth);
   const [photos, setPhotos] = useState([]);
-  const [quote, setQuote] = useState([]);
   const {
     menu,
     toDoList,
@@ -53,26 +52,12 @@ const Home = () => {
     }
   }, [user, navigate]);
 
-  const getQuote = async () => {
-    const res = await axios("https://dummyjson.com/quotes/random");
-    setQuote(res.data);
-  };
-
-  useEffect(() => {
-    getQuote();
-  }, []);
-
-  // console.log(quote);
   return (
     <div className="home bg-slate-100 flex flex-col justify-between relative font-roboto text-slate-950">
       <HandlerMusic />
       <HandlerPomodoro />
       <FetchData />
-
-      <div className="absolute z-10 top-20 left-20 w-2/5 text-slate-50">
-        <p className="text-3xl font-poppins">{quote?.quote}</p>
-        <p className="text-lg mt-3">{quote?.author}</p>
-      </div>
+      <Quote />
 
       <div
         className={
@@ -90,19 +75,12 @@ const Home = () => {
           title="Help"
         />
         <Background className="w-full h-full" />
-        {/* <img
-          // src={photos.length > 0 ? photos[0].urls.regular : dumyImage1} //for production
-          src={"https://picsum.photos/1920/1080"} //for dev
-          alt="wallpaper"
-          className="w-full h-full hidden lg:block"
-        /> */}
         <img
           // src={photos.length > 0 ? photos[0].urls.regular : dumyImage2} //for production
           src={"https://picsum.photos/1080/1920"} //for dev
           alt="wallpaper"
           className="w-full h-full block lg:hidden"
         />
-        {/* <ReactPlayer url="<https://www.youtube.com/watch?v=ysz5S6PUM-U>" height={'100%'} width={'100%'} muted/> */}
       </div>
 
       {/* <div className="absolute left-10 top-10 w-2/6 h-80 px-5 bg-slate-50 rounded-3xl flex justify-center items-center">

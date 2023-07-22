@@ -9,12 +9,12 @@ const Home = lazy(() => import("./Pages/Home"));
 
 function App() {
   return (
-    <div>
+    <div className="absolute inset-0">
       <Suspense
         fallback={
-          <div className="bg-loading d-flex vh-100 justify-center align-items-center">
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden"></span>
+          <div className="flex h-full justify-center items-center">
+            <div className="animate-spin" role="status">
+              <span className="hidden"></span>
             </div>
           </div>
         }

@@ -14,7 +14,7 @@ export const Background = ({ className }) => {
       <div
         className={`${
           !loading ? "invisible" : "visible"
-        } w-full h-full absolute bg-slate-400/50 animate-pulse flex justify-center items-center z-20`}
+        } w-full h-full absolute bg-slate-400/50 animate-pulse hidden lg:flex justify-center items-center z-20`}
       >
         <ImSpinner2 className="text-5xl text-slate-50 animate-spin" />
       </div>
