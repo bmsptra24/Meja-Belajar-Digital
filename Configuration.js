@@ -1,3 +1,10 @@
+import {
+  FaClipboardList,
+  FaChalkboardTeacher,
+  FaRegStickyNote,
+} from 'react-icons/fa'
+import { BsFire, BsCardHeading, BsSearch } from 'react-icons/bs'
+
 import img1 from './src/Assets/Wallpaper/img1.jpg'
 import img2 from './src/Assets/Wallpaper/img2.jpg'
 import img3 from './src/Assets/Wallpaper/img3.jpg'
@@ -35,4 +42,12 @@ export const Configuration = {
   linkGithub: 'https://github.com/bmsptra24/Meja-Belajar-Digital',
   linkYoutube: 'https://youtu.be/siHQue6a6nI',
   linkEmail: 'mailto:sbima2432@gmail.com',
+  apps: [
+    { title: 'Todolist', icon: FaClipboardList },
+    { title: 'Note', icon: FaRegStickyNote },
+    { title: 'Blurting', icon: BsFire },
+    { title: 'Flashcard', icon: BsCardHeading },
+    { title: 'Feynman', icon: FaChalkboardTeacher },
+    { title: 'Search', icon: BsSearch },
+  ],
 }

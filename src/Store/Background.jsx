@@ -1,16 +1,40 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { ImSpinner2 } from "react-icons/im";
-import { Wallpaper } from "../../Configuration";
+import { Configuration, Wallpaper } from "../../Configuration";
 import ReactPlayer from "react-player";
+import { useDispatch } from "react-redux";
+import {
+  setBlurting,
+  setFeynman,
+  setFlashCard,
+  setNote,
+  setSearch,
+  setToDoList,
+  setHelp,
+} from "../Features/home/Home";
 
 export const Background = ({ className }) => {
   const { config } = useSelector((state) => state.database);
   const [loading, setLoading] = useState(true);
   const [start, setStart] = useState(false);
+  const dispatch = useDispatch();
+
+  const Card = ({ app, onClick }) => {
+    return (
+      <div
+        className={`bg-${config.color}-200 rounded-xl p-3 flex flex-col justify-center items-center shadow-md hover:bg-${config.color}-300`}
+        onClick={onClick}
+      >
+        <app.icon className="text-5xl text-slate-950" />
+        <p className="mt-4">{app.title}</p>
+      </div>
+    );
+  };
 
   return (
     <>
+      {/* bg in landscape */}
       <div
         className={`${
           !loading ? "invisible" : "visible"
@@ -47,6 +71,36 @@ export const Background = ({ className }) => {
           </div>
         </div>
       )}
+
+      {/* bg in potrait */}
+      <div
+        className={`h-full w-full bg-${config.color}-50 grid grid-cols-2 gap-3 p-5 lg:hidden`}
+      >
+        <Card
+          app={Configuration.apps[0]}
+          onClick={() => dispatch(setToDoList(true))}
+        />
+        <Card
+          app={Configuration.apps[1]}
+          onClick={() => dispatch(setNote(true))}
+        />
+        <Card
+          app={Configuration.apps[2]}
+          onClick={() => dispatch(setBlurting(true))}
+        />
+        <Card
+          app={Configuration.apps[3]}
+          onClick={() => dispatch(setFlashCard(true))}
+        />
+        <Card
+          app={Configuration.apps[4]}
+          onClick={() => dispatch(setFeynman(true))}
+        />
+        <Card
+          app={Configuration.apps[5]}
+          onClick={() => dispatch(setSearch(true))}
+        />
+      </div>
     </>
   );
 };
