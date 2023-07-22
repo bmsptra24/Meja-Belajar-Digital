@@ -8,7 +8,12 @@ import {
   setCountPomodoro,
 } from "./Pomodoro";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchDataRealtime, updateData } from "../../Store/Database";
+import {
+  fetchDataRealtime,
+  pushData,
+  timestamp,
+  updateData,
+} from "../../Store/Database";
 import { SendNotification } from "../../Store/SendNotification";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../Store/Firebase";
@@ -18,10 +23,10 @@ export const HandlerPomodoro = () => {
   const [user] = useAuthState(auth);
   const tempTimeRemaining = useRef(0);
   const tempTimeSet = useRef(0);
+  const reportPomodoro = useRef([]);
   const interval = useRef(null);
   const title = useRef("");
   const message = useRef("");
-
   const {
     pomodoroStatus,
     pomodoroDuration,
@@ -38,6 +43,9 @@ export const HandlerPomodoro = () => {
         dispatch(setPomodoroDuration(snapshot.pomodoroDuration));
         dispatch(setShortBreakDuration(snapshot.shortBreak));
         dispatch(setLongBreakDuration(snapshot.longBreak));
+      });
+      fetchDataRealtime(`users/${user.uid}/reports/pomodoro`, (snapshot) => {
+        reportPomodoro.current = snapshot;
       });
     }
   }, [user, dispatch]);
@@ -92,6 +100,59 @@ export const HandlerPomodoro = () => {
           dispatch(setTimeRemaining(tempTimeRemaining.current));
           formatTimer(tempTimeRemaining.current);
           tempTimeRemaining.current++;
+
+          // if (
+          //   reportPomodoro.current !== null &&
+          //   pomodoroStatus === "pomodoro" &&
+          //   tempTimeRemaining.current % 1 === 0
+          // ) {
+          //   const newDate = `${timestamp().day}-${timestamp().month}-${
+          //     timestamp().year
+          //   }`;
+          //   // updateData(["users/" + user.uid + "/reports/pomodoro/" + 0], null);
+          //   // updateData(["users/" + user.uid + "/reports/pomodoro/" + 0], newDate);
+          //   // 1-1-2001-1
+          //   const latestPomodoro = reportPomodoro.current.slice(-1)[0];
+          //   const duration = latestPomodoro.slice(
+          //     latestPomodoro.indexOf(`${timestamp().year}`) + 5
+          //   );
+          //   const year = latestPomodoro.slice(
+          //     latestPomodoro.indexOf(`${timestamp().year}`),
+          //     latestPomodoro.indexOf(`${timestamp().year}`) + 4
+          //   );
+          //   const latestDate = latestPomodoro.slice(
+          //     0,
+          //     latestPomodoro.indexOf(`${timestamp().year}`) + 4
+          //   );
+
+          //   if (latestDate === newDate) {
+          //     console.log("wo");
+          //     // reportPomodoro.current.push(
+          //     //   newDate + "-" + (Number(duration) + 1)
+          //     // );
+          //     // reportPomodoro.current.slice(
+          //     //   reportPomodoro.current.length - 1,
+          //     //   reportPomodoro.current.length
+          //     // );
+          //     console.log({ latestDate }, reportPomodoro.current);
+          //     const idxOfLatestDate =
+          //     // updateData(
+          //     //   ["users/" + user.uid + "/reports/pomodoro"],
+          //     //   [
+          //       // ...reportPomodoro.current
+          //     //     newDate + "-" + (Number(duration) + 1),
+          //     //   ]
+          //     // );
+          //   } else {
+          //     updateData(
+          //       ["users/" + user.uid + "/reports/pomodoro"],
+          //       [
+          //         ...reportPomodoro.current,
+          //         newDate + "-" + (Number(duration) + 1),
+          //       ]
+          //     );
+          //   }
+          // }
         }
       }, 1000);
     }
@@ -99,8 +160,9 @@ export const HandlerPomodoro = () => {
 
   // convert duration timer in second to string (00:00)
   const formatTimer = (timeRemaining) => {
-    const minutes = Math.floor(timeRemaining / 60);
-    const seconds = timeRemaining % 60;
+    const totTimeRemaining = tempTimeSet.current * 60 - timeRemaining;
+    const minutes = Math.floor(totTimeRemaining / 60);
+    const seconds = totTimeRemaining % 60;
     const string = `${minutes.toString().padStart(2, "0")}:${seconds
       .toString()
       .padStart(2, "0")}`;

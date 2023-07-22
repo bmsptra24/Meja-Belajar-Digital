@@ -69,6 +69,9 @@ const SignUp = () => {
             },
             theme: "light",
           },
+          reports: {
+            pomodoro: 0,
+          },
         });
         // sending email verification
         sendEmailVerification(auth.currentUser).then(() => {
