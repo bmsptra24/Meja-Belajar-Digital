@@ -4,6 +4,12 @@ import img3 from './src/Assets/Wallpaper/img3.jpg'
 import img4 from './src/Assets/Wallpaper/img4.jpg'
 import img5 from './src/Assets/Wallpaper/img5.jpg'
 import img6 from './src/Assets/Wallpaper/img6.jpg'
+import img7 from './src/Assets/Wallpaper/img7.jpg'
+import img8 from './src/Assets/Wallpaper/img8.jpg'
+import img9 from './src/Assets/Wallpaper/img9.jpg'
+import img10 from './src/Assets/Wallpaper/img10.jpg'
+import img11 from './src/Assets/Wallpaper/img11.jpg'
+import img12 from './src/Assets/Wallpaper/img12.jpg'
 const video1 = 'https://youtu.be/kUSYA2z6Low'
 const video2 = 'https://youtu.be/h-IFxZglesE'
 
@@ -14,6 +20,12 @@ export const Wallpaper = [
   { src: img4, id: 'img' },
   { src: img5, id: 'img' },
   { src: img6, id: 'img' },
+  { src: img7, id: 'img' },
+  { src: img8, id: 'img' },
+  { src: img9, id: 'img' },
+  { src: img10, id: 'img' },
+  { src: img11, id: 'img' },
+  { src: img12, id: 'img' },
   { src: video1, id: 'video' },
   { src: video2, id: 'video' },
 ]

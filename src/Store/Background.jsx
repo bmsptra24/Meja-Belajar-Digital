@@ -32,10 +32,9 @@ export const Background = ({ className }) => {
       {Wallpaper[config?.background]?.id === "video" && (
         <div className="w-full h-full relative">
           {start && <div className="h-full w-full absolute z-10"></div>}
-          <div className="h-full w-full absolute">
+          <div className="w-screen h-screen absolute">
             <ReactPlayer
               url={Wallpaper[config?.background]?.src}
-              // url={"https://youtu.be/kUSYA2z6Low"}
               height={"100%"}
               width={"100%"}
               controls={false}
@@ -43,6 +42,7 @@ export const Background = ({ className }) => {
               loop={true}
               onReady={() => setLoading(false)}
               onPlay={() => setStart(true)}
+              muted
             />
           </div>
         </div>

@@ -328,8 +328,34 @@ const Setting = () => {
                   </div>
                 </div>
 
-                {/* themes */}
+                {/* config */}
                 <div>
+                  <p className="font-bold">Configuration</p>
+                  <p className="text-xs mt-1 mb-3">
+                    Pilih configurasi tambahan yang kamu inginkan.
+                  </p>
+                  <div className="flex justify-between p-3 px-5 bg-slate-200/70 mt-1">
+                    <div className="">
+                      <p>Quote</p>
+                    </div>
+                    <div className="flex items-center">
+                      {config.taskbar.feynman ? "On" : "Off"}
+                      <input
+                        type="checkbox"
+                        name="app"
+                        className="ml-3 w-5 h-5"
+                        id="app"
+                        checked={config.taskbar.feynman}
+                        onChange={() =>
+                          handleTaskbar(!config.taskbar.feynman, "feynman")
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* themes */}
+                {/* <div>
                   <p className="font-bold">Tema</p>
                   <p className="text-xs mt-1 mb-3">
                     Pilih mode terang atau gelap.
@@ -351,7 +377,7 @@ const Setting = () => {
                       <option value="dark">Gelap</option>
                     </select>
                   </div>
-                </div>
+                </div> */}
 
                 {/* colors */}
                 <div>
@@ -389,48 +415,31 @@ const Setting = () => {
                     Pilih background yang kamu suka.
                   </p>
                   <div>
-                    {/* gambar 1 */}
+                    {/* gambar */}
                     <div className="flex gap-2 flex-wrap">
                       {Wallpaper &&
                         Wallpaper.map((obj, idx) => {
                           return (
                             <>
-                              {obj.id === "img" && (
-                                <img
-                                  loading="lazy"
-                                  key={idx}
-                                  src={obj.src}
-                                  alt="wallpaper"
-                                  className={
-                                    "w-52 rounded" +
-                                    (config.background === idx
-                                      ? " ring-4 ring-blue-500 shadow"
-                                      : "")
-                                  }
-                                  onClick={() => handleBackground(idx)}
-                                />
-                              )}
-                              {obj.id === "video" && (
-                                <div
-                                  className={
-                                    "w-52 rounded" +
-                                    (config.background === idx
-                                      ? " ring-4 ring-blue-500 shadow "
-                                      : "")
-                                  }
-                                >
-                                  <div className="h-full w-full absolute z-10 bg-black"></div>
-                                  <ReactPlayer
-                                    url={obj.src}
-                                    // url={"https://youtu.be/kUSYA2z6Low"}
-                                    height={"100%"}
-                                    width={"100%"}
-                                    controls={false}
-                                    playing={true}
-                                    loop={true}
-                                  />
-                                </div>
-                              )}
+                              <img
+                                loading="lazy"
+                                key={idx}
+                                src={
+                                  obj.id === "img"
+                                    ? obj.src
+                                    : `https://img.youtube.com/vi/${obj.src.slice(
+                                        17
+                                      )}/mqdefault.jpg`
+                                }
+                                alt="wallpaper"
+                                className={
+                                  "w-52 rounded" +
+                                  (config.background === idx
+                                    ? " ring-4 ring-blue-500 shadow"
+                                    : "")
+                                }
+                                onClick={() => handleBackground(idx)}
+                              />
                             </>
                           );
                         })}
