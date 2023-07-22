@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import { Wallpaper } from "../../Configuration";
 import { BiLogOutCircle } from "react-icons/bi";
 import { signOutBtn } from "../Store/Firebase";
-import ReactPlayer from "react-player";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 const Setting = () => {
   const [user] = useAuthState(auth);
@@ -22,6 +22,7 @@ const Setting = () => {
   const [themes, setThemes] = useState(false);
   const [config, setConfig] = useState({});
   const [inputNewName, setInputNewName] = useState("");
+  const [isBurgerClicked, setIsBurgerClicked] = useState(false);
 
   // get data from database
   useEffect(() => {
@@ -62,9 +63,13 @@ const Setting = () => {
   return (
     <>
       <div className="absolute z-50 w-full h-full bg-slate-950/50"></div>
-      <div className="absolute z-50 w-8/12 h-9/10 flex">
+      <div className="absolute z-50 w-full lg:w-8/12 h-full lg:h-9/10 flex">
         {/* menu */}
-        <div className="w-64 h-full bg-slate-100 border-r-2 rounded-s-xl flex flex-col">
+        <div
+          className={`w-64 h-full bg-slate-100 border-r-2 lg:rounded-s-xl flex-col absolute lg:static z-50 ${
+            isBurgerClicked ? "flex" : "hidden lg:flex"
+          }`}
+        >
           <div className="border-b-2 p-5">
             <p className="text-xl font-bold ">Setting</p>
           </div>
@@ -80,6 +85,7 @@ const Setting = () => {
                 onClick={() => {
                   hideAll();
                   setAccount(true);
+                  setIsBurgerClicked(false);
                 }}
               >
                 <BsPerson className="text-xl mt-px" />
@@ -96,6 +102,7 @@ const Setting = () => {
                 onClick={() => {
                   hideAll();
                   setThemes(true);
+                  setIsBurgerClicked(false);
                 }}
               >
                 <VscSymbolColor className="text-xl mt-px" />
@@ -113,11 +120,24 @@ const Setting = () => {
             </button>
           </div>
         </div>
+
+        {/* close wall */}
+        {isBurgerClicked && (
+          <div
+            className="bg-slate-950/50 absolute inset-0 z-10"
+            onClick={() => setIsBurgerClicked(false)}
+          ></div>
+        )}
+
         {/* describe */}
-        <div className="w-full h-full rounded-e-xl bg-slate-50">
+        <div className="w-full h-full lg:rounded-e-xl bg-slate-50">
           <div className="border-b-2 p-5 relative flex justify-between items-center">
-            <p className="text-xl font-bold invisible">Setting</p>
-            <CloseButton />
+            <RxHamburgerMenu
+              className="lg:hidden text-xl"
+              onClick={() => setIsBurgerClicked(true)}
+            />
+            <p className="text-xl font-bold lg:invisible">Setting</p>
+            <CloseButton autoHide={false}/>
           </div>
           <div className="p-5 h-[85%] overflow-y-scroll">
             {/* my account */}

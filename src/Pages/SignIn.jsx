@@ -82,6 +82,8 @@ const Login = () => {
               </button>
             </div>
           </div>
+
+          {/* or line */}
           <div>
             <div className="flex justify-between my-4 grow">
               <div className="grow">

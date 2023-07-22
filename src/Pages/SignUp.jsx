@@ -57,6 +57,18 @@ const SignUp = () => {
             shortBreak: 5,
             longBreak: 15,
           },
+          config: {
+            background: 0,
+            color: "blue",
+            taskbar: {
+              blurting: true,
+              feynman: true,
+              flashcard: true,
+              notes: false,
+              todolist: false,
+            },
+            theme: "light",
+          },
         });
         // sending email verification
         sendEmailVerification(auth.currentUser).then(() => {

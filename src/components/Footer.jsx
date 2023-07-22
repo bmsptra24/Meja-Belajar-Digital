@@ -298,26 +298,13 @@ const Footer = () => {
         <div className="icon absolute right-5">
           <div
             className="select-none"
-            onClick={() => setIsSettingClicked((e) => !e)}
+            onClick={() => {
+              dispatch(setMusic(false));
+              dispatch(setPomodoro(false));
+              dispatch(setMenu(false));
+              dispatch(setSetting(true));
+            }}
           >
-            <div
-              className={
-                isSettingClicked === true
-                  ? "absolute bottom-full right-0 mb-7 bg-slate-200 p-2 rounded-lg text-center z-50 visible"
-                  : "absolute bottom-full mb-7 bg-slate-200 p-2 rounded-lg w-80 text-center z-50 hidden"
-              }
-            >
-              <p
-                className="hover:bg-slate-300 p-2 rounded"
-                onClick={() => {
-                  hideAllComponents();
-                  setIsSettingClicked((e) => !e);
-                  signOutBtn();
-                }}
-              >
-                Logout
-              </p>
-            </div>
             <AiOutlineSetting className="text-3xl" />
           </div>
         </div>

@@ -14,7 +14,7 @@ import {
   setHelp,
 } from "../Features/home/Home";
 
-const CloseButton = ({ className }) => {
+const CloseButton = ({ className, autoHide = true }) => {
   const dispatch = useDispatch();
   const hideAllComponents = () => {
     dispatch(setMenu(false));
@@ -33,8 +33,9 @@ const CloseButton = ({ className }) => {
     <MdClose
       onClick={hideAllComponents}
       className={
-        "z-40 transition-all ease-in-out cursor-pointer text-2xl text-slate-950 hover:text-red-500 hover:bg-slate-300/70 rounded-lg hidden lg:block " +
-        (className ? className : "")
+        "z-40 transition-all ease-in-out cursor-pointer text-2xl text-slate-950 hover:text-red-500 hover:bg-slate-300/70 rounded-lg " +
+        (className ? className : "") +
+        (autoHide ? " hidden lg:block" : "")
       }
     />
   );
