@@ -134,18 +134,11 @@ const LandingPage = () => {
               loop={true}
               muted
             ></video>
-            {/* <ReactPlayer
-              url={welcomeScene}
-              height={"auto"}
-              width={"100%"}
-              // controls={true}
-              playing={true}
-              loop={true}
-            /> */}
           </div>
         </div>
       </div>
 
+      {/* product */}
       <div
         ref={ref.produkRef}
         className="w-full flex justify-center mt-16 lg:-mt-5"
@@ -165,12 +158,13 @@ const LandingPage = () => {
         </div>
       </div>
 
+      {/* keunggulan */}
       <div ref={ref.keunggulanRef} className="w-full flex justify-center mt-32">
-        <div className="w-11/12 lg:w-[1080px] mx-5 shadow-md h-[800px] flex flex-col justify-between bg-blue-50 rounded-2xl px-8 pt-20 pb-8 z-10">
+        <div className="w-11/12 lg:w-[1080px] mx-5 shadow-md flex flex-col justify-between bg-blue-50 rounded-2xl px-8 pt-20 pb-8 z-10">
           <p className="font-poppins text-3xl lg:text-4xl font-bold text-center mb-10 text-slate-600">
             Keunggulan
           </p>
-          <div className="w-full h-full grid grid-cols-2 grid-rows-2 gap-10">
+          <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-2 gap-10">
             {[
               [iconLamp, "Memperkuat pemahaman pelajar."],
               [iconLightning, "Membuat belajar menjadi lebih efisien."],
@@ -180,10 +174,10 @@ const LandingPage = () => {
               return (
                 <div
                   key={idx}
-                  className="border-2 bg-slate-200/50 py-5 px-10 shadow-lg rounded-3xl flex gap-4 items-center justify-between"
+                  className="border-2 sm:h-52 lg:h-72 bg-slate-200/50 py-5 px-10 shadow-lg rounded-3xl flex gap-4 items-center justify-between"
                 >
                   <img src={element[0]} alt="icon" className="w-1/3" />
-                  <p className="text-2xl text-slate-600">{element[1]}</p>
+                  <p className="sm:text-2xl text-slate-600 ">{element[1]}</p>
                 </div>
               );
             })}
@@ -191,12 +185,13 @@ const LandingPage = () => {
         </div>
       </div>
 
+      {/* tujuan */}
       <div ref={ref.tujuanRef} className="w-full flex justify-center mt-32">
-        <div className="w-11/12 lg:w-[1080px] mx-5 shadow-md h-[700px] flex flex-col justify-between bg-blue-50 rounded-2xl px-8 pt-20 pb-8 z-10">
+        <div className="w-11/12 lg:w-[1080px] mx-5 shadow-md flex flex-col justify-between bg-blue-50 rounded-2xl px-8 pt-20 pb-8 z-10">
           <p className="font-poppins text-3xl lg:text-4xl font-bold text-center mb-10 text-slate-500">
             Tujuan Hadirnya Meja Belajar Digital
           </p>
-          <div className="w-full h-full grid grid-cols-3 gap-10">
+          <div className="w-full h-full grid sm:grid-cols-3 gap-10">
             {[
               [
                 iconIndependent,
@@ -217,7 +212,7 @@ const LandingPage = () => {
                   className="border-2 bg-slate-200/50 py-5 px-10 shadow-lg rounded-3xl flex flex-col gap-4 items-center"
                 >
                   <img src={element[0]} alt="icon" className="w-8/12 my-10" />
-                  <p className="text-lg text-center text-slate-500">
+                  <p className="text-center text-slate-500 tracking-tight leading-snug hyphens-auto text-lg lg:text-xl">
                     {element[1]}
                   </p>
                 </div>
@@ -229,25 +224,38 @@ const LandingPage = () => {
 
       <div
         ref={ref.footerRef}
-        className="w-full h-[80px] bg-slate-50 mt-32 p-7 flex items-center"
+        className="w-full sm:h-[80px] bg-slate-50 mt-32 p-7 flex items-center"
       >
-        <div className="flex items-center justify-between text-slate-500 w-4/12 h-full">
+        <div className="flex items-start sm:items-center justify-between flex-col sm:flex-row text-slate-500 gap-5 lg:w-4/12 h-full">
           <img src={logo} alt="logo" className="h-10" />
-          <p className="cursor-pointer hover:text-blue-500 transition-all ease-in-out">
+          <a
+            className="cursor-pointer hover:text-blue-500 transition-all ease-in-out"
+            target="_blank"
+            rel="noreferrer"
+            href={Configuration.linkGithub}
+          >
             Github
-          </p>
-          <p className="cursor-pointer hover:text-blue-500 transition-all ease-in-out">
-            Blog
-          </p>
-          <p className="cursor-pointer hover:text-blue-500 transition-all ease-in-out">
+          </a>
+          <a
+            className="cursor-pointer hover:text-blue-500 transition-all ease-in-out"
+            target="_blank"
+            rel="noreferrer"
+            href={Configuration.linkYoutube}
+          >
             Youtube
-          </p>
-          <p className="cursor-pointer hover:text-blue-500 transition-all ease-in-out">
+          </a>
+          <a
+            className="cursor-pointer hover:text-blue-500 transition-all ease-in-out"
+            onClick={() => (window.location = Configuration.linkEmail)}
+          >
             mbd@gmail.com
-          </p>
-          <p className="cursor-pointer hover:text-blue-500 transition-all ease-in-out">
+          </a>
+          <a
+            className="cursor-pointer hover:text-blue-500 transition-all ease-in-out"
+            onClick={() => navigate("/help")}
+          >
             Help
-          </p>
+          </a>
         </div>
       </div>
     </div>
