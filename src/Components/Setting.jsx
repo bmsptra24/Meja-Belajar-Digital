@@ -227,7 +227,7 @@ const Setting = () => {
             {themes && (
               <div className="flex flex-col gap-10">
                 {/* taskbar */}
-                <div>
+                <div className="hidden lg:block">
                   <p className="font-bold">Taskbar</p>
                   <p className="text-xs mt-1 mb-3">
                     Pilih aplikasi yang ingin kamu tampilkan di Taskbar.
@@ -349,7 +349,7 @@ const Setting = () => {
                 </div>
 
                 {/* config */}
-                <div>
+                <div className="hidden lg:block">
                   <p className="font-bold">Configuration</p>
                   <p className="text-xs mt-1 mb-3">
                     Pilih configurasi tambahan yang kamu inginkan.
@@ -429,7 +429,7 @@ const Setting = () => {
                 </div>
 
                 {/* background */}
-                <div>
+                <div className="hidden lg:block">
                   <p className="font-bold">Background</p>
                   <p className="text-xs mt-1 mb-3">
                     Pilih background yang kamu suka.

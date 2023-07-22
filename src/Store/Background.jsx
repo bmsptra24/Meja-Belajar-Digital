@@ -11,7 +11,6 @@ import {
   setNote,
   setSearch,
   setToDoList,
-  setHelp,
 } from "../Features/home/Home";
 
 export const Background = ({ className }) => {
@@ -74,7 +73,7 @@ export const Background = ({ className }) => {
 
       {/* bg in potrait */}
       <div
-        className={`h-full w-full bg-${config.color}-50 grid grid-cols-2 gap-3 p-5 lg:hidden`}
+        className={`h-full w-full bg-${config.color}-50 grid grid-cols-2 gap-3 p-5 lg:hidden pb-20`}
       >
         <Card
           app={Configuration.apps[0]}

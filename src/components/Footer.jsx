@@ -9,7 +9,6 @@ import { AiOutlineSetting } from "react-icons/ai";
 import { RxHamburgerMenu } from "react-icons/rx";
 import "../styles/Icon.css";
 import "../styles/Footer.css";
-import { signOutBtn } from "../Store/Firebase";
 // import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -59,7 +58,6 @@ const Footer = () => {
     dispatch(setHelp(false));
   };
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
-  const [isSettingClicked, setIsSettingClicked] = useState(false);
 
   const Icon = ({ Icon, isOpened }) => {
     return (
@@ -198,13 +196,13 @@ const Footer = () => {
       </div>
 
       {/* small screen */}
-      <div className="relative w-full justify-center items-center flex lg:hidden">
+      <div className="relative h-14 w-full justify-center items-center flex lg:hidden">
         <div className="icon relative">
           <div
             className={
               isBurgerClicked === true
-                ? "absolute bottom-full mb-7 bg-slate-200 shadow-md py-3 rounded-lg w-80 text-center z-50 visible"
-                : "absolute bottom-full mb-7 bg-slate-200 shadow-md py-3 rounded-lg w-80 text-center z-50 hidden"
+                ? "absolute bottom-full mb-7 bg-slate-100 shadow-lg py-3 rounded-lg w-80 text-center z-50 visible"
+                : "absolute bottom-full mb-7 bg-slate-100 shadow-lg py-3 rounded-lg w-80 text-center z-50 hidden"
             }
           >
             <p
