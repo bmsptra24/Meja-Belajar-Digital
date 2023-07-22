@@ -20,6 +20,8 @@ const LandingPage = () => {
   const [isBurger, setIsBurger] = useState(false);
   const navigate = useNavigate();
 
+  document.querySelector("title").innerHTML = "Meja Belajar Digital";
+
   const ref = {
     mainRef: useRef(null),
     produkRef: useRef(null),
@@ -246,7 +248,9 @@ const LandingPage = () => {
           </a>
           <a
             className="cursor-pointer hover:text-blue-500 transition-all ease-in-out"
-            onClick={() => (window.location = Configuration.linkEmail)}
+            target="_blank"
+            rel="noreferrer"
+            href={Configuration.linkEmail}
           >
             mbd@gmail.com
           </a>

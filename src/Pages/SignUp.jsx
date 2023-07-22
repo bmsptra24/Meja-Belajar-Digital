@@ -20,6 +20,8 @@ const SignUp = () => {
   const [toastsSwitch, setToastsSwitch] = useState(-1);
   const navigate = useNavigate();
 
+  document.querySelector("title").innerHTML = "Signup - Meja Belajar Digital";
+
   // create new account user
   const createUser = () => {
     createUserWithEmailAndPassword(auth, email, password)

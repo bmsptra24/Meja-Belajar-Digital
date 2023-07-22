@@ -25,6 +25,8 @@ const Login = () => {
     }
   }, [user, navigate]);
 
+  document.querySelector("title").innerHTML = "Login - Meja Belajar Digital";
+
   return (
     <div className="App">
       <div className="absolute w-full h-full pattern-box"></div>

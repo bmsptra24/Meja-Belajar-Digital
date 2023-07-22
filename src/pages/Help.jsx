@@ -7,6 +7,7 @@ import { useState } from "react";
 const Help = () => {
   const navigate = useNavigate();
   const [isWatched, setIsWatched] = useState(false);
+  document.querySelector("title").innerHTML = "Help - Meja Belajar Digital";
 
   return (
     <div className="App pattern-box">

@@ -45,6 +45,8 @@ const Home = () => {
     help,
   } = useSelector((state) => state.home);
 
+  document.querySelector("title").innerHTML = "Meja Belajar Digital";
+
   useEffect(() => {
     if (!user) {
       navigate("/signin");
