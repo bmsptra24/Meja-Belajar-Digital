@@ -1,6 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
+import { BreakTime } from "./Components/BreakTime";
 const Help = lazy(() => import("./Pages/Help"));
 const LandingPage = lazy(() => import("./Pages/LandingPage"));
 const SignIn = lazy(() => import("./Pages/SignIn"));
@@ -19,6 +20,7 @@ function App() {
           </div>
         }
       >
+        <BreakTime />
         <Routes>
           <Route path="*" element={<LandingPage />} />
           <Route path="/" element={<LandingPage />} />

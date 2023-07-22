@@ -9,6 +9,7 @@ export const isTimerRunningSlice = createSlice({
     shortBreakDuration: 0,
     longBreakDuration: 0,
     timeRemainingString: '00:00', // in string
+    countPomodoro: 0,
   },
   reducers: {
     setTimeRemaining: (state, action) => {
@@ -29,6 +30,9 @@ export const isTimerRunningSlice = createSlice({
     setTimeRemainingString: (state, action) => {
       state.timeRemainingString = action.payload
     },
+    setCountPomodoro: (state, action) => {
+      state.countPomodoro = action.payload
+    },
   },
 })
 
@@ -39,6 +43,7 @@ export const {
   setShortBreakDuration,
   setLongBreakDuration,
   setTimeRemainingString,
+  setCountPomodoro,
 } = isTimerRunningSlice.actions
 
 export default isTimerRunningSlice.reducer

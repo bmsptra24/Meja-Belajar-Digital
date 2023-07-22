@@ -5,9 +5,10 @@ import {
   setLongBreakDuration,
   setTimeRemainingString,
   setPomodoroStatus,
+  setCountPomodoro,
 } from "./Pomodoro";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchDataRealtime } from "../../Store/Database";
+import { fetchDataRealtime, updateData } from "../../Store/Database";
 import { SendNotification } from "../../Store/SendNotification";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../Store/Firebase";
@@ -26,6 +27,7 @@ export const HandlerPomodoro = () => {
     pomodoroDuration,
     shortBreakDuration,
     longBreakDuration,
+    countPomodoro,
   } = useSelector((state) => state.pomodoro);
   const dispatch = useDispatch();
 
@@ -44,7 +46,6 @@ export const HandlerPomodoro = () => {
     // stop timer
     if (pomodoroStatus === "stop") {
       stopTimer();
-      resetTimer();
       return;
     }
     // start timer
@@ -69,8 +70,23 @@ export const HandlerPomodoro = () => {
 
       interval.current = setInterval(() => {
         if (tempTimeRemaining.current > tempTimeSet.current * 60) {
-          dispatch(setPomodoroStatus("stop"));
           SendNotification(title.current, message.current);
+          stopTimer();
+          resetTimer();
+          if (pomodoroStatus === "pomodoro") {
+            dispatch(setCountPomodoro(countPomodoro + 1));
+            if ((countPomodoro - 1) % 3 === 0) {
+              return dispatch(setPomodoroStatus("longBreak"));
+            }
+            return dispatch(setPomodoroStatus("shortBreak"));
+          }
+          if (
+            pomodoroStatus === "shortBreak" ||
+            pomodoroStatus === "longBreak"
+          ) {
+            return dispatch(setPomodoroStatus("pomodoro"));
+          }
+          dispatch(setPomodoroStatus("stop"));
           return;
         } else if (tempTimeRemaining.current <= tempTimeSet.current * 60) {
           dispatch(setTimeRemaining(tempTimeRemaining.current));
