@@ -16,7 +16,7 @@ const FetchData = () => {
         dispatch(setConfig(snapshot));
       });
     }
-  }, [user]);
+  }, [user, dispatch]);
 
   return <></>;
 };

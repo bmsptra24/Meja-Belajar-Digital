@@ -14,28 +14,21 @@ import { Wallpaper } from "../../Configuration";
 import { BiLogOutCircle } from "react-icons/bi";
 import { signOutBtn } from "../Store/Firebase";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useSelector } from "react-redux";
 
 const Setting = () => {
   const [user] = useAuthState(auth);
+  const { config } = useSelector((state) => state.database);
 
   const [account, setAccount] = useState(true);
   const [themes, setThemes] = useState(false);
-  const [config, setConfig] = useState({});
   const [inputNewName, setInputNewName] = useState("");
   const [isBurgerClicked, setIsBurgerClicked] = useState(false);
-
-  // get data from database
-  useEffect(() => {
-    if (user) {
-      fetchDataRealtime(`users/${user.uid}/config`, (snapshot) => {
-        setConfig(snapshot);
-      });
-    }
-  }, [user]);
 
   useEffect(() => {
     setInputNewName(auth.currentUser.displayName);
   }, []);
+
   const hideAll = () => {
     setAccount(false);
     setThemes(false);
@@ -51,6 +44,10 @@ const Setting = () => {
 
   const handleColor = (value) => {
     updateData(["users/" + user.uid + "/config/color"], value);
+  };
+
+  const handleQuote = (value) => {
+    updateData(["users/" + user.uid + "/config/quote"], value);
   };
 
   const handleBackground = (value) => {
@@ -137,7 +134,7 @@ const Setting = () => {
               onClick={() => setIsBurgerClicked(true)}
             />
             <p className="text-xl font-bold lg:invisible">Setting</p>
-            <CloseButton autoHide={false}/>
+            <CloseButton autoHide={false} />
           </div>
           <div className="p-5 h-[85%] overflow-y-scroll">
             {/* my account */}
@@ -359,16 +356,14 @@ const Setting = () => {
                       <p>Quote</p>
                     </div>
                     <div className="flex items-center">
-                      {config.taskbar.feynman ? "On" : "Off"}
+                      {config.quote ? "On" : "Off"}
                       <input
                         type="checkbox"
                         name="app"
                         className="ml-3 w-5 h-5"
                         id="app"
-                        checked={config.taskbar.feynman}
-                        onChange={() =>
-                          handleTaskbar(!config.taskbar.feynman, "feynman")
-                        }
+                        checked={config.quote}
+                        onChange={() => handleQuote(!config.quote)}
                       />
                     </div>
                   </div>

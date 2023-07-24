@@ -38,7 +38,7 @@ export const Wallpaper = [
 ]
 
 export const Configuration = {
-  linkTutorialMBD: 'https://youtu.be/siHQue6a6nIs',
+  linkTutorialMBD: 'https://youtu.be/CoKPPo4HWK4',
   linkGithub: 'https://github.com/bmsptra24/Meja-Belajar-Digital',
   linkYoutube: 'https://youtu.be/siHQue6a6nI',
   linkEmail: 'mailto:sbima2432@gmail.com',

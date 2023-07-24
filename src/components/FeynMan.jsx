@@ -65,13 +65,19 @@ const Feynman = () => {
                     <div
                       className={`p-3 bg-${color}-200 rounded-lg text-justify justify-end`}
                     >
-                      {e.content.split("\n").map((e, i) => {
-                        return (
-                          <div key={i}>
-                            {e} <br />
-                          </div>
-                        );
-                      })}
+                      {e.content !== undefined &&
+                        e.content?.split("\n").map((e, i) => {
+                          return (
+                            <div key={i}>
+                              {e} <br />
+                            </div>
+                          );
+                        })}
+                      {e.content === undefined && (
+                        <div>
+                          {"Error...404"} <br />
+                        </div>
+                      )}
                       <div
                         className="transition-all ease-in-out m-1 shadow-sm hover:shadow-lg opacity-0 group-hover:opacity-100 hidden group-hover:block absolute right-0 top-0 bg-slate-200/75 hover:bg-slate-100 p-1.5 rounded-md cursor-pointer"
                         onClick={() => {

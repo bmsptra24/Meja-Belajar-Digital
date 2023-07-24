@@ -3,12 +3,21 @@ import axios from "axios";
 
 // get data from api
 export const getDataFromChatGPT = async (input) => {
-  const link = import.meta.env.VITE_APP_LINK_API_GPT;
-
+  const params = new URLSearchParams({
+    data: JSON.stringify(input),
+  }).toString();
+  const link = `${import.meta.env.VITE_APP_LINK_API_GPT}?${params}`;
   const data = await axios
-    .put(link, input)
+    .get(link)
     .then((data) => data.data)
     .catch((error) => error.response.data.body);
+
+  // const data = await axios
+  //   .put(link, input)
+  //   .then((data) => data.data)
+  //   .catch((error) => error.response.data.body);
+
+  // const url = `http://localhost:3000/tes?${params}`;
 
   // console.log(data);
   return data;
