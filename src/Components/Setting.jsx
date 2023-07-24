@@ -10,7 +10,7 @@ import { BsPerson, BsCheckLg } from "react-icons/bs";
 import { VscSymbolColor } from "react-icons/vsc";
 import CloseButton from "./CloseButton";
 import { useState, useEffect } from "react";
-import { Wallpaper } from "../../Configuration";
+import { Configuration, Wallpaper } from "../../Configuration";
 import { BiLogOutCircle } from "react-icons/bi";
 import { signOutBtn } from "../Store/Firebase";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -412,25 +412,23 @@ const Setting = () => {
                     Pilih warna aksen yang kamu suka.
                   </p>
                   <div className="flex gap-3">
-                    {["red", "yellow", "green", "blue", "purple"].map(
-                      (element, idx) => {
-                        return (
-                          <button
-                            key={idx}
-                            className={`bg-${element}-500 w-10 h-10 rounded flex justify-center items-center ${
-                              config.color === element
-                                ? " ring-2 ring-slate-300"
-                                : ""
-                            }`}
-                            onClick={() => handleColor(element)}
-                          >
-                            {config.color === element && (
-                              <BsCheckLg className="text-4xl text-slate-50" />
-                            )}
-                          </button>
-                        );
-                      }
-                    )}
+                    {Configuration.colors.map((element, idx) => {
+                      return (
+                        <button
+                          key={idx}
+                          className={`bg-${element}-500 w-10 h-10 rounded flex justify-center items-center ${
+                            config.color === element
+                              ? " ring-2 ring-slate-300"
+                              : ""
+                          }`}
+                          onClick={() => handleColor(element)}
+                        >
+                          {config.color === element && (
+                            <BsCheckLg className="text-4xl text-slate-50" />
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 

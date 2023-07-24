@@ -17,9 +17,9 @@ import img9 from './src/Assets/Wallpaper/img9.jpg'
 import img10 from './src/Assets/Wallpaper/img10.jpg'
 import img11 from './src/Assets/Wallpaper/img11.jpg'
 import img12 from './src/Assets/Wallpaper/img12.jpg'
-import { newKey, timestamp } from './src/Store/Database'
-const video1 = 'https://youtu.be/kUSYA2z6Low'
-const video2 = 'https://youtu.be/h-IFxZglesE'
+import { timestamp } from './src/Store/Database'
+// const video1 = 'https://youtu.be/kUSYA2z6Low'
+// const video2 = 'https://youtu.be/h-IFxZglesE'
 
 export const Wallpaper = [
   { src: img1, id: 'img' },
@@ -34,20 +34,26 @@ export const Wallpaper = [
   { src: img10, id: 'img' },
   { src: img11, id: 'img' },
   { src: img12, id: 'img' },
-  { src: video1, id: 'video' },
-  { src: video2, id: 'video' },
+  // { src: video1, id: 'video' },
+  // { src: video2, id: 'video' },
 ]
-console.log(newKey('notes'))
-console.log(newKey('notes'))
-console.log(newKey('notes'))
-console.log(newKey('notes'))
-console.log(newKey('notes'))
 
 export const Configuration = {
   linkTutorialMBD: 'https://youtu.be/CoKPPo4HWK4',
   linkGithub: 'https://github.com/bmsptra24/Meja-Belajar-Digital',
   linkYoutube: 'https://youtu.be/siHQue6a6nI',
   linkEmail: 'mailto:sbima2432@gmail.com',
+  colors: [
+    'red',
+    'rose',
+    'orange',
+    'yellow',
+    'green',
+    'sky',
+    'blue',
+    'indigo',
+    'purple',
+  ],
   apps: [
     { title: 'Todolist', icon: FaClipboardList },
     { title: 'Note', icon: FaRegStickyNote },

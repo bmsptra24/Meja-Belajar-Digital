@@ -61,7 +61,17 @@ module.exports = {
   },
   plugins: [],
   safelist: [
-    ...['red', 'yellow', 'green', 'blue', 'purple']
+    ...[
+      'red',
+      'rose',
+      'orange',
+      'yellow',
+      'green',
+      'sky',
+      'blue',
+      'indigo',
+      'purple',
+    ]
       .map((color) => {
         return [
           `lg:bg-${color}-300`,
