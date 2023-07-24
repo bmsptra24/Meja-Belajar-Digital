@@ -112,7 +112,7 @@ const LandingPage = () => {
       >
         <div className="w-11/12 lg:w-[1080px] mx-5 flex flex-col lg:flex-row justify-between items-center">
           <div className="w-full lg:w-1/2 h-screen lg:h-auto flex flex-col gap-12 lg:gap-8 mt-20 lg:mt-7 text-center lg:text-start items-center lg:items-start justify-center">
-            <h1 className="font-bold font-poppins text-5xl lg:text-6xl">
+            <h1 className="font-bold font-poppins text-5xl lg:text-6xl leading-snug">
               Meja Belajar Digital
             </h1>
             <p className="text-xl font-medium">
