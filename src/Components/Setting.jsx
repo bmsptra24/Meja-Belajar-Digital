@@ -448,10 +448,10 @@ const Setting = () => {
                                 }
                                 alt="wallpaper"
                                 className={
-                                  "w-52 rounded" +
+                                  "w-52 rounded cursor-pointer transition-all ease-out" +
                                   (config.background === idx
                                     ? " ring-4 ring-blue-500 shadow"
-                                    : "")
+                                    : " opacity-70 hover:opacity-100")
                                 }
                                 onClick={() => handleBackground(idx)}
                               />

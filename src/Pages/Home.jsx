@@ -51,7 +51,7 @@ const Home = () => {
       navigate("/signin");
     }
   }, [user, navigate]);
-
+  console.log(user);
   return (
     <div className="w-full h-full bg-slate-100 flex flex-col justify-center items-center relative font-roboto text-slate-950">
       <HandlerMusic />

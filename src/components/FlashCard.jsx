@@ -16,6 +16,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { Confirmation } from "./Confirmation";
 import CloseButton from "./CloseButton";
 import { useSelector } from "react-redux";
+import { ImSpinner2 } from "react-icons/im";
 
 // add new note
 const addCardModule = async (user, setCards, key = newKey("flashcard")) => {
@@ -65,6 +66,22 @@ const Note = () => {
     const key = data[lastOpen][0];
     updateData(["users/" + user.uid + "/flashcard/" + key], null);
     setIsDelete(false);
+  };
+
+  const handleCreateNewModule = async () => {
+    setIsListCardsClicked(false);
+    addCardModule(user, setCards);
+    if (lastOpen >= 0) {
+      // jika data masih ada maka:
+      await updateData(
+        ["users/" + user.uid + "/flashcard/" + "lastOpen"],
+        data.length - 1
+      );
+    } else {
+      // jika tidak ada data:
+      await updateData(["users/" + user.uid + "/flashcard/" + "lastOpen"], 0);
+    }
+    handleClickRefTitle();
   };
 
   // get data from database
@@ -227,31 +244,14 @@ const Note = () => {
                           }
                         })
                       : data.length === 0
-                      ? "Loading..."
+                      ? "loading"
                       : "Tidak ada modul..."}
                   </div>
                   <div className="w-full z-40 bottom-20 right-0 absolute lg:static flex justify-end lg:justify-start pr-3 lg:pr-0 h-1/10 lg:h-auto items-center">
                     <div
                       title="Add flashcard"
                       className={`icon transition ease-out bg-${color}-200 hover:bg-${color}-300 border-2 border-${color}-500 text-2xl`}
-                      onClick={async () => {
-                        setIsListCardsClicked(false);
-                        addCardModule(user, setCards);
-                        if (lastOpen >= 0) {
-                          // jika data masih ada maka:
-                          await updateData(
-                            ["users/" + user.uid + "/flashcard/" + "lastOpen"],
-                            data.length - 1
-                          );
-                        } else {
-                          // jika tidak ada data:
-                          await updateData(
-                            ["users/" + user.uid + "/flashcard/" + "lastOpen"],
-                            0
-                          );
-                        }
-                        handleClickRefTitle();
-                      }}
+                      onClick={handleCreateNewModule}
                     >
                       <BsPlusLg />
                     </div>
@@ -371,8 +371,19 @@ const Note = () => {
                           })}
                       </div>
                     </>
+                  ) : data.length === 0 ? (
+                    <div className="h-full w-full flex justify-center items-center">
+                      <ImSpinner2 className="text-6xl text-slate-400 animate-spin" />
+                    </div>
                   ) : (
-                    <div>...</div>
+                    <div className="h-full w-full flex justify-center items-center">
+                      <button
+                        onClick={handleCreateNewModule}
+                        className={`py-3 px-5 bg-${color}-200 rounded-full hover:bg-${color}-300 transition-all ease-in-out`}
+                      >
+                        Buat flashcard baru
+                      </button>
+                    </div>
                   )}
                 </div>
               </>

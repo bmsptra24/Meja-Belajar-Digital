@@ -9,6 +9,7 @@ import { Confirmation } from "./Confirmation";
 import TextareaAutosize from "react-textarea-autosize";
 import CloseButton from "./CloseButton";
 import { useSelector } from "react-redux";
+import { ImSpinner2 } from "react-icons/im";
 
 // add new note
 const addNote = async (user) => {
@@ -28,7 +29,7 @@ const Note = () => {
   const [isListNotesClicked, setIsListNotesClicked] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const refTitle = useRef(null);
- 
+
   const { config } = useSelector((state) => state.database);
   const color = config.color;
 
@@ -53,6 +54,22 @@ const Note = () => {
         value
       );
     }
+  };
+
+  const handleCreateNewModule = async () => {
+    setIsListNotesClicked(false);
+    addNote(user);
+    if (lastOpen >= 0) {
+      // jika data masih ada maka:
+      await updateData(
+        ["users/" + user.uid + "/notes/" + "lastOpen"],
+        data.length - 1
+      );
+    } else {
+      // jika tidak ada data:
+      await updateData(["users/" + user.uid + "/notes/" + "lastOpen"], 0);
+    }
+    handleClickRefTitle();
   };
 
   // get data from database
@@ -175,24 +192,7 @@ const Note = () => {
                 <div
                   title="Add note"
                   className={`icon transition ease-out bg-${color}-200 hover:bg-${color}-300 border-2 border-${color}-500`}
-                  onClick={async () => {
-                    setIsListNotesClicked(false);
-                    addNote(user);
-                    if (lastOpen >= 0) {
-                      // jika data masih ada maka:
-                      await updateData(
-                        ["users/" + user.uid + "/notes/" + "lastOpen"],
-                        data.length - 1
-                      );
-                    } else {
-                      // jika tidak ada data:
-                      await updateData(
-                        ["users/" + user.uid + "/notes/" + "lastOpen"],
-                        0
-                      );
-                    }
-                    handleClickRefTitle();
-                  }}
+                  onClick={handleCreateNewModule}
                 >
                   <BsPlusLg style={{ fontSize: "x-large" }} />
                 </div>
@@ -244,8 +244,19 @@ const Note = () => {
                     value={note.text}
                   ></textarea>
                 </div>
+              ) : data.length === 0 ? (
+                <div className="h-full w-full flex justify-center items-center">
+                  <ImSpinner2 className="text-6xl text-slate-400 animate-spin" />
+                </div>
               ) : (
-                <div>...</div>
+                <div className="h-full w-full flex justify-center items-center">
+                  <button
+                    onClick={handleCreateNewModule}
+                    className={`py-3 px-5 bg-${color}-200 rounded-full hover:bg-${color}-300 transition-all ease-in-out`}
+                  >
+                    Buat catatan baru
+                  </button>
+                </div>
               )}
             </div>
           </div>

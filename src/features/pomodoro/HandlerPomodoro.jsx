@@ -54,6 +54,11 @@ export const HandlerPomodoro = () => {
     // stop timer
     if (pomodoroStatus === "stop") {
       stopTimer();
+      resetTimer();
+      return;
+    }
+    if (pomodoroStatus === "pause") {
+      stopTimer();
       return;
     }
     // start timer

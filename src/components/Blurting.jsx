@@ -16,6 +16,7 @@ import { BsTrash, BsPlusLg } from "react-icons/bs";
 import { Confirmation } from "./Confirmation";
 import CloseButton from "./CloseButton";
 import { useSelector } from "react-redux";
+import { ImSpinner2 } from "react-icons/im";
 
 // add new module
 const addModule = async (user) => {
@@ -56,6 +57,22 @@ const Blurting = () => {
     questions: (event) => {
       handleModulUpdate("questions", event.target.value);
     },
+  };
+
+  const handleCreateNewModule = async () => {
+    setIsListModuksClicked(false);
+    addModule(user);
+    if (lastOpen >= 0) {
+      // jika data masih ada maka:
+      await updateData(
+        ["users/" + user.uid + "/moduls/" + "lastOpen"],
+        data.length - 1
+      );
+    } else {
+      // jika tidak ada data:
+      await updateData(["users/" + user.uid + "/moduls/" + "lastOpen"], 0);
+    }
+    handleClickRefTitle();
   };
 
   const handleModulUpdate = (key, value) => {
@@ -181,7 +198,7 @@ const Blurting = () => {
                         );
                       }
                     })
-                  : data.length === 0
+                  : data
                   ? "Loading..."
                   : "Tidak ada modul..."}
               </div>
@@ -189,24 +206,7 @@ const Blurting = () => {
                 <div
                   title="Add new module"
                   className={`icon transition ease-out bg-${color}-200 hover:bg-${color}-300 border-2 border-${color}-500`}
-                  onClick={async () => {
-                    setIsListModuksClicked(false);
-                    addModule(user);
-                    if (lastOpen >= 0) {
-                      // jika data masih ada maka:
-                      await updateData(
-                        ["users/" + user.uid + "/moduls/" + "lastOpen"],
-                        data.length - 1
-                      );
-                    } else {
-                      // jika tidak ada data:
-                      await updateData(
-                        ["users/" + user.uid + "/moduls/" + "lastOpen"],
-                        0
-                      );
-                    }
-                    handleClickRefTitle();
-                  }}
+                  onClick={handleCreateNewModule}
                 >
                   <BsPlusLg />
                 </div>
@@ -277,8 +277,19 @@ const Blurting = () => {
                     ></textarea>
                   </div>
                 </>
+              ) : data.length === 0 ? (
+                <div className="w-full flex justify-center items-center h-full">
+                  <ImSpinner2 className="text-6xl text-slate-400 animate-spin" />
+                </div>
               ) : (
-                <div>...</div>
+                <div className="h-full w-full flex justify-center items-center">
+                  <button
+                    onClick={handleCreateNewModule}
+                    className={`py-3 px-5 bg-${color}-200 rounded-full hover:bg-${color}-300 transition-all ease-in-out`}
+                  >
+                    Buat modul baru
+                  </button>
+                </div>
               )}
             </div>
             <div className="min-h-screen lg:min-h-0 lg:h-full lg:w-4/12 p-0 flex justify-between flex-col mt-3 lg:mt-0 ml-0 lg:ml-2 lg:mr-0 gap-3 lg:px-0">

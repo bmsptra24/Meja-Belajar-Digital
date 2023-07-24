@@ -4,6 +4,7 @@ import { auth } from "../Store/Firebase";
 import { useSelector, useDispatch } from "react-redux";
 import { setPomodoroStatus } from "../Features/pomodoro/Pomodoro";
 import { BsClock, BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
+import { GrPowerReset } from "react-icons/gr";
 
 const Pomodoro = () => {
   const [user] = useAuthState(auth);
@@ -25,6 +26,11 @@ const Pomodoro = () => {
     >
       <div className="items-center flex justify-between">
         <p className="font-bold text-2xl ml-2">Pomodoro</p>
+        <GrPowerReset
+          className="transition-all ease-in-out cursor-pointer text-3xl rounded-3xl bg-slate-50 p-1 hover:bg-slate-300"
+          title="Reset Timer"
+          onClick={() => dispatch(setPomodoroStatus("stop"))}
+        />
       </div>
       <div
         className={`grow mt-3 h-75 w-full bg-${color}-200 rounded-xl mb-4 pb-3 flex flex-col justify-between`}
@@ -47,7 +53,7 @@ const Pomodoro = () => {
               <button
                 title="Stop pomodoro"
                 className="bg-transparent border-0 "
-                onClick={() => dispatch(setPomodoroStatus("stop"))}
+                onClick={() => dispatch(setPomodoroStatus("pause"))}
               >
                 <BsFillPauseFill className="text-3xl" />
               </button>
@@ -92,7 +98,7 @@ const Pomodoro = () => {
               >
                 <BsFillPauseFill
                   className="text-3xl"
-                  onClick={() => dispatch(setPomodoroStatus("stop"))}
+                  onClick={() => dispatch(setPomodoroStatus("pause"))}
                 />
               </button>
             )}
@@ -129,7 +135,7 @@ const Pomodoro = () => {
               <button
                 title="Stop long break"
                 className="bg-transparent border-0 "
-                onClick={() => dispatch(setPomodoroStatus("stop"))}
+                onClick={() => dispatch(setPomodoroStatus("pause"))}
               >
                 <BsFillPauseFill className="text-3xl" />
               </button>

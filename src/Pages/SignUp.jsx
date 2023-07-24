@@ -11,6 +11,7 @@ import validator from "validator";
 import { auth } from "../Store/Firebase";
 import mbd from "../Assets/logo/logo.png";
 import { useNavigate } from "react-router-dom";
+import { Configuration } from "../../Configuration";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -25,54 +26,29 @@ const SignUp = () => {
   // create new account user
   const createUser = () => {
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
 
         const auth = getAuth();
-        updateProfile(auth.currentUser, {
+        await updateProfile(auth.currentUser, {
           displayName: name,
         })
-          .then(() => {
+          .then(async () => {
             // Profile updated!
             console.log("User created!");
+            // write user data to database
+            // updateData(["users/"], user.uid);
+            await updateData(
+              ["users/" + user.uid + "/"],
+              Configuration.templateNewUser
+            );
           })
           .catch((error) => {
             // An error occurred
             console.log(error);
           });
 
-        // write user data to database
-        updateData("users/" + user.uid, {
-          email: email,
-          feynman: null,
-          moduls: null,
-          notes: null,
-          search: null,
-          tasks: null,
-          music: { log: "rainSound" },
-          username: name,
-          pomodoro: {
-            pomodoroDuration: 25,
-            shortBreak: 5,
-            longBreak: 15,
-          },
-          config: {
-            background: 0,
-            color: "blue",
-            taskbar: {
-              blurting: true,
-              feynman: true,
-              flashcard: true,
-              notes: false,
-              todolist: false,
-            },
-            theme: "light",
-          },
-          reports: {
-            pomodoro: 0,
-          },
-        });
         // sending email verification
         sendEmailVerification(auth.currentUser).then(() => {
           // Email verification sent!
