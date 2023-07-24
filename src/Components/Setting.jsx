@@ -206,9 +206,20 @@ const Setting = () => {
                           confirm("Apakah kamu yakin ingin menghapus akun mu?")
                         ) {
                           if (
-                            confirm("Semua data akan hilang. Apakah kamu yakin?")
+                            confirm(
+                              "Semua data akan hilang. Apakah kamu yakin?"
+                            )
                           ) {
-                            deleteUserAccount();
+                            if (
+                              prompt(
+                                `Ketik '${user.displayName}' untuk melanjutkan`
+                              ) === user.displayName ||
+                              `'${user.displayName}'`
+                            ) {
+                              deleteUserAccount();
+                            } else {
+                              alert("Proses penghapusan akun dibatalkan");
+                            }
                           }
                         }
                       }}
