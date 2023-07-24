@@ -51,7 +51,7 @@ const Home = () => {
       navigate("/signin");
     }
   }, [user, navigate]);
-  console.log(user);
+
   return (
     <div className="w-full h-full bg-slate-100 flex flex-col justify-center items-center relative font-roboto text-slate-950">
       <HandlerMusic />
@@ -75,23 +75,7 @@ const Home = () => {
           title="Help"
         />
         <Background className="w-full h-full" />
-        {/* <img
-          // src={photos.length > 0 ? photos[0].urls.regular : dumyImage2} //for production
-          src={"https://picsum.photos/1080/1920"} //for dev
-          alt="wallpaper"
-          className="w-full h-full block lg:hidden"
-        /> */}
       </div>
-
-      {/* <div className="absolute left-10 top-10 w-2/6 h-80 px-5 bg-slate-50 rounded-3xl flex justify-center items-center">
-        <ReactPlayer
-          url={videoTutorial}
-          height={"auto"}
-          width={"100%"}
-          controls={true}
-          playing={true}
-        />
-      </div> */}
 
       {setting && <Setting />}
       {menu && <Menu />}

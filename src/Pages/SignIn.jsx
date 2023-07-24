@@ -31,11 +31,11 @@ const Login = () => {
     <div className="App">
       <div className="absolute w-full h-full pattern-box"></div>
       <div className="flex lg:w-4/5 xl:w-3/5 lg:h-3/4 lg:shadow-2xl rounded-3xl z-10">
-        <div className="h-screen lg:h-auto w-screen lg:w-1/2 p-4 px-7 pb-7 flex flex-col justify-evenly lg:justify-between bg-blue-50 lg:rounded-s-3xl">
+        <div className="h-screen lg:h-auto w-screen lg:w-1/2 p-4 px-7 pb-7 flex flex-col justify-evenly lg:justify-center bg-blue-50 lg:rounded-s-3xl">
           <div className="flex justify-center my-7">
             <p className="font-bold text-4xl text-slate-600">Login</p>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col justify-evenly">
             <input
               type="email"
               className="placeholder:text-slate-500 h-12 rounded px-3 bg-slate-200 focus:outline-none focus:ring-slate-300 focus:ring-2"
@@ -63,7 +63,7 @@ const Login = () => {
               className="transition ease-in-out hover:to-blue-600 hover:from-blue-400 bg-gradient-to-l from-cyan-400 to-blue-500 h-12 rounded mt-4"
               onClick={async () => {
                 if (password === "") {
-                  return alert("Password Empty!");
+                  return alert("Password kosong!");
                 }
                 signIn(email, password);
               }}
@@ -84,7 +84,7 @@ const Login = () => {
           </div>
 
           {/* or line */}
-          <div>
+          {/* <div>
             <div className="flex justify-between my-4 grow">
               <div className="grow">
                 <hr className="h-px my-4 bg-slate-300 border-0" />
@@ -116,7 +116,7 @@ const Login = () => {
               </div>
               Login with Facebook
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="lg:flex hidden w-1/2 bg-gradient-to-bl from-cyan-500 to-blue-500 justify-center items-center rounded-e-3xl">
           <div className="px-7 flex flex-col text-center text-blue-50 h-full justify-center ">
@@ -129,9 +129,11 @@ const Login = () => {
               />
               <div>
                 <p className="font-bold text-4xl">Meja Belajar Digital</p>
-                <p className="px-7">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Ducimus ut consequatur vero excepturi officia repellendus.
+                <p className="px-7 text-center tracking-tight leading-snug hyphens-auto mt-2 font-roboto">
+                  Meja Belajar Digital adalah aplikasi yang dapat memudahkan
+                  siswa dalam belajar mandiri secara efektif dengan memanfaatkan
+                  teknologi yang ada, dengan menggunakan beberapa metode
+                  belajar.
                 </p>
               </div>
             </div>

@@ -178,9 +178,9 @@ const Setting = () => {
                     className="bg-blue-500 text-slate-50 text-sm py-2 px-3 rounded hover:bg-blue-600 transition-all ease-in-out"
                     onClick={() => {
                       if (
-                        confirm("Are you sure want to change your password?")
+                        confirm("Apakah kamu yakin ingin mengganti password?")
                       ) {
-                        const email = prompt("Type your email:");
+                        const email = prompt("Masukan email mu:");
                         if (email) {
                           resetPassword(email);
                         }
@@ -203,10 +203,10 @@ const Setting = () => {
                       className="bg-red-500 text-slate-50 text-sm py-2 px-3 rounded hover:bg-red-600 transition-all ease-in-out"
                       onClick={() => {
                         if (
-                          confirm("Are you sure want to delete your account?")
+                          confirm("Apakah kamu yakin ingin menghapus akun mu?")
                         ) {
                           if (
-                            confirm("All your data will remove. Are you sure?")
+                            confirm("Semua data akan hilang. Apakah kamu yakin?")
                           ) {
                             deleteUserAccount();
                           }

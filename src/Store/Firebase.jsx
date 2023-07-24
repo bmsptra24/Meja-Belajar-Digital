@@ -10,6 +10,7 @@ import {
   deleteUser,
   sendPasswordResetEmail,
   updateProfile,
+  sendEmailVerification,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -37,17 +38,26 @@ export const signOutBtn = () => {
     .catch((error) => {
       // An error happened.
       console.log({ error });
+      alert(error);
       return false;
     });
 };
 
 export const signIn = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       // Signed in
       let user = userCredential.user;
       if (user) {
         if (!user.emailVerified) {
+          alert("Akun belum diverifikasi");
+          if (confirm("Kirim ulang email verifikasi?")) {
+            const auth = getAuth();
+            await sendEmailVerification(auth.currentUser).then(() => {
+              // Email verification sent!
+              alert("Email verifikasi berhasil dikirim ulang");
+            });
+          }
           auth.signOut();
           return 0;
         } else {
@@ -59,6 +69,7 @@ export const signIn = (email, password) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log({ errorCode }, { errorMessage });
+      alert(errorCode, errorMessage);
       return 2;
     });
 };
@@ -88,7 +99,7 @@ export const deleteUserAccount = () => {
   deleteUser(user)
     .then(() => {
       // User deleted.
-      alert("Account removed!");
+      alert("Akun berhasil dihapus!");
     })
     .catch((error) => {
       // An error ocurred
@@ -100,7 +111,7 @@ export const resetPassword = (email) => {
   sendPasswordResetEmail(auth, email)
     .then(() => {
       // Password reset email sent!
-      alert("Password reset email sent!");
+      alert("Email pembaruan password telah dikirim!");
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -120,7 +131,6 @@ export const dataUser = () => {
 
 export const updateDataUser = async (newName) => {
   const auth = getAuth();
-  console.log(newName);
   await updateProfile(auth.currentUser, {
     displayName: newName,
     photoURL: null,

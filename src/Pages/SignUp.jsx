@@ -50,9 +50,10 @@ const SignUp = () => {
           });
 
         // sending email verification
-        sendEmailVerification(auth.currentUser).then(() => {
+        await sendEmailVerification(auth.currentUser).then(() => {
           // Email verification sent!
           setToastsSwitch(0);
+          alert("Email verifikasi telah dikirim. Cek email mu sekarang");
           setTimeout(() => {
             setToastsSwitch(-1);
           }, 7000);
@@ -90,9 +91,11 @@ const SignUp = () => {
               />
               <div>
                 <p className="font-bold text-4xl">Meja Belajar Digital</p>
-                <p className="px-7">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Ducimus ut consequatur vero excepturi officia repellendus.
+                <p className="px-7 text-center tracking-tight leading-snug hyphens-auto mt-2 font-roboto">
+                  Meja Belajar Digital adalah aplikasi yang dapat memudahkan
+                  siswa dalam belajar mandiri secara efektif dengan memanfaatkan
+                  teknologi yang ada, dengan menggunakan beberapa metode
+                  belajar.
                 </p>
               </div>
             </div>
@@ -146,7 +149,7 @@ const SignUp = () => {
                     />;
                   }
                 } else {
-                  alert("Email not valid!");
+                  alert("Email/password salah!");
                 }
               } else {
                 alert("Nama tidak boleh kosong!");
