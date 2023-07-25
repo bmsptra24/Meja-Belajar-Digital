@@ -100,7 +100,7 @@ const Feynman = () => {
             ) : (
               <div className={style.aiMessage}>
                 <div className={`p-3 bg-${color}-200 rounded-lg`}>
-                  what topic do you want to learn about?
+                  Topik apa yang ingin kamu pelajari?
                 </div>
               </div>
             )}
@@ -131,7 +131,7 @@ const Feynman = () => {
                   (isGeneratingGpt ? "" : "group-hover:block")
                 }
               >
-                New topic
+                Topik baru
               </p>
             </button>
             <textarea

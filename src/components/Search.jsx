@@ -101,7 +101,7 @@ const Search = () => {
             ) : (
               <div className={style.aiMessage}>
                 <div className={`p-3 bg-${color}-200 rounded-lg`}>
-                  what do you want to search?
+                  Apa yang ingin kamu cari?
                 </div>
               </div>
             )}
@@ -132,7 +132,7 @@ const Search = () => {
                   (isGeneratingGpt ? "" : "group-hover:block")
                 }
               >
-                New topic
+                Topik baru
               </p>
             </button>
 
