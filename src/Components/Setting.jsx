@@ -5,7 +5,7 @@ import {
   updateDataUser,
 } from "../Store/Firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { fetchDataRealtime, updateData } from "../Store/Database";
+import { updateData } from "../Store/Database";
 import { BsPerson, BsCheckLg } from "react-icons/bs";
 import { VscSymbolColor } from "react-icons/vsc";
 import CloseButton from "./CloseButton";

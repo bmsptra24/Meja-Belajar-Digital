@@ -31,8 +31,8 @@ const Login = () => {
     <div className="App">
       <div className="absolute w-full h-full pattern-box"></div>
       <div className="flex lg:w-4/5 xl:w-3/5 lg:h-3/4 lg:shadow-2xl rounded-3xl z-10">
-        <div className="h-screen lg:h-auto w-screen lg:w-1/2 p-4 px-7 pb-7 flex flex-col justify-evenly lg:justify-center bg-blue-50 lg:rounded-s-3xl">
-          <div className="flex justify-center my-7">
+        <div className="h-screen lg:h-auto w-screen lg:w-1/2 p-4 px-7 pb-7 flex flex-col justify-center bg-blue-50 lg:rounded-s-3xl">
+          <div className="flex justify-center pb-10 lg:pb-0 my-7">
             <p className="font-bold text-4xl text-slate-600">Login</p>
           </div>
           <div className="flex flex-col justify-evenly">

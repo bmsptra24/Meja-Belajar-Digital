@@ -17,15 +17,17 @@ const Help = () => {
           navigate("/home");
         }}
       />
-      <div className="w-full h-auto lg:h-full p-5 lg:p-20 flex justify-center items-center">
-        <ReactPlayer
-          url={Configuration.linkTutorialMBD}
-          height={"100%"}
-          width={"72%"}
-          controls={true}
-          playing
-          onEnded={() => setIsWatched(true)}
-        />
+      <div className="w-full h-60 lg:h-full p-5 lg:p-20 flex justify-center items-center">
+        <div className="w-full h-full sm:w-9/12">
+          <ReactPlayer
+            url={Configuration.linkTutorialMBD}
+            height={"100%"}
+            width={"100%"}
+            controls={true}
+            playing
+            onEnded={() => setIsWatched(true)}
+          />
+        </div>
       </div>
       {isWatched && (
         <button
