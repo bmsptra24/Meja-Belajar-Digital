@@ -18,7 +18,6 @@ import { HandlerPomodoro } from "../Features/pomodoro/HandlerPomodoro";
 import { useSelector } from "react-redux";
 import ReactPlayer from "react-player";
 import { TbHelpSquareRoundedFilled } from "react-icons/tb";
-import videoTutorial from "../Assets/videos/MBD-Tutorial.mp4";
 import Menu from "../Components/Menu";
 import Setting from "../Components/Setting";
 import { Background } from "../Store/Background";

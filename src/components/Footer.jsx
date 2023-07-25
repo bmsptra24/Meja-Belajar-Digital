@@ -172,7 +172,7 @@ const Footer = () => {
             <Icon Icon={AiOutlineSetting} />
           </div>
           <div
-            title="Music"
+            title="Sound"
             onClick={() => {
               dispatch(setMusic(!music));
               dispatch(setMenu(false));
@@ -282,7 +282,7 @@ const Footer = () => {
                 dispatch(setMusic(!music));
               }}
             >
-              Music
+              Sound
             </p>
           </div>
           <RxHamburgerMenu

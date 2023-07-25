@@ -5,18 +5,31 @@ import {
 } from 'react-icons/fa'
 import { BsFire, BsCardHeading, BsSearch } from 'react-icons/bs'
 
-import img1 from './src/Assets/Wallpaper/img1.jpg'
-import img2 from './src/Assets/Wallpaper/img2.jpg'
-import img3 from './src/Assets/Wallpaper/img3.jpg'
-import img4 from './src/Assets/Wallpaper/img4.jpg'
-import img5 from './src/Assets/Wallpaper/img5.jpg'
-import img6 from './src/Assets/Wallpaper/img6.jpg'
-import img7 from './src/Assets/Wallpaper/img7.jpg'
-import img8 from './src/Assets/Wallpaper/img8.jpg'
-import img9 from './src/Assets/Wallpaper/img9.jpg'
-import img10 from './src/Assets/Wallpaper/img10.jpg'
-import img11 from './src/Assets/Wallpaper/img11.jpg'
-import img12 from './src/Assets/Wallpaper/img12.jpg'
+const img1 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEgjNHgNmjGCDQNJbwA4s5uH0aqmtBvhgaEx51X9YwZ1yCryUIWQOQ1cjoVpNhYN18aDaLmmH9psO7lTjT8QHowPY0MPNbMCaGe1xlthryuMhi-gWPpB99C-Flynkrib5uacldmI-enT_38ZoeEouQydPPjq5Wc2PSC-SlkJsu5o4aaqlxIyyClNrgWF6M1J=s16000'
+const img2 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEgf1CZj90MdK-FIxMyFHHKhENpsdGGNwNJKQ69PwIbJqWyo93lQKvJ27NMYISs2JlJSwOOUAB7mz6tEgtgyp5uGv5N2kl0_Bs1p6Mxji_bCebB-w63IrY5Qg3opB3zt3DdXZ8c_Dh5Ux0UC9U7fVTxli2-otJjXjia6nY3sF1BtXk8a7ySMuxL4D8tY10HD=s16000'
+const img3 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEg-ABu1-OlFdmtjHLwZU7Ru-Zy8Rq4e7MyCkY6g9jrEH8ledVUi8SDkqA9_9YGj9f_fD9FDu165IX2kht595D2mu4Jhogp05_yPOSc02uK-AKzYe4wuM-c8HII9vU-KZcIOIkUjwKkyPrAF039WO2EEWTmsr92crQppR7pde9sT8YX5Bfe80hJQhqtnI_lD=s16000'
+const img4 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEi9gjXfIaw05xObSGSqNT2HMI69uMA7UEEo7VKw0-l6rLbRZPq9K3xelc-Qn_DJCwD7PJEpUbBpiMZ4EcghT0wFThtFd2rMRCVEmLHmCw8RTBf0XqIyBKDMThzYGCA1GlbRfSzzFbrL3lFpdrDnFTWd7tFkUUjRbSMYXKZmXP1R5hden6FB4wneA5Q7Ohb2=s16000'
+const img5 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEjy5Dn0Kay64Y4yvyyO1hGXIFDPaTksyMoA9zkKpkfziv0iIIbNonfmqdxft4XBKWhMYBQYzPzkgSXK5bFLVigqd7Adm9COSJ6lC76PVJ2E_TkgFFGRUB3pUjllC8gqPpVy_-cEpeN4AoDTRwmb5T440mnw82CzShgJLSxLxRjQNRlPS8MZj-NwphoPTjZZ=s16000'
+const img6 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEiQLMFjq0TQ3XfFpakJPcRkcNXydlaWoD_Hc9Dii4Uq9qiNQ_5HGbvqvTQ4bvmqYvXGEgMRBbLiznaRWxx7GWZSGnvv9H3is8k8A7XKCBSb37CC8SVfdDslFFvaA6_3P9yltaoC1ePDbgLBXHjmEPOUS9SyfHKv2xOVjB2Tdx15Qe441HCGJf3eNXw9ZM-I'
+const img7 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEiFBnC8iZtMxQpKeQvk4roqmBOtt1LumxTcJyEz0nzP_HMVOss_s4GVmqVgjYBuHd4d96W3Z-qWnglIDbmtVGuoYsnprxSbjwAyTXilzRDAHmf0SWtF--xCJCIJnmod2tCiS0m4pu7CH_saVutDi-z4gHonQ-GicR_JBTwvhsrNQi-N9EXNiOnNNyGIKKZv=s16000'
+const img8 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEgTWr7y_lbltSnZncGpSv86-8J3SEQ68mIO5q2xD7ap3KLzzNTjmSFjOe4TV6P7kbylB0t6JXIuhJaUBT9XujedmNJ9X0ofSZKMiDS51POvWkYhIWlFS_5Xzll_VxlEQbtw69KeqwhopLExBMq5M-MknQccabtkrK1114fhsCTxK69_vtpEP-GDmNTs6PKj=s16000'
+const img9 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEiRvLEH-VciURr_Qo54PEoiza5hqpO_N-2aHBIj_GFGA1fxuVhv2HKD8_dkGv26957AByn4ttbzrwELglDdNc0HvNY8tyZNlEbgN7ieqyAuqit-LGfFA19DocSx0cwmHgvA44lEh1ZOft-9IIVnramEEYfTJezjSewPXghr3udawj5tFoB3_MjmC4zXth0b=s16000'
+const img10 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEiVFLWVIfqUA5lPyePzeJ_addOWYLeqGBZlP9Sd_BxVaRSP6Pj3EEXE8un6eJmdyPryfgZhm6145FFK636P7shwFrRsTBzAIL5YIbNvIeiNcprzZw7rHXk0S0Dl2z2Ds-qiXB6TPSAFGG1_qP9nytlqg0ohh_A_Ne994EGYDRnqjaQMe7LtMkI1_QQQCq2I=s16000'
+const img11 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEgaOqr92gFNmTU9lXf6xFzVNnsTV1EEDAxDp8vdpHx9wIzd5C0CjFF0EYqK1WeaFkXHiqyrrLGfmmy0bslwDqTG4xD_5PtFdIDOV9Nr2JrvqIYZVCmphu-rYrRDuaIhX-NYrhGrs62u-O6GNO1MRitMj3XppSf00lbSkI7Cm5SWZXXsOjYJtKu2fwpyPFyQ=s16000'
+const img12 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEigPPCqQHme4Kcx5BX8eKLFGcieQTR3fokXOU01MaBYr370sdNNBHnKLbatWay-oc8Q8npL7RjYruEFchdscsVaq4LafKw1__ti0k2VtfSB3G2_daOndjkfINMlwEmQNuuCX-wodRWySrpAuyl5SudbZGLVtQ9a3HdQwbGKwoRiRB7sW4RYOg6IsMi4HqfX=s16000'
+
 import { timestamp } from './src/Store/Database'
 // const video1 = 'https://youtu.be/kUSYA2z6Low'
 // const video2 = 'https://youtu.be/h-IFxZglesE'

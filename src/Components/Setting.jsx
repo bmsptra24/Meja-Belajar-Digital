@@ -411,7 +411,7 @@ const Setting = () => {
                   <p className="text-xs mt-1 mb-3">
                     Pilih warna aksen yang kamu suka.
                   </p>
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 flex-wrap">
                     {Configuration.colors.map((element, idx) => {
                       return (
                         <button
