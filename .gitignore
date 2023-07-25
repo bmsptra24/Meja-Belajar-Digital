@@ -24,3 +24,5 @@ dist
 *.sw?
 .env
 api
+.firebase/hosting.ZGlzdA.cache
+.firebase/hosting.ZGlzdA.cache

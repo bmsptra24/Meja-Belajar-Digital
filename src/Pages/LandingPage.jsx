@@ -29,7 +29,7 @@ const LandingPage = () => {
     tujuanRef: useRef(null),
     footerRef: useRef(null),
   };
-
+window.scrollY
   const handleScroll = (ref) => {
     window.scrollTo({
       top: ref.offsetTop - 100,
@@ -128,7 +128,6 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="w-11/12 lg:w-1/2 lg:mt-auto h-96 pb-10 lg:pb-0 lg:h-full justify-start items-center flex pl-0 lg:pl-16 ">
-            {/* <img src={welcomeScene} alt="Logo MBD" className="bg-transparent" /> */}
             <video
               src={welcomeScene}
               type="video/webm"

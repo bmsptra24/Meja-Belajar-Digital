@@ -133,6 +133,7 @@ export const Configuration = {
   ],
   templateNewUser: {
     music: { log: 'rainSound' },
+    flashcard: { lastopen: -1 },
     pomodoro: {
       pomodoroDuration: 25,
       shortBreak: 5,
@@ -304,27 +305,6 @@ export const Configuration = {
         Namun, karena sintaksisnya yang lebih kompleks dibandingkan dengan beberapa bahasa pemrograman modern lainnya, belajar pemrograman bahasa C mungkin memerlukan waktu dan usaha lebih bagi pemula.`,
       },
     },
-    tasks: [
-      {
-        task: `✨Mengerjakan tugas seni budaya`,
-        checked: false,
-        date: '2023-07-14T22:16',
-      },
-      {
-        task: `🌱Mengumpul kerajinan berbasis kayu jati`,
-        checked: false,
-        date: '2023-07-29T09:00',
-      },
-      {
-        task: `🍀Kerja kelompok praktikum fisika`,
-        checked: false,
-        date: '2023-07-02T10:00',
-      },
-      {
-        task: `📜Membuat tugas makalah Bahasa Indonesia`,
-        checked: false,
-        date: '2023-07-07T08:00',
-      },
-    ],
+    tasks: [],
   },
 }
