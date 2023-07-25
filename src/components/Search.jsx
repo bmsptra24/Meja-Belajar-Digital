@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setIsGeneratingGpt } from "../Features/loading/isLoading";
 import { HandleEnterPress } from "../Store/HandleEnterPress";
 import CloseButton from "./CloseButton";
+import { LimitData } from "../../Configuration";
 
 const Search = () => {
   const [inputSearch, setInputSearch] = useState("");
@@ -21,6 +22,28 @@ const Search = () => {
 
   const { config } = useSelector((state) => state.database);
   const color = config.color;
+
+  const handleGetAnswer = async () => {
+    if (log.length < LimitData.search.module) {
+      const defaultSystem = {
+        content:
+          "Your name is Meja Belajar Digital. You are a helpful search engine designed to assist students in their learning journey. But if someone asking 'what is meja belajar digital?', you have to answer with 'Meja Belajar Digital is an application that can facilitate students in learning independently effectively by utilizing existing technology, using several learning methods like Blurting, Feynman, and Flashcard method.'",
+        role: "system",
+      };
+      dispatch(setIsGeneratingGpt(true));
+      await getAnswer(
+        ["users/" + user.uid + "/search"],
+        log,
+        inputSearch,
+        setInputSearch,
+        defaultSystem
+      );
+      setInputSearch("");
+      dispatch(setIsGeneratingGpt(false));
+    } else {
+      alert("Terlalu banyak percakapan!");
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -140,26 +163,10 @@ const Search = () => {
               autoFocus
               className="transition-all ease-in-out grow h-14 border-2 focus:outline-none border-slate-300 rounded-lg p-2 focus:h-24 focus:shadow-md focus:border-slate-400 hover:shadow-md"
               placeholder="search"
-              maxLength={15000}
+              maxLength={LimitData.search.body}
               value={inputSearch}
               onKeyDown={(event) =>
-                HandleEnterPress(event, inputSearch, async () => {
-                  const defaultSystem = {
-                    content:
-                      "Your name is Meja Belajar Digital. You are a helpful search engine designed to assist students in their learning journey. But if someone asking 'what is meja belajar digital?', you have to answer with 'Meja Belajar Digital is an application that can facilitate students in learning independently effectively by utilizing existing technology, using several learning methods like Blurting, Feynman, and Flashcard method.'",
-                    role: "system",
-                  };
-                  dispatch(setIsGeneratingGpt(true));
-                  await getAnswer(
-                    ["users/" + user.uid + "/search"],
-                    log,
-                    inputSearch,
-                    setInputSearch,
-                    defaultSystem
-                  );
-                  setInputSearch("");
-                  dispatch(setIsGeneratingGpt(false));
-                })
+                HandleEnterPress(event, inputSearch, handleGetAnswer)
               }
               onChange={inputHandle}
             ></textarea>

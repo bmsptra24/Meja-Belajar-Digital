@@ -444,27 +444,25 @@ const Setting = () => {
                       {Wallpaper &&
                         Wallpaper.map((obj, idx) => {
                           return (
-                            <>
-                              <img
-                                loading="lazy"
-                                key={idx}
-                                src={
-                                  obj.id === "img"
-                                    ? obj.src
-                                    : `https://img.youtube.com/vi/${obj.src.slice(
-                                        17
-                                      )}/mqdefault.jpg`
-                                }
-                                alt="wallpaper"
-                                className={
-                                  "w-52 rounded cursor-pointer transition-all ease-out" +
-                                  (config.background === idx
-                                    ? " ring-4 ring-blue-500 shadow"
-                                    : " opacity-70 hover:opacity-100")
-                                }
-                                onClick={() => handleBackground(idx)}
-                              />
-                            </>
+                            <img
+                              loading="lazy"
+                              key={idx}
+                              src={
+                                obj.id === "img"
+                                  ? obj.cover
+                                  : `https://img.youtube.com/vi/${obj.src.slice(
+                                      17
+                                    )}/mqdefault.jpg`
+                              }
+                              alt="wallpaper"
+                              className={
+                                "w-52 rounded cursor-pointer transition-all ease-out" +
+                                (config.background === idx
+                                  ? " ring-4 ring-blue-500 shadow"
+                                  : " opacity-70 hover:opacity-100")
+                              }
+                              onClick={() => handleBackground(idx)}
+                            />
                           );
                         })}
                     </div>

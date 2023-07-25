@@ -17,6 +17,7 @@ import { Confirmation } from "./Confirmation";
 import CloseButton from "./CloseButton";
 import { useSelector } from "react-redux";
 import { ImSpinner2 } from "react-icons/im";
+import { LimitData } from "../../Configuration";
 
 // add new note
 const addCardModule = async (user, setCards, key = newKey("flashcard")) => {
@@ -69,19 +70,23 @@ const Note = () => {
   };
 
   const handleCreateNewModule = async () => {
-    setIsListCardsClicked(false);
-    addCardModule(user, setCards);
-    if (lastOpen >= 0) {
-      // jika data masih ada maka:
-      await updateData(
-        ["users/" + user.uid + "/flashcard/" + "lastOpen"],
-        data.length - 1
-      );
+    if (data.length < LimitData.flashcard.module) {
+      setIsListCardsClicked(false);
+      addCardModule(user, setCards);
+      if (lastOpen >= 0) {
+        // jika data masih ada maka:
+        await updateData(
+          ["users/" + user.uid + "/flashcard/" + "lastOpen"],
+          data.length - 1
+        );
+      } else {
+        // jika tidak ada data:
+        await updateData(["users/" + user.uid + "/flashcard/" + "lastOpen"], 0);
+      }
+      handleClickRefTitle();
     } else {
-      // jika tidak ada data:
-      await updateData(["users/" + user.uid + "/flashcard/" + "lastOpen"], 0);
+      alert("Terlalu banyak flashcard!");
     }
-    handleClickRefTitle();
   };
 
   // get data from database
@@ -305,7 +310,7 @@ const Note = () => {
                           spellCheck={false}
                           className="w-full resize-none overflow-hidden transition ease-in-out bg-slate-50 focus:outline-none focus:border-0 rounded-lg p-3 h-16 text-2xl"
                           placeholder="title"
-                          maxLength={44}
+                          maxLength={LimitData.flashcard.title}
                           rows={5}
                           onChange={changeState.title}
                           value={title}
@@ -328,7 +333,7 @@ const Note = () => {
                                   spellCheck={false}
                                   placeholder="question"
                                   rows={5}
-                                  maxLength={20000}
+                                  maxLength={LimitData.flashcard.body}
                                   onChange={(event) => {
                                     changeState.question(event, e[0]);
                                   }}
@@ -339,7 +344,7 @@ const Note = () => {
                                   spellCheck={false}
                                   placeholder="answer"
                                   rows={5}
-                                  maxLength={20000}
+                                  maxLength={LimitData.flashcard.body}
                                   onChange={(event) => {
                                     changeState.answer(event, e[0]);
                                   }}

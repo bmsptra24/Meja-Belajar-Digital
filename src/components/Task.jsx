@@ -2,6 +2,7 @@ import { BsTrash } from "react-icons/bs";
 import { updateData } from "../Store/Database";
 import TextareaAutosize from "react-textarea-autosize";
 import { useSelector } from "react-redux";
+import { LimitData } from "../../Configuration";
 const Task = ({
   tasks,
   index,
@@ -72,15 +73,20 @@ const Task = ({
                 <TextareaAutosize
                   value={tasks[index].task}
                   onChange={handleTaskEdit}
-                  spellcheck="false"
+                  spellCheck="false"
                   className="w-full h-auto overflow-hidden bg-transparent focus:outline-none resize-none"
+                  maxLength={LimitData.todolist.body}
                 />
                 {numberTaskClicked !== index && tasks[index].date !== "" && (
                   <div className="flex gap-1 cursor-pointer">
-                    <div className={`text-sm bg-${color}-200 px-2 rounded-3xl w-max`}>
+                    <div
+                      className={`text-sm bg-${color}-200 px-2 rounded-3xl w-max`}
+                    >
                       <p>{tasks[index].date.slice(0, 10)}</p>
                     </div>
-                    <div className={`text-sm bg-${color}-200 px-2 rounded-3xl w-max`}>
+                    <div
+                      className={`text-sm bg-${color}-200 px-2 rounded-3xl w-max`}
+                    >
                       <p>{tasks[index].date.slice(11, 16)}</p>
                     </div>
                   </div>

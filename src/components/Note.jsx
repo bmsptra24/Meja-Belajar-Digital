@@ -10,6 +10,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import CloseButton from "./CloseButton";
 import { useSelector } from "react-redux";
 import { ImSpinner2 } from "react-icons/im";
+import { LimitData } from "../../Configuration";
 
 // add new note
 const addNote = async (user) => {
@@ -57,19 +58,23 @@ const Note = () => {
   };
 
   const handleCreateNewModule = async () => {
-    setIsListNotesClicked(false);
-    addNote(user);
-    if (lastOpen >= 0) {
-      // jika data masih ada maka:
-      await updateData(
-        ["users/" + user.uid + "/notes/" + "lastOpen"],
-        data.length - 1
-      );
+    if (data.length < LimitData.notes.module) {
+      setIsListNotesClicked(false);
+      addNote(user);
+      if (lastOpen >= 0) {
+        // jika data masih ada maka:
+        await updateData(
+          ["users/" + user.uid + "/notes/" + "lastOpen"],
+          data.length - 1
+        );
+      } else {
+        // jika tidak ada data:
+        await updateData(["users/" + user.uid + "/notes/" + "lastOpen"], 0);
+      }
+      handleClickRefTitle();
     } else {
-      // jika tidak ada data:
-      await updateData(["users/" + user.uid + "/notes/" + "lastOpen"], 0);
+      alert("Terlalu banyak note!");
     }
-    handleClickRefTitle();
   };
 
   // get data from database
@@ -227,7 +232,7 @@ const Note = () => {
                     spellCheck={false}
                     className="resize-none transition ease-in-out bg-slate-50 focus:outline-none focus:border-none rounded-lg p-3 h-16 text-2xl"
                     placeholder="title"
-                    maxLength={44}
+                    maxLength={LimitData.notes.title}
                     rows={5}
                     onChange={changeState.title}
                     value={note.title}
@@ -239,7 +244,7 @@ const Note = () => {
                     placeholder="note"
                     spellCheck={false}
                     rows={5}
-                    maxLength={20000}
+                    maxLength={LimitData.notes.body}
                     onChange={changeState.text}
                     value={note.text}
                   ></textarea>

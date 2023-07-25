@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setIsGeneratingGpt } from "../Features/loading/isLoading";
 import { HandleEnterPress } from "../Store/HandleEnterPress";
 import CloseButton from "./CloseButton";
+import { LimitData } from "../../Configuration";
 
 const Feynman = () => {
   const [inputFeynman, setInputFeynman] = useState("");
@@ -40,6 +41,28 @@ const Feynman = () => {
   const style = {
     message: "flex justify-end mt-6 ml-12 mr-2",
     aiMessage: "flex justify-start mt-6 mr-12 ml-2",
+  };
+
+  const handleGetAnswer = async () => {
+    if (log.length < LimitData.feynman.module) {
+      const defaultSystem = {
+        content:
+          "Your name is Meja Belajar Digital. You are a tool for learning with the Feynman Technique. If at the beginning of the chat the user has not told you about the topic, you should ask what the topic is. If you already know what the topic is, now you should ask the user to explain what he knows about the topic. Then you will critique what the user said and don't forget to make questions to the user about the topic, so that the user can improve his long-term memory (you are like an innocent child and always ask questions about the topic being discussed and don't ask like this 'Do you have any questions?') or if it turns out that the user doesn't know anything about the topic. Repeat this step.",
+        role: "system",
+      };
+      dispatch(setIsGeneratingGpt(true));
+      await getAnswer(
+        ["users/" + user.uid + "/feynman"],
+        log,
+        inputFeynman,
+        setInputFeynman,
+        defaultSystem
+      );
+      setInputFeynman("");
+      dispatch(setIsGeneratingGpt(false));
+    } else {
+      alert("Terlalu banyak percakapan!");
+    }
   };
 
   return (
@@ -138,26 +161,10 @@ const Feynman = () => {
               autoFocus
               className="transition-all ease-in-out grow h-14 border-2 focus:outline-none border-slate-300 rounded-lg p-2 focus:h-24 focus:shadow-md focus:border-slate-400 hover:shadow-md"
               placeholder="search"
-              maxLength={15000}
+              maxLength={LimitData.feynman.body}
               value={inputFeynman}
               onKeyDown={(event) =>
-                HandleEnterPress(event, inputFeynman, async () => {
-                  const defaultSystem = {
-                    content:
-                      "Your name is Meja Belajar Digital. You are a tool for learning with the Feynman Technique. If at the beginning of the chat the user has not told you about the topic, you should ask what the topic is. If you already know what the topic is, now you should ask the user to explain what he knows about the topic. Then you will critique what the user said and don't forget to make questions to the user about the topic, so that the user can improve his long-term memory (you are like an innocent child and always ask questions about the topic being discussed and don't ask like this 'Do you have any questions?') or if it turns out that the user doesn't know anything about the topic. Repeat this step.",
-                    role: "system",
-                  };
-                  dispatch(setIsGeneratingGpt(true));
-                  await getAnswer(
-                    ["users/" + user.uid + "/feynman"],
-                    log,
-                    inputFeynman,
-                    setInputFeynman,
-                    defaultSystem
-                  );
-                  setInputFeynman("");
-                  dispatch(setIsGeneratingGpt(false));
-                })
+                HandleEnterPress(event, inputFeynman, handleGetAnswer)
               }
               onChange={inputHandle}
             ></textarea>

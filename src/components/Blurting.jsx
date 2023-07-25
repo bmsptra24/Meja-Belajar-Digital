@@ -17,6 +17,7 @@ import { Confirmation } from "./Confirmation";
 import CloseButton from "./CloseButton";
 import { useSelector } from "react-redux";
 import { ImSpinner2 } from "react-icons/im";
+import { LimitData } from "../../Configuration";
 
 // add new module
 const addModule = async (user) => {
@@ -60,19 +61,23 @@ const Blurting = () => {
   };
 
   const handleCreateNewModule = async () => {
-    setIsListModuksClicked(false);
-    addModule(user);
-    if (lastOpen >= 0) {
-      // jika data masih ada maka:
-      await updateData(
-        ["users/" + user.uid + "/moduls/" + "lastOpen"],
-        data.length - 1
-      );
+    if (data.length < LimitData.blurting.module) {
+      setIsListModuksClicked(false);
+      addModule(user);
+      if (lastOpen >= 0) {
+        // jika data masih ada maka:
+        await updateData(
+          ["users/" + user.uid + "/moduls/" + "lastOpen"],
+          data.length - 1
+        );
+      } else {
+        // jika tidak ada data:
+        await updateData(["users/" + user.uid + "/moduls/" + "lastOpen"], 0);
+      }
+      handleClickRefTitle();
     } else {
-      // jika tidak ada data:
-      await updateData(["users/" + user.uid + "/moduls/" + "lastOpen"], 0);
+      alert("Terlalu banyak modul blurting");
     }
-    handleClickRefTitle();
   };
 
   const handleModulUpdate = (key, value) => {
@@ -242,7 +247,7 @@ const Blurting = () => {
                       spellCheck={false}
                       className="resize-none transition ease-in-out bg-slate-50 focus:outline-none focus:border-0 rounded-lg py-3 px-1 lg:px-3 h-16 text-2xl"
                       placeholder="Judul"
-                      maxLength={44}
+                      maxLength={LimitData.blurting.title}
                       rows={5}
                       onChange={changeState.title}
                       value={modul.title}
@@ -271,7 +276,7 @@ const Blurting = () => {
                       placeholder="..."
                       spellCheck={false}
                       rows={5}
-                      maxLength={20000}
+                      maxLength={LimitData.blurting.body}
                       onChange={changeState.remembered}
                       value={modul.remembered}
                     ></textarea>
@@ -310,7 +315,7 @@ const Blurting = () => {
                       placeholder="..."
                       onChange={changeState.forgotten}
                       value={modul.forgotten}
-                      maxLength={10000}
+                      maxLength={LimitData.blurting.body}
                       rows={5}
                     ></textarea>
                   </>
@@ -333,7 +338,7 @@ const Blurting = () => {
                       placeholder="..."
                       className="grow border-2 lg:border-0 lg:mt-0 mt-1 focus:border-slate-300 resize-none transition ease-in-out bg-slate-50 focus:outline-none rounded-lg px-3 lg:px-0 py-2 lg:py-0"
                       rows={5}
-                      maxLength={5000}
+                      maxLength={LimitData.blurting.body}
                       onChange={changeState.questions}
                       value={modul.questions}
                     ></textarea>

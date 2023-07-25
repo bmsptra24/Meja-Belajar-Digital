@@ -30,26 +30,82 @@ const img11 =
 const img12 =
   'https://blogger.googleusercontent.com/img/a/AVvXsEigPPCqQHme4Kcx5BX8eKLFGcieQTR3fokXOU01MaBYr370sdNNBHnKLbatWay-oc8Q8npL7RjYruEFchdscsVaq4LafKw1__ti0k2VtfSB3G2_daOndjkfINMlwEmQNuuCX-wodRWySrpAuyl5SudbZGLVtQ9a3HdQwbGKwoRiRB7sW4RYOg6IsMi4HqfX=s16000'
 
+const cover1 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEgjNHgNmjGCDQNJbwA4s5uH0aqmtBvhgaEx51X9YwZ1yCryUIWQOQ1cjoVpNhYN18aDaLmmH9psO7lTjT8QHowPY0MPNbMCaGe1xlthryuMhi-gWPpB99C-Flynkrib5uacldmI-enT_38ZoeEouQydPPjq5Wc2PSC-SlkJsu5o4aaqlxIyyClNrgWF6M1J=w200-h113'
+const cover2 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEgf1CZj90MdK-FIxMyFHHKhENpsdGGNwNJKQ69PwIbJqWyo93lQKvJ27NMYISs2JlJSwOOUAB7mz6tEgtgyp5uGv5N2kl0_Bs1p6Mxji_bCebB-w63IrY5Qg3opB3zt3DdXZ8c_Dh5Ux0UC9U7fVTxli2-otJjXjia6nY3sF1BtXk8a7ySMuxL4D8tY10HD=w200-h113'
+const cover3 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEg-ABu1-OlFdmtjHLwZU7Ru-Zy8Rq4e7MyCkY6g9jrEH8ledVUi8SDkqA9_9YGj9f_fD9FDu165IX2kht595D2mu4Jhogp05_yPOSc02uK-AKzYe4wuM-c8HII9vU-KZcIOIkUjwKkyPrAF039WO2EEWTmsr92crQppR7pde9sT8YX5Bfe80hJQhqtnI_lD=w200-h113'
+const cover4 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEi9gjXfIaw05xObSGSqNT2HMI69uMA7UEEo7VKw0-l6rLbRZPq9K3xelc-Qn_DJCwD7PJEpUbBpiMZ4EcghT0wFThtFd2rMRCVEmLHmCw8RTBf0XqIyBKDMThzYGCA1GlbRfSzzFbrL3lFpdrDnFTWd7tFkUUjRbSMYXKZmXP1R5hden6FB4wneA5Q7Ohb2=w200-h112'
+const cover5 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEjy5Dn0Kay64Y4yvyyO1hGXIFDPaTksyMoA9zkKpkfziv0iIIbNonfmqdxft4XBKWhMYBQYzPzkgSXK5bFLVigqd7Adm9COSJ6lC76PVJ2E_TkgFFGRUB3pUjllC8gqPpVy_-cEpeN4AoDTRwmb5T440mnw82CzShgJLSxLxRjQNRlPS8MZj-NwphoPTjZZ=w200-h112'
+const cover6 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEiQLMFjq0TQ3XfFpakJPcRkcNXydlaWoD_Hc9Dii4Uq9qiNQ_5HGbvqvTQ4bvmqYvXGEgMRBbLiznaRWxx7GWZSGnvv9H3is8k8A7XKCBSb37CC8SVfdDslFFvaA6_3P9yltaoC1ePDbgLBXHjmEPOUS9SyfHKv2xOVjB2Tdx15Qe441HCGJf3eNXw9ZM-I=w200-h112'
+const cover7 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEiFBnC8iZtMxQpKeQvk4roqmBOtt1LumxTcJyEz0nzP_HMVOss_s4GVmqVgjYBuHd4d96W3Z-qWnglIDbmtVGuoYsnprxSbjwAyTXilzRDAHmf0SWtF--xCJCIJnmod2tCiS0m4pu7CH_saVutDi-z4gHonQ-GicR_JBTwvhsrNQi-N9EXNiOnNNyGIKKZv=w200-h113'
+const cover8 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEgTWr7y_lbltSnZncGpSv86-8J3SEQ68mIO5q2xD7ap3KLzzNTjmSFjOe4TV6P7kbylB0t6JXIuhJaUBT9XujedmNJ9X0ofSZKMiDS51POvWkYhIWlFS_5Xzll_VxlEQbtw69KeqwhopLExBMq5M-MknQccabtkrK1114fhsCTxK69_vtpEP-GDmNTs6PKj=w200-h113'
+const cover9 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEiRvLEH-VciURr_Qo54PEoiza5hqpO_N-2aHBIj_GFGA1fxuVhv2HKD8_dkGv26957AByn4ttbzrwELglDdNc0HvNY8tyZNlEbgN7ieqyAuqit-LGfFA19DocSx0cwmHgvA44lEh1ZOft-9IIVnramEEYfTJezjSewPXghr3udawj5tFoB3_MjmC4zXth0b=w200-h113'
+const cover10 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEiVFLWVIfqUA5lPyePzeJ_addOWYLeqGBZlP9Sd_BxVaRSP6Pj3EEXE8un6eJmdyPryfgZhm6145FFK636P7shwFrRsTBzAIL5YIbNvIeiNcprzZw7rHXk0S0Dl2z2Ds-qiXB6TPSAFGG1_qP9nytlqg0ohh_A_Ne994EGYDRnqjaQMe7LtMkI1_QQQCq2I=w200-h112'
+const cover11 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEgaOqr92gFNmTU9lXf6xFzVNnsTV1EEDAxDp8vdpHx9wIzd5C0CjFF0EYqK1WeaFkXHiqyrrLGfmmy0bslwDqTG4xD_5PtFdIDOV9Nr2JrvqIYZVCmphu-rYrRDuaIhX-NYrhGrs62u-O6GNO1MRitMj3XppSf00lbSkI7Cm5SWZXXsOjYJtKu2fwpyPFyQ=w200-h113'
+const cover12 =
+  'https://blogger.googleusercontent.com/img/a/AVvXsEigPPCqQHme4Kcx5BX8eKLFGcieQTR3fokXOU01MaBYr370sdNNBHnKLbatWay-oc8Q8npL7RjYruEFchdscsVaq4LafKw1__ti0k2VtfSB3G2_daOndjkfINMlwEmQNuuCX-wodRWySrpAuyl5SudbZGLVtQ9a3HdQwbGKwoRiRB7sW4RYOg6IsMi4HqfX=w200-h112'
+
 import { timestamp } from './src/Store/Database'
 // const video1 = 'https://youtu.be/kUSYA2z6Low'
 // const video2 = 'https://youtu.be/h-IFxZglesE'
 
 export const Wallpaper = [
-  { src: img1, id: 'img' },
-  { src: img2, id: 'img' },
-  { src: img3, id: 'img' },
-  { src: img4, id: 'img' },
-  { src: img5, id: 'img' },
-  { src: img6, id: 'img' },
-  { src: img7, id: 'img' },
-  { src: img8, id: 'img' },
-  { src: img9, id: 'img' },
-  { src: img10, id: 'img' },
-  { src: img11, id: 'img' },
-  { src: img12, id: 'img' },
+  { src: img1, id: 'img', cover: cover1 },
+  { src: img2, id: 'img', cover: cover2 },
+  { src: img3, id: 'img', cover: cover3 },
+  { src: img4, id: 'img', cover: cover4 },
+  { src: img5, id: 'img', cover: cover5 },
+  { src: img6, id: 'img', cover: cover6 },
+  { src: img7, id: 'img', cover: cover7 },
+  { src: img8, id: 'img', cover: cover8 },
+  { src: img9, id: 'img', cover: cover9 },
+  { src: img10, id: 'img', cover: cover10 },
+  { src: img11, id: 'img', cover: cover11 },
+  { src: img12, id: 'img', cover: cover12 },
   // { src: video1, id: 'video' },
   // { src: video2, id: 'video' },
 ]
+
+export const LimitData = {
+  todolist: {
+    module: 30,
+    title: 44,
+    body: 200,
+  },
+  notes: {
+    module: 25,
+    title: 44,
+    body: 6000,
+  },
+  blurting: {
+    module: 25,
+    title: 44,
+    body: 6000,
+  },
+  flashcard: {
+    module: 25,
+    title: 44,
+    body: 800,
+  },
+  feynman: {
+    module: 25,
+    body: 500,
+  },
+  search: {
+    module: 20,
+    body: 500,
+  },
+}
 
 export const Configuration = {
   linkTutorialMBD: 'https://youtu.be/CoKPPo4HWK4',

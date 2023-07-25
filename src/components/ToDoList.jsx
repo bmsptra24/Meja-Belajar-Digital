@@ -7,6 +7,7 @@ import { auth } from "../Store/Firebase";
 import { HandleEnterPress } from "../Store/HandleEnterPress";
 import CloseButton from "./CloseButton";
 import { useSelector } from "react-redux";
+import { LimitData } from "../../Configuration";
 
 const ToDoList = () => {
   const [user] = useAuthState(auth);
@@ -34,15 +35,18 @@ const ToDoList = () => {
   };
 
   const addNewTask = () => {
-    // ubah isi tasks di database
-    updateData(`users/${user.uid}/tasks`, [
-      ...tasks,
-      { task: inputValue, checked: false, date: "" },
-    ]);
-    // kosongkan value state inputValue
-    setInputValue("");
+    if (tasks.length < LimitData.todolist.module) {
+      // ubah isi tasks di database
+      updateData(`users/${user.uid}/tasks`, [
+        ...tasks,
+        { task: inputValue, checked: false, date: "" },
+      ]);
+      // kosongkan value state inputValue
+      setInputValue("");
+    } else {
+      alert("Terlalu banyak task!");
+    }
   };
-
   return (
     <div
       className={`z-10 lg:h-5/6 lg:w-4/5 xl:w-3/5 h-full w-full lg:border-2 border-slate-800 lg:rounded-xl lg:bg-${color}-300`}
