@@ -143,7 +143,7 @@ const Setting = () => {
                 <div>
                   {/* nama */}
                   <div>
-                    <p className="font-bold">Name</p>
+                    <p className="font-bold">Nama</p>
                     <p className="text-xs mt-1 mb-2.5">
                       Ganti nama kamu disini.
                     </p>
@@ -169,7 +169,7 @@ const Setting = () => {
 
                 {/* password */}
                 <div>
-                  <p className="font-bold">Password</p>
+                  <p className="font-bold">Kata Sandi</p>
                   <div className="text-xs mt-1 mb-2.5 flex gap-1">
                     Klik <p className="italic">Ganti Kata Sandi</p> untuk
                     mengubah password kamu.
@@ -300,7 +300,7 @@ const Setting = () => {
 
                   <div className="flex justify-between p-3 px-5 bg-slate-200/70 mt-1">
                     <div className="">
-                      <p>Bluriting</p>
+                      <p>Blurting</p>
                     </div>
                     <div className="flex items-center">
                       {config.taskbar.blurting ? "On" : "Off"}
@@ -358,7 +358,7 @@ const Setting = () => {
 
                 {/* config */}
                 <div className="hidden lg:block">
-                  <p className="font-bold">Configuration</p>
+                  <p className="font-bold">Konfigurasi</p>
                   <p className="text-xs mt-1 mb-3">
                     Pilih configurasi tambahan yang kamu inginkan.
                   </p>
