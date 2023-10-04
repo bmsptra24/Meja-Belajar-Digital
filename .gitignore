@@ -26,3 +26,7 @@ dist
 api
 .firebase/hosting.ZGlzdA.cache
 .firebase/hosting.ZGlzdA.cache
+frontend/.env
+backend/.env
+frontend/node_modules
+backend/node_modules
