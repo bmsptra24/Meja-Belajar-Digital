@@ -10,7 +10,7 @@
   ```
 - For backend
   ```bash
-    mv .env.be.template backend/.env
+  mv .env.be.template backend/.env
   ```
 
 #### 3. Install all dependency
