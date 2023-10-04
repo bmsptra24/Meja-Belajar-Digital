@@ -1,24 +1,24 @@
-import { updateData } from "../Store/Database";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../Store/Firebase";
-import { useSelector, useDispatch } from "react-redux";
-import { setPomodoroStatus } from "../Features/pomodoro/Pomodoro";
-import { BsClock, BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
-import { GrPowerReset } from "react-icons/gr";
+import { updateData } from '../Store/Database'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '../Store/Firebase'
+import { useSelector, useDispatch } from 'react-redux'
+import { setPomodoroStatus } from '../Features/Pomodoro/Pomodoro'
+import { BsClock, BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs'
+import { GrPowerReset } from 'react-icons/gr'
 
 const Pomodoro = () => {
-  const [user] = useAuthState(auth);
+  const [user] = useAuthState(auth)
   const {
     pomodoroStatus,
     pomodoroDuration,
     shortBreakDuration,
     longBreakDuration,
     timeRemainingString,
-  } = useSelector((state) => state.pomodoro);
-  const { config } = useSelector((state) => state.database);
-  const color = config.color;
+  } = useSelector((state) => state.pomodoro)
+  const { config } = useSelector((state) => state.database)
+  const color = config.color
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   return (
     <div
@@ -29,7 +29,7 @@ const Pomodoro = () => {
         <GrPowerReset
           className="transition-all ease-in-out cursor-pointer text-3xl rounded-3xl bg-slate-50 p-1 hover:bg-slate-300"
           title="Reset Timer"
-          onClick={() => dispatch(setPomodoroStatus("stop"))}
+          onClick={() => dispatch(setPomodoroStatus('stop'))}
         />
       </div>
       <div
@@ -38,13 +38,13 @@ const Pomodoro = () => {
         <div className="w-full px-4 pt-3">
           <p className="flex justify-between">
             Pomodoro duration
-            {pomodoroStatus !== "pomodoro" ? (
+            {pomodoroStatus !== 'pomodoro' ? (
               <button
                 title="Start pomodoro"
-                disabled={pomodoroStatus === "pomodoro"}
+                disabled={pomodoroStatus === 'pomodoro'}
                 className="bg-transparent border-0"
                 onClick={() => {
-                  dispatch(setPomodoroStatus("pomodoro"));
+                  dispatch(setPomodoroStatus('pomodoro'))
                 }}
               >
                 <BsFillPlayFill className="text-3xl" />
@@ -53,7 +53,7 @@ const Pomodoro = () => {
               <button
                 title="Stop pomodoro"
                 className="bg-transparent border-0 "
-                onClick={() => dispatch(setPomodoroStatus("pause"))}
+                onClick={() => dispatch(setPomodoroStatus('pause'))}
               >
                 <BsFillPauseFill className="text-3xl" />
               </button>
@@ -68,9 +68,9 @@ const Pomodoro = () => {
             onChange={(event) => {
               {
                 updateData(
-                  ["users/" + user.uid + "/pomodoro/pomodoroDuration"],
-                  Number(event.target.value)
-                );
+                  ['users/' + user.uid + '/pomodoro/pomodoroDuration'],
+                  Number(event.target.value),
+                )
               }
             }}
           />
@@ -78,13 +78,13 @@ const Pomodoro = () => {
         <div className="w-full px-4 pt-3">
           <p className="flex justify-between">
             Short break
-            {pomodoroStatus !== "shortBreak" ? (
+            {pomodoroStatus !== 'shortBreak' ? (
               <button
                 title="Start short break"
-                disabled={pomodoroStatus === "shortBreak"}
+                disabled={pomodoroStatus === 'shortBreak'}
                 className="bg-transparent border-0 "
                 onClick={() => {
-                  dispatch(setPomodoroStatus("shortBreak"));
+                  dispatch(setPomodoroStatus('shortBreak'))
                 }}
               >
                 <BsFillPlayFill className="text-3xl" />
@@ -94,11 +94,11 @@ const Pomodoro = () => {
               <button
                 title="Stop short break"
                 className="bg-transparent border-0 "
-                onClick={() => console.log("ResetTimer()")} // reset the timer
+                onClick={() => console.log('ResetTimer()')} // reset the timer
               >
                 <BsFillPauseFill
                   className="text-3xl"
-                  onClick={() => dispatch(setPomodoroStatus("pause"))}
+                  onClick={() => dispatch(setPomodoroStatus('pause'))}
                 />
               </button>
             )}
@@ -111,22 +111,22 @@ const Pomodoro = () => {
             value={shortBreakDuration}
             onChange={(event) => {
               updateData(
-                ["users/" + user.uid + "/pomodoro/shortBreak"],
-                Number(event.target.value)
-              );
+                ['users/' + user.uid + '/pomodoro/shortBreak'],
+                Number(event.target.value),
+              )
             }}
           />
         </div>
         <div className="w-full px-4 pt-3">
           <p className="flex justify-between">
             Long break
-            {pomodoroStatus !== "longBreak" ? (
+            {pomodoroStatus !== 'longBreak' ? (
               <button
                 title="Start long break"
-                disabled={pomodoroStatus === "longBreak"}
+                disabled={pomodoroStatus === 'longBreak'}
                 className="bg-transparent border-0 "
                 onClick={() => {
-                  dispatch(setPomodoroStatus("longBreak"));
+                  dispatch(setPomodoroStatus('longBreak'))
                 }}
               >
                 <BsFillPlayFill className="text-3xl" />
@@ -135,7 +135,7 @@ const Pomodoro = () => {
               <button
                 title="Stop long break"
                 className="bg-transparent border-0 "
-                onClick={() => dispatch(setPomodoroStatus("pause"))}
+                onClick={() => dispatch(setPomodoroStatus('pause'))}
               >
                 <BsFillPauseFill className="text-3xl" />
               </button>
@@ -149,9 +149,9 @@ const Pomodoro = () => {
             value={longBreakDuration}
             onChange={(event) => {
               updateData(
-                ["users/" + user.uid + "/pomodoro/longBreak"],
-                Number(event.target.value)
-              );
+                ['users/' + user.uid + '/pomodoro/longBreak'],
+                Number(event.target.value),
+              )
             }}
           />
         </div>
@@ -161,7 +161,7 @@ const Pomodoro = () => {
         <p className="">{timeRemainingString}</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Pomodoro;
+export default Pomodoro

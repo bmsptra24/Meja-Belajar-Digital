@@ -1,31 +1,31 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import logoFB from "../Assets/icon/fb_logo.png";
-import mbd from "../Assets/logo/logo.png";
-import logoGoogle from "../Assets/icon/google_logo.png";
-import { VscEyeClosed, VscEye } from "react-icons/vsc";
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+// import logoFB from "../Assets/icon/fb_logo.png";
+import mbd from '../Assets/Logo/logo.png'
+// import logoGoogle from "../Assets/icon/google_logo.png";
+import { VscEyeClosed, VscEye } from 'react-icons/vsc'
 import {
   signIn,
-  signInWithGoogle,
-  signInWithFacebook,
-} from "../Store/Firebase";
-import { auth } from "../Store/Firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
+  // signInWithGoogle,
+  // signInWithFacebook,
+} from '../Store/Firebase'
+import { auth } from '../Store/Firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 const Login = () => {
-  const [user] = useAuthState(auth);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isSeePassword, setIsSeePassword] = useState(false);
-  const navigate = useNavigate();
+  const [user] = useAuthState(auth)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [isSeePassword, setIsSeePassword] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (user) {
-      navigate("/home");
+      navigate('/home')
     }
-  }, [user, navigate]);
+  }, [user, navigate])
 
-  document.querySelector("title").innerHTML = "Login - Meja Belajar Digital";
+  document.querySelector('title').innerHTML = 'Login - Meja Belajar Digital'
 
   return (
     <div className="App">
@@ -48,11 +48,11 @@ const Login = () => {
                 className="absolute right-2 mt-4 p-2 hover:bg-slate-300 rounded-full text-lg"
                 onClick={() => setIsSeePassword((e) => !e)}
               >
-                {password !== "" && !isSeePassword && <VscEyeClosed />}
-                {password !== "" && isSeePassword && <VscEye />}
+                {password !== '' && !isSeePassword && <VscEyeClosed />}
+                {password !== '' && isSeePassword && <VscEye />}
               </button>
               <input
-                type={isSeePassword ? "text" : "password"}
+                type={isSeePassword ? 'text' : 'password'}
                 className="pr-11 w-full placeholder:text-slate-500 mt-4 h-12 rounded px-3 bg-slate-200 focus:outline-none focus:ring-slate-300 focus:ring-2"
                 placeholder="Password"
                 value={password}
@@ -62,10 +62,10 @@ const Login = () => {
             <button
               className="transition ease-in-out hover:to-blue-600 hover:from-blue-400 bg-gradient-to-l from-cyan-400 to-blue-500 h-12 rounded mt-4"
               onClick={async () => {
-                if (password === "") {
-                  return alert("Password kosong!");
+                if (password === '') {
+                  return alert('Password kosong!')
                 }
-                signIn(email, password);
+                signIn(email, password)
               }}
             >
               Login
@@ -75,7 +75,7 @@ const Login = () => {
               <button
                 className="transition ease-in-out hover:text-blue-600 ml-2 text-blue-500"
                 onClick={() => {
-                  navigate("/signup");
+                  navigate('/signup')
                 }}
               >
                 Signup
@@ -125,7 +125,7 @@ const Login = () => {
                 src={mbd}
                 alt="Logo MBD"
                 className="w-10/12 cursor-pointer"
-                onClick={() => navigate("/")}
+                onClick={() => navigate('/')}
               />
               <div>
                 <p className="font-bold text-4xl">Meja Belajar Digital</p>
@@ -157,7 +157,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

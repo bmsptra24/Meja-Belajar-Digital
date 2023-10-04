@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { ImSpinner2 } from "react-icons/im";
-import { Configuration, Wallpaper } from "../../Configuration";
-import ReactPlayer from "react-player";
-import { useDispatch } from "react-redux";
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { ImSpinner2 } from 'react-icons/im'
+import { Configuration, Wallpaper } from '../../Configuration'
+import ReactPlayer from 'react-player'
+import { useDispatch } from 'react-redux'
 import {
   setBlurting,
   setFeynman,
@@ -11,13 +11,13 @@ import {
   setNote,
   setSearch,
   setToDoList,
-} from "../Features/home/Home";
+} from '../Features/Home/Home'
 
 export const Background = ({ className }) => {
-  const { config } = useSelector((state) => state.database);
-  const [loading, setLoading] = useState(true);
-  const [start, setStart] = useState(false);
-  const dispatch = useDispatch();
+  const { config } = useSelector((state) => state.database)
+  const [loading, setLoading] = useState(true)
+  const [start, setStart] = useState(false)
+  const dispatch = useDispatch()
 
   const Card = ({ app, onClick }) => {
     return (
@@ -28,38 +28,38 @@ export const Background = ({ className }) => {
         <app.icon className="text-5xl text-slate-950" />
         <p className="mt-4">{app.title}</p>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <>
       {/* bg in landscape */}
       <div
         className={`${
-          !loading ? "invisible" : "visible"
+          !loading ? 'invisible' : 'visible'
         } w-full h-full absolute bg-slate-400/50 animate-pulse hidden lg:flex justify-center items-center z-20`}
       >
         <ImSpinner2 className="text-5xl text-slate-50 animate-spin" />
       </div>
-      {Wallpaper[config?.background]?.id === "img" && (
+      {Wallpaper[config?.background]?.id === 'img' && (
         <img
           loading="lazy"
           src={Wallpaper[config?.background]?.src}
           alt="background"
           className={`${className} ${
-            loading ? "invisible" : "visible"
+            loading ? 'invisible' : 'visible'
           } hidden lg:block`}
           onLoad={() => setLoading(false)}
         />
       )}
-      {Wallpaper[config?.background]?.id === "video" && (
+      {Wallpaper[config?.background]?.id === 'video' && (
         <div className="w-full h-full relative">
           {start && <div className="h-full w-full absolute z-10"></div>}
           <div className="w-screen h-screen absolute">
             <ReactPlayer
               url={Wallpaper[config?.background]?.src}
-              height={"100%"}
-              width={"100%"}
+              height={'100%'}
+              width={'100%'}
               controls={false}
               playing={true}
               loop={true}
@@ -101,5 +101,5 @@ export const Background = ({ className }) => {
         />
       </div>
     </>
-  );
-};
+  )
+}

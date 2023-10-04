@@ -3,60 +3,60 @@ import {
   deleteUserAccount,
   resetPassword,
   updateDataUser,
-} from "../Store/Firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { updateData } from "../Store/Database";
-import { BsPerson, BsCheckLg } from "react-icons/bs";
-import { VscSymbolColor } from "react-icons/vsc";
-import CloseButton from "./CloseButton";
-import { useState, useEffect } from "react";
-import { Configuration, Wallpaper } from "../../Configuration";
-import { BiLogOutCircle } from "react-icons/bi";
-import { signOutBtn } from "../Store/Firebase";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { useSelector } from "react-redux";
+} from '../Store/Firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { updateData } from '../Store/Database'
+import { BsPerson, BsCheckLg } from 'react-icons/bs'
+import { VscSymbolColor } from 'react-icons/vsc'
+import CloseButton from './CloseButton'
+import { useState, useEffect } from 'react'
+import { Configuration, Wallpaper } from '../../Configuration'
+import { BiLogOutCircle } from 'react-icons/bi'
+import { signOutBtn } from '../Store/Firebase'
+import { RxHamburgerMenu } from 'react-icons/rx'
+import { useSelector } from 'react-redux'
 
 const Setting = () => {
-  const [user] = useAuthState(auth);
-  const { config } = useSelector((state) => state.database);
+  const [user] = useAuthState(auth)
+  const { config } = useSelector((state) => state.database)
 
-  const [account, setAccount] = useState(true);
-  const [themes, setThemes] = useState(false);
-  const [inputNewName, setInputNewName] = useState("");
-  const [isBurgerClicked, setIsBurgerClicked] = useState(false);
+  const [account, setAccount] = useState(true)
+  const [themes, setThemes] = useState(false)
+  const [inputNewName, setInputNewName] = useState('')
+  const [isBurgerClicked, setIsBurgerClicked] = useState(false)
 
   useEffect(() => {
-    setInputNewName(auth.currentUser.displayName);
-  }, []);
+    setInputNewName(auth.currentUser.displayName)
+  }, [])
 
   const hideAll = () => {
-    setAccount(false);
-    setThemes(false);
-  };
+    setAccount(false)
+    setThemes(false)
+  }
 
   const handleTaskbar = (value, category) => {
-    updateData(["users/" + user.uid + "/config/taskbar/" + category], value);
-  };
+    updateData(['users/' + user.uid + '/config/taskbar/' + category], value)
+  }
 
-  const handleTheme = (value) => {
-    updateData(["users/" + user.uid + "/config/theme"], value);
-  };
+  // const handleTheme = (value) => {
+  //   updateData(["users/" + user.uid + "/config/theme"], value);
+  // };
 
   const handleColor = (value) => {
-    updateData(["users/" + user.uid + "/config/color"], value);
-  };
+    updateData(['users/' + user.uid + '/config/color'], value)
+  }
 
   const handleQuote = (value) => {
-    updateData(["users/" + user.uid + "/config/quote"], value);
-  };
+    updateData(['users/' + user.uid + '/config/quote'], value)
+  }
 
   const handleBackground = (value) => {
-    updateData(["users/" + user.uid + "/config/background"], value);
-  };
+    updateData(['users/' + user.uid + '/config/background'], value)
+  }
 
   const handleInput = (event, setState) => {
-    setState(event.target.value);
-  };
+    setState(event.target.value)
+  }
   return (
     <>
       <div className="absolute z-50 w-full h-full bg-slate-950/50"></div>
@@ -64,7 +64,7 @@ const Setting = () => {
         {/* menu */}
         <div
           className={`w-64 h-full bg-slate-100 border-r-2 lg:rounded-s-xl flex-col absolute lg:static z-50 ${
-            isBurgerClicked ? "flex" : "hidden lg:flex"
+            isBurgerClicked ? 'flex' : 'hidden lg:flex'
           }`}
         >
           <div className="border-b-2 p-5">
@@ -74,15 +74,15 @@ const Setting = () => {
             <div className="flex flex-col gap-2">
               <div
                 className={
-                  "flex gap-3 items-center hover:bg-slate-300/50 py-2 px-2 rounded-lg transition-all ease-in-out " +
+                  'flex gap-3 items-center hover:bg-slate-300/50 py-2 px-2 rounded-lg transition-all ease-in-out ' +
                   (account
-                    ? "bg-slate-300/50 text-blue-600 cursor-default"
-                    : "cursor-pointer")
+                    ? 'bg-slate-300/50 text-blue-600 cursor-default'
+                    : 'cursor-pointer')
                 }
                 onClick={() => {
-                  hideAll();
-                  setAccount(true);
-                  setIsBurgerClicked(false);
+                  hideAll()
+                  setAccount(true)
+                  setIsBurgerClicked(false)
                 }}
               >
                 <BsPerson className="text-xl mt-px" />
@@ -91,15 +91,15 @@ const Setting = () => {
 
               <div
                 className={
-                  "flex gap-3 items-center hover:bg-slate-300/50 py-2 px-2 rounded-lg transition-all ease-in-out " +
+                  'flex gap-3 items-center hover:bg-slate-300/50 py-2 px-2 rounded-lg transition-all ease-in-out ' +
                   (themes
-                    ? "bg-slate-300/50 text-blue-600 cursor-default"
-                    : "cursor-pointer")
+                    ? 'bg-slate-300/50 text-blue-600 cursor-default'
+                    : 'cursor-pointer')
                 }
                 onClick={() => {
-                  hideAll();
-                  setThemes(true);
-                  setIsBurgerClicked(false);
+                  hideAll()
+                  setThemes(true)
+                  setIsBurgerClicked(false)
                 }}
               >
                 <VscSymbolColor className="text-xl mt-px" />
@@ -109,7 +109,7 @@ const Setting = () => {
             <button
               className="border-slate-400 hover:bg-slate-200 hover:shadow-sm border-2 flex gap-2 items-center text-slate-700 text-sm py-2 px-3 rounded hover:border-slate-500 transition-all ease-in-out"
               onClick={() => {
-                signOutBtn();
+                signOutBtn()
               }}
             >
               <BiLogOutCircle className="text-xl" />
@@ -160,7 +160,7 @@ const Setting = () => {
                   <button
                     className="bg-blue-500 mt-5 text-slate-50 text-sm py-2 px-3 rounded hover:bg-blue-600 transition-all ease-in-out"
                     onClick={() => {
-                      updateDataUser(inputNewName);
+                      updateDataUser(inputNewName)
                     }}
                   >
                     Simpan Perubahan
@@ -178,11 +178,11 @@ const Setting = () => {
                     className="bg-blue-500 text-slate-50 text-sm py-2 px-3 rounded hover:bg-blue-600 transition-all ease-in-out"
                     onClick={() => {
                       if (
-                        confirm("Apakah kamu yakin ingin mengganti password?")
+                        confirm('Apakah kamu yakin ingin mengganti password?')
                       ) {
-                        const email = prompt("Masukan email mu:");
+                        const email = prompt('Masukan email mu:')
                         if (email) {
-                          resetPassword(email);
+                          resetPassword(email)
                         }
                       }
                     }}
@@ -203,22 +203,22 @@ const Setting = () => {
                       className="bg-red-500 text-slate-50 text-sm py-2 px-3 rounded hover:bg-red-600 transition-all ease-in-out"
                       onClick={() => {
                         if (
-                          confirm("Apakah kamu yakin ingin menghapus akun mu?")
+                          confirm('Apakah kamu yakin ingin menghapus akun mu?')
                         ) {
                           if (
                             confirm(
-                              "Semua data akan hilang. Apakah kamu yakin?"
+                              'Semua data akan hilang. Apakah kamu yakin?',
                             )
                           ) {
                             if (
                               prompt(
-                                `Ketik '${user.displayName}' untuk melanjutkan`
+                                `Ketik '${user.displayName}' untuk melanjutkan`,
                               ) === user.displayName ||
                               `'${user.displayName}'`
                             ) {
-                              deleteUserAccount();
+                              deleteUserAccount()
                             } else {
-                              alert("Proses penghapusan akun dibatalkan");
+                              alert('Proses penghapusan akun dibatalkan')
                             }
                           }
                         }
@@ -246,7 +246,7 @@ const Setting = () => {
                       <p>Todolist</p>
                     </div>
                     <div className="flex items-center">
-                      {config.taskbar.todolist ? "On" : "Off"}
+                      {config.taskbar.todolist ? 'On' : 'Off'}
                       <input
                         type="checkbox"
                         name="app"
@@ -255,7 +255,7 @@ const Setting = () => {
                         checked={config.taskbar.todolist}
                         onChange={
                           () =>
-                            handleTaskbar(!config.taskbar.todolist, "todolist")
+                            handleTaskbar(!config.taskbar.todolist, 'todolist')
                           // setConfig((prev)=>{
                           //   ...prev
                           // })
@@ -269,7 +269,7 @@ const Setting = () => {
                       <p>Notes</p>
                     </div>
                     <div className="flex items-center">
-                      {config.taskbar.notes ? "On" : "Off"}
+                      {config.taskbar.notes ? 'On' : 'Off'}
                       <input
                         type="checkbox"
                         name="app"
@@ -277,7 +277,7 @@ const Setting = () => {
                         id="app"
                         checked={config.taskbar.notes}
                         onChange={() =>
-                          handleTaskbar(!config.taskbar.notes, "notes")
+                          handleTaskbar(!config.taskbar.notes, 'notes')
                         }
                         // onClick={() => {
                         // updateData(["users/" + user.uid + "/config"], {
@@ -303,7 +303,7 @@ const Setting = () => {
                       <p>Blurting</p>
                     </div>
                     <div className="flex items-center">
-                      {config.taskbar.blurting ? "On" : "Off"}
+                      {config.taskbar.blurting ? 'On' : 'Off'}
                       <input
                         type="checkbox"
                         name="app"
@@ -311,7 +311,7 @@ const Setting = () => {
                         id="app"
                         checked={config.taskbar.blurting}
                         onChange={() =>
-                          handleTaskbar(!config.taskbar.blurting, "blurting")
+                          handleTaskbar(!config.taskbar.blurting, 'blurting')
                         }
                       />
                     </div>
@@ -322,7 +322,7 @@ const Setting = () => {
                       <p>Flashcard</p>
                     </div>
                     <div className="flex items-center">
-                      {config.taskbar.flashcard ? "On" : "Off"}
+                      {config.taskbar.flashcard ? 'On' : 'Off'}
                       <input
                         type="checkbox"
                         name="app"
@@ -330,7 +330,7 @@ const Setting = () => {
                         id="app"
                         checked={config.taskbar.flashcard}
                         onChange={() =>
-                          handleTaskbar(!config.taskbar.flashcard, "flashcard")
+                          handleTaskbar(!config.taskbar.flashcard, 'flashcard')
                         }
                       />
                     </div>
@@ -341,7 +341,7 @@ const Setting = () => {
                       <p>Feynman</p>
                     </div>
                     <div className="flex items-center">
-                      {config.taskbar.feynman ? "On" : "Off"}
+                      {config.taskbar.feynman ? 'On' : 'Off'}
                       <input
                         type="checkbox"
                         name="app"
@@ -349,7 +349,7 @@ const Setting = () => {
                         id="app"
                         checked={config.taskbar.feynman}
                         onChange={() =>
-                          handleTaskbar(!config.taskbar.feynman, "feynman")
+                          handleTaskbar(!config.taskbar.feynman, 'feynman')
                         }
                       />
                     </div>
@@ -367,7 +367,7 @@ const Setting = () => {
                       <p>Quote</p>
                     </div>
                     <div className="flex items-center">
-                      {config.quote ? "On" : "Off"}
+                      {config.quote ? 'On' : 'Off'}
                       <input
                         type="checkbox"
                         name="app"
@@ -418,8 +418,8 @@ const Setting = () => {
                           key={idx}
                           className={`bg-${element}-500 w-10 h-10 rounded flex justify-center items-center ${
                             config.color === element
-                              ? " ring-2 ring-slate-300"
-                              : ""
+                              ? ' ring-2 ring-slate-300'
+                              : ''
                           }`}
                           onClick={() => handleColor(element)}
                         >
@@ -427,7 +427,7 @@ const Setting = () => {
                             <BsCheckLg className="text-4xl text-slate-50" />
                           )}
                         </button>
-                      );
+                      )
                     })}
                   </div>
                 </div>
@@ -448,22 +448,22 @@ const Setting = () => {
                               loading="lazy"
                               key={idx}
                               src={
-                                obj.id === "img"
+                                obj.id === 'img'
                                   ? obj.cover
                                   : `https://img.youtube.com/vi/${obj.src.slice(
-                                      17
+                                      17,
                                     )}/mqdefault.jpg`
                               }
                               alt="wallpaper"
                               className={
-                                "w-52 rounded cursor-pointer transition-all ease-out" +
+                                'w-52 rounded cursor-pointer transition-all ease-out' +
                                 (config.background === idx
-                                  ? " ring-4 ring-blue-500 shadow"
-                                  : " opacity-70 hover:opacity-100")
+                                  ? ' ring-4 ring-blue-500 shadow'
+                                  : ' opacity-70 hover:opacity-100')
                               }
                               onClick={() => handleBackground(idx)}
                             />
-                          );
+                          )
                         })}
                     </div>
                   </div>
@@ -474,6 +474,6 @@ const Setting = () => {
         </div>
       </div>
     </>
-  );
-};
-export default Setting;
+  )
+}
+export default Setting

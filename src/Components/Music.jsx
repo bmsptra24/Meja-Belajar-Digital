@@ -1,13 +1,13 @@
-import { BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
-import { setPlayAudio } from "../Features/music/Music";
-import { useDispatch, useSelector } from "react-redux";
+import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs'
+import { setPlayAudio } from '../Features/Music/Music'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Music = () => {
-  const { playAudio } = useSelector((state) => state.music);
-  const { config } = useSelector((state) => state.database);
-  const color = config.color;
+  const { playAudio } = useSelector((state) => state.music)
+  const { config } = useSelector((state) => state.database)
+  const color = config.color
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   return (
     <div
@@ -15,15 +15,15 @@ const Music = () => {
     >
       <div className="items-center flex justify-between">
         <p className="font-bold text-2xl ml-2">Sound</p>
-        {playAudio !== "stop" ? (
+        {playAudio !== 'stop' ? (
           <BsFillPauseFill
             className="text-3xl cursor-pointer"
-            onClick={() => dispatch(setPlayAudio("stop"))}
+            onClick={() => dispatch(setPlayAudio('stop'))}
           />
         ) : (
           <BsFillPlayFill
             className="text-3xl cursor-pointer"
-            onClick={() => dispatch(setPlayAudio("playLog"))}
+            onClick={() => dispatch(setPlayAudio('playLog'))}
           />
         )}
       </div>
@@ -32,37 +32,37 @@ const Music = () => {
       >
         <p
           className="bg-slate-50 hover:bg-slate-200 hover:shadow-sm transition-all ease-in-out rounded py-1 px-2 cursor-pointer"
-          onClick={() => dispatch(setPlayAudio("rainSound"))}
+          onClick={() => dispatch(setPlayAudio('rainSound'))}
         >
           Rain
         </p>
         <p
           className="bg-slate-50 hover:bg-slate-200 hover:shadow-sm transition-all ease-in-out rounded py-1 px-2 cursor-pointer"
-          onClick={() => dispatch(setPlayAudio("fireSound"))}
+          onClick={() => dispatch(setPlayAudio('fireSound'))}
         >
           Fire
         </p>
         <p
           className="bg-slate-50 hover:bg-slate-200 hover:shadow-sm transition-all ease-in-out rounded py-1 px-2 cursor-pointer"
-          onClick={() => dispatch(setPlayAudio("beachSound"))}
+          onClick={() => dispatch(setPlayAudio('beachSound'))}
         >
           Beach
         </p>
         <p
           className="bg-slate-50 hover:bg-slate-200 hover:shadow-sm transition-all ease-in-out rounded py-1 px-2 cursor-pointer"
-          onClick={() => dispatch(setPlayAudio("forestSound"))}
+          onClick={() => dispatch(setPlayAudio('forestSound'))}
         >
           Forest
         </p>
         <p
           className="bg-slate-50 hover:bg-slate-200 hover:shadow-sm transition-all ease-in-out rounded py-1 px-2 cursor-pointer"
-          onClick={() => dispatch(setPlayAudio("cafeSound"))}
+          onClick={() => dispatch(setPlayAudio('cafeSound'))}
         >
           Coffee
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Music;
+export default Music

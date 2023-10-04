@@ -1,82 +1,82 @@
-import { Toasts } from "../Components/Toasts";
+import { Toasts } from '../Components/Toasts'
 import {
   createUserWithEmailAndPassword,
   getAuth,
   sendEmailVerification,
   updateProfile,
-} from "firebase/auth";
-import { useState } from "react";
-import { updateData } from "../Store/Database";
-import validator from "validator";
-import { auth } from "../Store/Firebase";
-import mbd from "../Assets/logo/logo.png";
-import { useNavigate } from "react-router-dom";
-import { Configuration } from "../../Configuration";
+} from 'firebase/auth'
+import { useState } from 'react'
+import { updateData } from '../Store/Database'
+import validator from 'validator'
+import { auth } from '../Store/Firebase'
+import mbd from '../Assets/Logo/logo.png'
+import { useNavigate } from 'react-router-dom'
+import { Configuration } from '../../Configuration'
 
 const SignUp = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [toastsSwitch, setToastsSwitch] = useState(-1);
-  const navigate = useNavigate();
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [toastsSwitch, setToastsSwitch] = useState(-1)
+  const navigate = useNavigate()
 
-  document.querySelector("title").innerHTML = "Signup - Meja Belajar Digital";
+  document.querySelector('title').innerHTML = 'Signup - Meja Belajar Digital'
 
   // create new account user
   const createUser = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         // Signed in
-        const user = userCredential.user;
+        const user = userCredential.user
 
-        const auth = getAuth();
+        const auth = getAuth()
         await updateProfile(auth.currentUser, {
           displayName: name,
         })
           .then(async () => {
             // Profile updated!
-            console.log("User created!");
+            console.log('User created!')
             // write user data to database
             // updateData(["users/"], user.uid);
             await updateData(
-              ["users/" + user.uid + "/"],
-              Configuration.templateNewUser
-            );
+              ['users/' + user.uid + '/'],
+              Configuration.templateNewUser,
+            )
           })
           .catch((error) => {
             // An error occurred
-            console.log(error);
-          });
+            console.log(error)
+          })
 
         // sending email verification
         await sendEmailVerification(auth.currentUser).then(() => {
           // Email verification sent!
-          setToastsSwitch(0);
-          alert("Email verifikasi telah dikirim. Cek email mu sekarang");
+          setToastsSwitch(0)
+          alert('Email verifikasi telah dikirim. Cek email mu sekarang')
           setTimeout(() => {
-            setToastsSwitch(-1);
-          }, 7000);
-        });
+            setToastsSwitch(-1)
+          }, 7000)
+        })
 
         // Log out first, cause have to verificated first
-        auth.signOut();
-        navigate("/help");
+        auth.signOut()
+        navigate('/help')
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        alert(errorCode, errorMessage);
-      });
-  };
+        const errorCode = error.code
+        const errorMessage = error.message
+        alert(errorCode, errorMessage)
+      })
+  }
 
   return (
     <div className="App">
       <div className="absolute w-full h-full pattern-box"></div>
       {toastsSwitch === 0 && (
         <Toasts
-          category={"success"}
-          message={"An email verification has been sent to your account!"}
+          category={'success'}
+          message={'An email verification has been sent to your account!'}
         />
       )}
       <div className="flex lg:h-3/4 lg:w-4/5 xl:w-3/5 lg:shadow-2xl rounded-3xl z-10">
@@ -87,7 +87,7 @@ const SignUp = () => {
                 src={mbd}
                 alt="Logo MBD"
                 className="w-10/12 cursor-pointer"
-                onClick={() => navigate("/")}
+                onClick={() => navigate('/')}
               />
               <div>
                 <p className="font-bold text-4xl">Meja Belajar Digital</p>
@@ -141,28 +141,28 @@ const SignUp = () => {
               if (!validator.isEmpty(name, { ignore_whitespace: true })) {
                 if (validator.isEmail(email)) {
                   if (password === confirmPassword) {
-                    createUser();
+                    createUser()
                   } else {
-                    <Toasts
-                      category={"success"}
-                      message={"Cek kembali password anda!"}
-                    />;
+                    ;<Toasts
+                      category={'success'}
+                      message={'Cek kembali password anda!'}
+                    />
                   }
                 } else {
-                  alert("Email/password salah!");
+                  alert('Email/password salah!')
                 }
               } else {
-                alert("Nama tidak boleh kosong!");
+                alert('Nama tidak boleh kosong!')
               }
             }}
           >
             Sign Up
           </button>
           <div className="flex justify-center text-sm">
-            <p>{"I have an account!"}</p>
+            <p>{'I have an account!'}</p>
             <button
               className="ml-2 transition ease-in-out hover:text-blue-600 text-blue-500"
-              onClick={() => navigate("/signin")}
+              onClick={() => navigate('/signin')}
             >
               Login
             </button>
@@ -170,7 +170,7 @@ const SignUp = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignUp;
+export default SignUp
