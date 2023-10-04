@@ -20,7 +20,7 @@
   cd frontend
   npm install
   ```
-- For frontend
+- For backend
   ```bash
   cd backend
   npm install
