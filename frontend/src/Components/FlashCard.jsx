@@ -45,12 +45,14 @@ const Note = () => {
   const [lastOpen, setLastOpen] = useState(0)
   const [currentKeyCard, setCurrentKeyCard] = useState([])
   const [isPlay, setIsPlay] = useState(false)
+  const [isEnd, setIsEnd] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
   const [isStart, setIsStart] = useState(false)
   const [isSeeAnswer, setIsSeeAnswer] = useState(false)
   const [isDelete, setIsDelete] = useState(false)
   const [checkPoint, setCheckPoint] = useState(-1)
   const [isListCardsClicked, setIsListCardsClicked] = useState(false)
+  const [score, setScore] = useState(0)
   const refTitle = useRef(null)
 
   const { config } = useSelector((state) => state.database)
@@ -83,7 +85,7 @@ const Note = () => {
         // jika data masih ada maka:
         await updateData(
           ['users/' + user.uid + '/flashcard/' + 'lastOpen'],
-          data.length - 1,
+          data.length - 2,
         )
       } else {
         // jika tidak ada data:
@@ -154,10 +156,23 @@ const Note = () => {
     }
   }
 
+  const handleSaveScore = (score) => {
+    const path = 'users/' + user.uid + '/flashcard/' + 'scores/'
+    const key = newKey(path)
+
+    const value = {
+      score: score,
+      flashcardId: data[lastOpen][0],
+      date: new Date(),
+    }
+    // console.log({ value })
+    updateData([path + key], value)
+  }
+
   // set last open data for navigate in first modul
   useEffect(() => {
     if (data.length > 1) {
-      setLastOpen(data[data.length - 1][1])
+      setLastOpen(data[data.length - 1 - 1][1])
     } else {
       setLastOpen(-1)
     }
@@ -180,6 +195,20 @@ const Note = () => {
 
   const handleClickRefTitle = () => {
     refTitle.current.focus()
+  }
+
+  const handleNextQuestion = () => {
+    if (checkPoint < cards.length - 1) {
+      if (isSeeAnswer) {
+        setIsSeeAnswer((e) => !e)
+      }
+      setCheckPoint((e) => e + 1)
+    }
+
+    // when in last question
+    if (checkPoint >= cards.length - 1) {
+      setIsEnd(true)
+    }
   }
 
   return (
@@ -215,7 +244,11 @@ const Note = () => {
                   <div className="hover:overflow-y-scroll overflow-hidden mr-3 lg:mr-0 grow h-9/10 lg:h-auto mb-0 lg:mb-1">
                     {lastOpen >= 0
                       ? data.map((e, idx) => {
-                          if (idx !== data.length - 1) {
+                          // console.log(data.length)
+                          if (
+                            idx !== data.length - 1 &&
+                            idx !== data.length - 2
+                          ) {
                             return (
                               <div
                                 key={'note-' + idx}
@@ -223,7 +256,7 @@ const Note = () => {
                                   idx === lastOpen
                                     ? `bg-slate-50 border-2 border-${color}-300 drop-shadow-lg`
                                     : `bg-slate-200 border-2 border-${color}-50 hover:border-slate-300 hover:bg-slate-300`
-                                } px-2 py-1 rounded-lg mb-1`}
+                                } px-2 py-1 rounded-lg mb-1 transition-all ease-in-out`}
                                 style={
                                   ({ cursor: 'pointer' }, { minHeight: '35px' })
                                 }
@@ -450,7 +483,7 @@ const Note = () => {
                         <p className="font-bold text-3xl">START</p>
                       </div>
                     )}
-                    {isStart && (
+                    {isStart && !isEnd && (
                       <>
                         <p className="absolute top-3 left-4 font-bold text-slate-500">
                           {checkPoint + 1} |{' '}
@@ -510,7 +543,66 @@ const Note = () => {
                           />
                         </div> */}
 
-                        <div className="flex justify-center mb-5 lg:mb-auto"></div>
+                        <div className="flex justify-center mb-5 lg:mb-auto gap-3">
+                          {!isSeeAnswer && (
+                            <button
+                              className={`transition ease-in-out bg-${color}-300 py-2 rounded-lg px-3 hover:bg-${color}-400 cursor-pointer`}
+                              onClick={() => setIsSeeAnswer((e) => !e)}
+                            >
+                              Lihat jawaban
+                            </button>
+                          )}
+
+                          {isSeeAnswer && (
+                            <>
+                              <button
+                                className={`transition ease-in-out bg-red-300 py-2 rounded-lg px-3 hover:bg-red-400 cursor-pointer`}
+                                onClick={() => {
+                                  // next question
+                                  handleNextQuestion()
+                                }}
+                              >
+                                Salah
+                              </button>
+                              <button
+                                className={`transition ease-in-out bg-sky-300 py-2 rounded-lg px-3 hover:bg-sky-400 cursor-pointer`}
+                                onClick={() => {
+                                  const updatedScore = score + 1
+
+                                  setScore(updatedScore)
+
+                                  // next question
+                                  handleNextQuestion()
+                                }}
+                              >
+                                Benar
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      </>
+                    )}
+
+                    {isStart && isEnd && (
+                      <>
+                        <div className="grow flex flex-col justify-center items-center">
+                          <p>Nilai kamu:</p>
+                          <p>
+                            {score}/{cards.length}
+                          </p>
+                        </div>
+                        <button
+                          className={`transition ease-in-out bg-${color}-300 py-2 rounded-lg px-3 hover:bg-${color}-400 cursor-pointer`}
+                          onClick={() => {
+                            setIsStart(false)
+                            setIsPlay(false)
+                            setIsEnd(false)
+                            setScore(0)
+                            handleSaveScore(score)
+                          }}
+                        >
+                          Tutup
+                        </button>
                       </>
                     )}
                   </>

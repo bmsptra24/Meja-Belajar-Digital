@@ -48,7 +48,7 @@ export const Background = ({ className }) => {
           alt="background"
           className={`${className} ${
             loading ? 'invisible' : 'visible'
-          } hidden lg:block`}
+          } hidden lg:block object-cover`}
           onLoad={() => setLoading(false)}
         />
       )}
