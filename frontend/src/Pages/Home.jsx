@@ -24,6 +24,7 @@ import { Background } from '../Store/Background'
 import FetchData from '../Store/FetchData'
 import Help from '../Components/Help'
 import { Quote } from '../Components/Quote'
+import Rank from '../Components/Rank'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -41,6 +42,7 @@ const Home = () => {
     pomodoro,
     setting,
     help,
+    rank,
   } = useSelector((state) => state.home)
 
   document.querySelector('title').innerHTML = 'Meja Belajar Digital'
@@ -61,7 +63,7 @@ const Home = () => {
       <div
         className={
           'absolute inset-0 z-0 ' +
-          (toDoList || note || blurting || flashCard || feynman
+          (toDoList || note || blurting || flashCard || feynman || rank
             ? 'hidden lg:block'
             : '')
         }
@@ -86,6 +88,7 @@ const Home = () => {
         {blurting && <Blurting />}
         {flashCard && <FlashCard />}
         {feynman && <FeynMan />}
+        {rank && <Rank />}
         {music && <Music />}
         {search && <Search />}
         {pomodoro && <Pomodoro />}

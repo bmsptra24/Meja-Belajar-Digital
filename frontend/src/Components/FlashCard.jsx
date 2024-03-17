@@ -155,7 +155,7 @@ const Note = () => {
       )
     }
   }
-
+  console.log(data[lastOpen])
   const handleSaveScore = (score) => {
     const path = 'users/' + user.uid + '/flashcard/' + 'scores/'
     const key = newKey(path)
@@ -164,6 +164,8 @@ const Note = () => {
       score: score,
       flashcardId: data[lastOpen][0],
       date: new Date(),
+      title: data[lastOpen][1]?.title,
+      cardsLenght: Object.keys(data[lastOpen][1]?.cards).length,
     }
     // console.log({ value })
     updateData([path + key], value)
@@ -261,6 +263,7 @@ const Note = () => {
                                   ({ cursor: 'pointer' }, { minHeight: '35px' })
                                 }
                                 onClick={() => {
+                                  setIsEdit(false)
                                   setIsListCardsClicked((e) => !e)
                                   data.map((e, index) => {
                                     if (idx === index && idx !== data.length) {

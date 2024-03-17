@@ -56,6 +56,7 @@ const cover12 =
   'https://blogger.googleusercontent.com/img/a/AVvXsEigPPCqQHme4Kcx5BX8eKLFGcieQTR3fokXOU01MaBYr370sdNNBHnKLbatWay-oc8Q8npL7RjYruEFchdscsVaq4LafKw1__ti0k2VtfSB3G2_daOndjkfINMlwEmQNuuCX-wodRWySrpAuyl5SudbZGLVtQ9a3HdQwbGKwoRiRB7sW4RYOg6IsMi4HqfX=w200-h112'
 
 import { timestamp } from './src/Store/Database'
+import { RiMedalLine } from 'react-icons/ri'
 // const video1 = 'https://youtu.be/kUSYA2z6Low'
 // const video2 = 'https://youtu.be/h-IFxZglesE'
 
@@ -130,6 +131,7 @@ export const Configuration = {
     { title: 'Flashcard', icon: BsCardHeading },
     { title: 'Feynman', icon: FaChalkboardTeacher },
     { title: 'Search', icon: BsSearch },
+    { title: 'Rank', icon: RiMedalLine },
   ],
   templateNewUser: {
     music: { log: 'rainSound' },
@@ -146,6 +148,7 @@ export const Configuration = {
         blurting: true,
         feynman: true,
         flashcard: true,
+        rank: true,
         notes: false,
         todolist: false,
       },

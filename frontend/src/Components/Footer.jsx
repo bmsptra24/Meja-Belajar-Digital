@@ -23,8 +23,10 @@ import {
   setToDoList,
   setSetting,
   setHelp,
+  setRank,
 } from '../Features/Home/Home'
 import { useState } from 'react'
+import { RiMedalLine } from 'react-icons/ri'
 
 const Footer = () => {
   // const navigate = useNavigate();
@@ -38,6 +40,7 @@ const Footer = () => {
     music,
     search,
     pomodoro,
+    rank,
   } = useSelector((state) => state.home)
   const { timeRemainingString } = useSelector((state) => state.pomodoro)
   const { config } = useSelector((state) => state.database)
@@ -54,6 +57,7 @@ const Footer = () => {
     dispatch(setMusic(false))
     dispatch(setSearch(false))
     dispatch(setPomodoro(false))
+    dispatch(setRank(false))
     dispatch(setSetting(false))
     dispatch(setHelp(false))
   }
@@ -94,6 +98,7 @@ const Footer = () => {
             !config?.taskbar?.notes &&
             !config?.taskbar?.blurting &&
             !config?.taskbar?.flashcard &&
+            !config?.taskbar?.rank &&
             !config?.taskbar?.feynman && (
               <div className="invisible">
                 <Icon Icon={FaClipboardList} isOpened={toDoList} />
@@ -148,6 +153,16 @@ const Footer = () => {
             className={`${config?.taskbar?.feynman ? 'block' : 'hidden'}`}
           >
             <Icon Icon={FaChalkboardTeacher} isOpened={feynman} />
+          </div>
+          <div
+            title="Rank"
+            onClick={() => {
+              hideAllComponents()
+              dispatch(setRank(!rank))
+            }}
+            className={`${config?.taskbar?.rank ? 'block' : 'hidden'}`}
+          >
+            <Icon Icon={RiMedalLine} isOpened={rank} />
           </div>
         </div>
         <div className="absolute right-0 mr-3 flex">

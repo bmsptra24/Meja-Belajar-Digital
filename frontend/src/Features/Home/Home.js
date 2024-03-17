@@ -12,6 +12,7 @@ export const homeSlice = createSlice({
     music: false,
     search: false,
     pomodoro: false,
+    rank: false,
     setting: false,
     help: false,
     quote: false,
@@ -44,6 +45,9 @@ export const homeSlice = createSlice({
     setPomodoro: (state, action) => {
       state.pomodoro = action.payload
     },
+    setRank: (state, action) => {
+      state.rank = action.payload
+    },
     setSetting: (state, action) => {
       state.setting = action.payload
     },
@@ -67,6 +71,7 @@ export const {
   setSearch,
   setPomodoro,
   setSetting,
+  setRank,
   setHelp,
   setQuote,
 } = homeSlice.actions
