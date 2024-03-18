@@ -284,6 +284,16 @@ const Footer = () => {
               onClick={() => {
                 hideAllComponents()
                 setIsBurgerClicked((e) => !e)
+                dispatch(setRank(true))
+              }}
+            >
+              Rank
+            </p>
+            <p
+              className="hover:bg-slate-300 p-2 rounded"
+              onClick={() => {
+                hideAllComponents()
+                setIsBurgerClicked((e) => !e)
                 dispatch(setSearch(true))
               }}
             >

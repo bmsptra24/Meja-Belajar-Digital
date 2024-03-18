@@ -12,6 +12,7 @@ import {
   setToDoList,
   setSetting,
   setHelp,
+  setRank,
 } from '../Features/Home/Home'
 
 const CloseButton = ({ className, autoHide = true }) => {
@@ -28,6 +29,7 @@ const CloseButton = ({ className, autoHide = true }) => {
     dispatch(setPomodoro(false))
     dispatch(setSetting(false))
     dispatch(setHelp(false))
+    dispatch(setRank(false))
   }
   return (
     <MdClose

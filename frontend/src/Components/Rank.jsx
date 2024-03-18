@@ -1,16 +1,8 @@
-import {
-  fetchDataRealtime,
-  getAllDataRank,
-  newKey,
-  updateData,
-} from '../Store/Database'
+import { fetchDataRealtime, getAllDataRank } from '../Store/Database'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../Store/Firebase'
-import { useEffect, useRef, useState } from 'react'
-import { BsTrash, BsPlusLg } from 'react-icons/bs'
+import { useEffect, useState } from 'react'
 import { RxHamburgerMenu } from 'react-icons/rx'
-import { RiErrorWarningFill } from 'react-icons/ri'
-import { Confirmation } from './Confirmation'
 import TextareaAutosize from 'react-textarea-autosize'
 import CloseButton from './CloseButton'
 import { useSelector } from 'react-redux'
@@ -22,6 +14,7 @@ const Rank = () => {
   const [lastOpen, setLastOpen] = useState(0)
   const [data, setData] = useState([])
   const [rank, setRank] = useState([])
+  const [isListClicked, setIsListClicked] = useState(false)
 
   const menu = ['History', 'Rank']
 
@@ -57,14 +50,13 @@ const Rank = () => {
           <div className=" flex h-full flex-col lg:flex-row overflow-hidden">
             <div
               className={
-                'bg-slate-50 w-screen lg:w-1/5 py-3 pl-2 lg:pr-2 rounded-none lg:rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto relative lg:static '
-                // +
-                // (isListNotesClicked === true
-                //   ? 'visible lg:visible'
-                //   : 'hidden lg:visible')
+                'bg-slate-50 w-screen lg:w-1/5 py-3 pl-2 lg:pr-2 rounded-none lg:rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto relative lg:static ' +
+                (isListClicked === true
+                  ? 'visible lg:visible'
+                  : 'hidden lg:visible')
               }
             >
-              <div className="hover:overflow-y-scroll overflow-hidden mr-3 lg:mr-0 grow h-full lg:h-auto mb-0 lg:mb-1">
+              <div className="hover:overflow-y-scroll overflow-hidden mr-3 lg:mr-0 h-full lg:h-auto mb-0 lg:mb-1">
                 {menu.map((title, idx) => {
                   return (
                     <div
@@ -75,7 +67,10 @@ const Rank = () => {
                           : `bg-slate-200 border-2 border-${color}-50 hover:border-slate-300 hover:bg-slate-300`
                       } px-2 py-1 rounded-lg mb-1`}
                       style={({ cursor: 'pointer' }, { minHeight: '35px' })}
-                      onClick={() => setLastOpen(idx)}
+                      onClick={() => {
+                        setLastOpen(idx)
+                        setIsListClicked((prev) => !prev)
+                      }}
                     >
                       <div
                         style={{ cursor: 'pointer' }}
@@ -94,7 +89,9 @@ const Rank = () => {
                   <div className="flex justify-between mb-3 pb-1 border-b-2">
                     <div>
                       <div className="visible lg:hidden text-xl hover:text-slate-400">
-                        <RxHamburgerMenu />
+                        <RxHamburgerMenu
+                          onClick={() => setIsListClicked((prev) => !prev)}
+                        />
                       </div>
                     </div>
                     <div className="relative flex gap-4" title="Delete note">
@@ -114,28 +111,52 @@ const Rank = () => {
                   />
 
                   <div className="grow flex flex-col gap-1 overflow-hidden hover:overflow-y-scroll">
-                    {lastOpen === 0 &&
-                      data.map((value, index) => (
-                        <div
-                          key={'data' + index}
-                          className="flex justify-between bg-slate-200 hover:bg-slate-300 transition-all ease-in-out py-1 px-2 rounded-md"
-                        >
-                          <p>{value[1]?.title}</p>
-                          <p>{new Date(value[1]?.date).toLocaleDateString()}</p>
-                          <p>{`${value[1]?.score}/${value[1]?.cardsLenght}`}</p>
-                        </div>
-                      ))}
+                    <table>
+                      <thead>
+                        <tr>
+                          {lastOpen === 0 && (
+                            <>
+                              <th className="text-left">Topik</th>
+                              <th className="text-left">Tanggal</th>
+                              <th className="text-left">Nilai</th>
+                            </>
+                          )}
 
-                    {lastOpen === 1 &&
-                      rank.map((value, index) => (
-                        <div
-                          key={'rank' + index}
-                          className="flex justify-between bg-slate-200 hover:bg-slate-300 transition-all ease-in-out py-1 px-2 rounded-md"
-                        >
-                          <p>{value?.name}</p>
-                          <p>{value?.cardsLenght}</p>
-                        </div>
-                      ))}
+                          {lastOpen === 1 && (
+                            <>
+                              <th className="text-left">Nama</th>
+                              <th className="text-left">Score</th>
+                            </>
+                          )}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {lastOpen === 0 &&
+                          data.map((value, index) => (
+                            <tr
+                              key={'data' + index}
+                              className="bg-slate-200 hover:bg-slate-300 transition-all ease-in-out rounded-md"
+                            >
+                              <td className="p-2">{value[1]?.title}</td>
+                              <td>
+                                {new Date(value[1]?.date).toLocaleDateString()}
+                              </td>
+                              <td>{`${value[1]?.score}/${value[1]?.cardsLenght}`}</td>
+                            </tr>
+                          ))}
+
+                        {lastOpen === 1 &&
+                          rank.map((value, index) => (
+                            <tr
+                              key={'rank' + index}
+                              className="bg-slate-200 hover:bg-slate-300 transition-all ease-in-out rounded-md"
+                            >
+                              <td className="p-2">{value?.name}</td>
+                              <td>{value?.cardsLenght}</td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               ) : menu.length === 0 ? (

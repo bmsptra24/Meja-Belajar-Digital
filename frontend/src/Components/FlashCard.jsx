@@ -3,14 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../Store/Firebase'
 import { useEffect, useRef, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
-import {
-  BsTrash,
-  BsPlusLg,
-  BsPlayFill,
-  BsFillArrowRightSquareFill,
-  BsFillArrowLeftSquareFill,
-  BsArrowClockwise,
-} from 'react-icons/bs'
+import { BsTrash, BsPlusLg } from 'react-icons/bs'
 import { HiOutlinePencilAlt } from 'react-icons/hi'
 import { RiErrorWarningFill } from 'react-icons/ri'
 import { RxHamburgerMenu } from 'react-icons/rx'
@@ -51,8 +44,9 @@ const Note = () => {
   const [isSeeAnswer, setIsSeeAnswer] = useState(false)
   const [isDelete, setIsDelete] = useState(false)
   const [checkPoint, setCheckPoint] = useState(-1)
-  const [isListCardsClicked, setIsListCardsClicked] = useState(false)
   const [score, setScore] = useState(0)
+  const [isListClicked, setIsListClicked] = useState(false)
+
   const refTitle = useRef(null)
 
   const { config } = useSelector((state) => state.database)
@@ -79,13 +73,13 @@ const Note = () => {
 
   const handleCreateNewModule = async () => {
     if (data.length < LimitData.flashcard.module) {
-      setIsListCardsClicked(false)
+      setIsListClicked(false)
       addCardModule(user, setCards)
       if (lastOpen >= 0) {
         // jika data masih ada maka:
         await updateData(
           ['users/' + user.uid + '/flashcard/' + 'lastOpen'],
-          data.length - 2,
+          data.length - 1,
         )
       } else {
         // jika tidak ada data:
@@ -178,7 +172,7 @@ const Note = () => {
   // set last open data for navigate in first modul
   useEffect(() => {
     if (data.length > 1) {
-      setLastOpen(data[data.length - 1 - 1][1])
+      setLastOpen(data[data.length - 1][1])
     } else {
       setLastOpen(-1)
     }
@@ -242,7 +236,7 @@ const Note = () => {
                 <div
                   className={
                     'bg-slate-50 w-screen lg:w-1/5 py-3 pl-2 lg:pr-2 rounded-xl lg:border-2 border-slate-800 lg:flex flex-col justify-between h-full z-10 lg:h-auto absolute lg:static ' +
-                    (isListCardsClicked === true
+                    (isListClicked === true
                       ? 'visible lg:visible'
                       : 'hidden lg:visible')
                   }
@@ -251,10 +245,7 @@ const Note = () => {
                     {lastOpen >= 0
                       ? data.map((e, idx) => {
                           // console.log(data.length)
-                          if (
-                            idx !== data.length - 1 &&
-                            idx !== data.length - 2
-                          ) {
+                          if (idx !== data.length - 1) {
                             return (
                               <div
                                 key={'note-' + idx}
@@ -268,7 +259,7 @@ const Note = () => {
                                 }
                                 onClick={() => {
                                   setIsEdit(false)
-                                  setIsListCardsClicked((e) => !e)
+                                  setIsListClicked((e) => !e)
                                   data.map((e, index) => {
                                     if (idx === index && idx !== data.length) {
                                       // update last open
@@ -325,12 +316,12 @@ const Note = () => {
                             >
                               <BsTrash className="hover:text-red-700 cursor-pointer transition ease-out text-xl" />
                             </div>
-                            {!isListCardsClicked && (
+                            {!isListClicked && (
                               <div className="visible lg:hidden absolute left-0 right-0 m-auto flex justify-center w-7">
                                 <RxHamburgerMenu
                                   className=" text-xl hover:text-slate-400"
                                   onClick={() => {
-                                    setIsListCardsClicked((e) => !e)
+                                    setIsListClicked((e) => !e)
                                   }}
                                 />
                               </div>
@@ -431,31 +422,49 @@ const Note = () => {
                   )}
 
                   {!isEdit && (
-                    <div className="w-full h-full flex justify-center items-center flex-col gap-3 pt-10">
-                      <button
-                        className={`bg-${color}-300 hover:bg-${color}-400 transition-all ease-in-out w-40 h-10 rounded-lg`}
-                        onClick={() => {
-                          setIsPlay((e) => !e)
-                          setCheckPoint(0)
-                          setIsStart(true)
-                        }}
-                      >
-                        Mulai Belajar
-                      </button>
-                      <div className="flex items-center gap-2">
-                        <button onClick={handlerEdit}>
-                          <HiOutlinePencilAlt className="text-2xl" />
-                        </button>
+                    <>
+                      <div className="flex justify-between mb-3 pb-1 border-b-2">
+                        <div>
+                          <div className="visible lg:hidden text-xl hover:text-slate-400">
+                            <RxHamburgerMenu
+                              onClick={() => setIsListClicked((prev) => !prev)}
+                            />
+                          </div>
+                        </div>
                         <div
-                          title="Delete flashcard"
-                          onClick={() => {
-                            setIsDelete(true)
-                          }}
+                          className="relative flex gap-4"
+                          title="Delete note"
                         >
-                          <BsTrash className="hover:text-red-700 cursor-pointer transition ease-out text-xl" />
+                          <CloseButton className="right-2" />
                         </div>
                       </div>
-                    </div>
+                      <div className="w-full h-full flex justify-center items-center flex-col gap-3 pt-10">
+                        <p>{title}</p>
+                        <button
+                          className={`bg-${color}-300 hover:bg-${color}-400 transition-all ease-in-out w-40 h-10 rounded-lg`}
+                          onClick={() => {
+                            setIsPlay((e) => !e)
+                            setCheckPoint(0)
+                            setIsStart(true)
+                          }}
+                        >
+                          Mulai Belajar
+                        </button>
+                        <div className="flex items-center gap-2">
+                          <button onClick={handlerEdit}>
+                            <HiOutlinePencilAlt className="text-2xl" />
+                          </button>
+                          <div
+                            title="Delete flashcard"
+                            onClick={() => {
+                              setIsDelete(true)
+                            }}
+                          >
+                            <BsTrash className="hover:text-red-700 cursor-pointer transition ease-out text-xl" />
+                          </div>
+                        </div>
+                      </div>
+                    </>
                   )}
                 </div>
               </>
@@ -511,44 +520,6 @@ const Note = () => {
                             </p>
                           )}
                         </div>
-                        {/* <div className="flex justify-center mb-5 lg:mb-auto">
-                          <BsFillArrowLeftSquareFill
-                            className="text-3xl text-slate-400 hover:text-slate-500 hover:shadow-md cursor-pointer transition ease-out"
-                            onClick={() => {
-                              if (checkPoint > 0) {
-                                if (isSeeAnswer) {
-                                  setIsSeeAnswer((e) => !e)
-                                }
-                                setCheckPoint((e) => e - 1)
-                              }
-
-                              // setRandomNumber(randomNumbers[checkPoint] - 1);
-                              // console.log(cards[randomNumber][1].answer);
-                            }}
-                          />
-                          <BsArrowClockwise
-                            className="text-3xl text-slate-400 hover:text-slate-500 hover:shadow-md cursor-pointer transition ease-out mx-7"
-                            onClick={() => setIsSeeAnswer((e) => !e)}
-                          />
-                          <BsFillArrowRightSquareFill
-                            className="text-3xl text-slate-400 hover:text-slate-500 hover:shadow-md cursor-pointer transition ease-out"
-                            onClick={() => {
-                              if (checkPoint < cards.length - 1) {
-                                if (isSeeAnswer) {
-                                  setIsSeeAnswer((e) => !e)
-                                }
-                                setCheckPoint((e) => e + 1)
-                              }
-                              if (checkPoint >= cards.length - 1) {
-                                setIsStart((e) => !e)
-                                setIsPlay((e) => !e)
-                              }
-
-                              // setRandomNumber(randomNumbers[checkPoint] - 1);
-                              // console.log(cards[randomNumber][1].answer);
-                            }}
-                          />
-                        </div> */}
 
                         <div className="flex justify-center mb-5 lg:mb-auto gap-3">
                           {!isSeeAnswer && (
