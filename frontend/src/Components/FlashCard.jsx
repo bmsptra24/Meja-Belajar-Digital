@@ -155,12 +155,16 @@ const Note = () => {
       )
     }
   }
-  console.log(data[lastOpen])
+
   const handleSaveScore = (score) => {
-    const path = 'users/' + user.uid + '/flashcard/' + 'scores/'
+    const path = 'rank/'
     const key = newKey(path)
 
     const value = {
+      user: {
+        uid: user.uid,
+        name: user.displayName,
+      },
       score: score,
       flashcardId: data[lastOpen][0],
       date: new Date(),

@@ -1,4 +1,9 @@
-import { fetchDataRealtime, newKey, updateData } from '../Store/Database'
+import {
+  fetchDataRealtime,
+  getAllDataRank,
+  newKey,
+  updateData,
+} from '../Store/Database'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../Store/Firebase'
 import { useEffect, useRef, useState } from 'react'
@@ -16,8 +21,9 @@ const Rank = () => {
   const [user] = useAuthState(auth)
   const [lastOpen, setLastOpen] = useState(0)
   const [data, setData] = useState([])
+  const [rank, setRank] = useState([])
 
-  const menu = ['history', 'rank']
+  const menu = ['History', 'Rank']
 
   const { config } = useSelector((state) => state.database)
   const color = config.color
@@ -25,11 +31,19 @@ const Rank = () => {
   // get menu from database
   useEffect(() => {
     if (user) {
-      fetchDataRealtime(`users/${user.uid}/flashcard/scores`, (snapshot) => {
-        setData(Object.entries(snapshot).map((e) => e))
+      fetchDataRealtime(`rank`, (snapshot) => {
+        const mappedData = Object.entries(snapshot).map((e) => e)
+        const filteredData = mappedData.filter(
+          (data) => data[1]?.user?.uid === user.uid,
+        )
+        setData(filteredData)
       })
     }
   }, [user])
+
+  useEffect(() => {
+    getAllDataRank().then((datas) => setRank(datas))
+  }, [])
 
   console.log({ data })
   return (
@@ -96,20 +110,32 @@ const Rank = () => {
                     maxLength={LimitData.notes.title}
                     rows={5}
                     disabled
-                    value={'History'}
+                    value={menu[lastOpen]}
                   />
 
                   <div className="grow flex flex-col gap-1 overflow-hidden hover:overflow-y-scroll">
-                    {data.map((value, index) => (
-                      <div
-                        key={'data' + index}
-                        className="flex justify-between bg-slate-200 hover:bg-slate-300 transition-all ease-in-out py-1 px-2 rounded-md"
-                      >
-                        <p>{value[1]?.title}</p>
-                        <p>{new Date(value[1]?.date).toLocaleDateString()}</p>
-                        <p>{`${value[1]?.score}/${value[1]?.cardsLenght}`}</p>
-                      </div>
-                    ))}
+                    {lastOpen === 0 &&
+                      data.map((value, index) => (
+                        <div
+                          key={'data' + index}
+                          className="flex justify-between bg-slate-200 hover:bg-slate-300 transition-all ease-in-out py-1 px-2 rounded-md"
+                        >
+                          <p>{value[1]?.title}</p>
+                          <p>{new Date(value[1]?.date).toLocaleDateString()}</p>
+                          <p>{`${value[1]?.score}/${value[1]?.cardsLenght}`}</p>
+                        </div>
+                      ))}
+
+                    {lastOpen === 1 &&
+                      rank.map((value, index) => (
+                        <div
+                          key={'rank' + index}
+                          className="flex justify-between bg-slate-200 hover:bg-slate-300 transition-all ease-in-out py-1 px-2 rounded-md"
+                        >
+                          <p>{value?.name}</p>
+                          <p>{value?.cardsLenght}</p>
+                        </div>
+                      ))}
                   </div>
                 </div>
               ) : menu.length === 0 ? (
