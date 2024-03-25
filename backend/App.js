@@ -20,34 +20,34 @@ configuration.baseOptions.headers = {
 
 const openai = new OpenAIApi(configuration)
 
-
 app.get('/gpt/get-answer', async (req, res) => {
-  res.setHeader('Access-Control-Allow-Credentials', true)
-  res.setHeader('Access-Control-Allow-Origin', '*')
+  // res.setHeader('Access-Control-Allow-Credentials', true)
+  // res.setHeader('Access-Control-Allow-Origin', '*')
   // another common pattern
   // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET,OPTIONS,PATCH,DELETE,POST,PUT',
-  )
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
-  )
-
-  const input = JSON.parse(req.query.data)
-
-  const params = {
-    messages: input,
-    model: process.env.OPENAI_MODEL,
-    temperature: Number(process.env.OPENAI_TEMPERATURE),
-    max_tokens: Number(process.env.OPENAI_MAX_TOKEN),
-    top_p: Number(process.env.OPENAI_TOP_P),
-    frequency_penalty: Number(process.env.OPENAI_FREQUENCY_PENALTY),
-    presence_penalty: Number(process.env.OPENAI_PRESENCE_PENALTY),
-  }
+  // res.setHeader(
+  //   'Access-Control-Allow-Methods',
+  //   'GET,OPTIONS,PATCH,DELETE,POST,PUT',
+  // )
+  // res.setHeader(
+  //   'Access-Control-Allow-Headers',
+  //   'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+  // )
 
   try {
+    if (!req.query.data) throw 'Invalid Body'
+    const input = await JSON.parse(req.query.data)
+    console.log({ input })
+    const params = {
+      messages: input,
+      model: process.env.OPENAI_MODEL,
+      temperature: Number(process.env.OPENAI_TEMPERATURE),
+      max_tokens: Number(process.env.OPENAI_MAX_TOKEN),
+      top_p: Number(process.env.OPENAI_TOP_P),
+      frequency_penalty: Number(process.env.OPENAI_FREQUENCY_PENALTY),
+      presence_penalty: Number(process.env.OPENAI_PRESENCE_PENALTY),
+    }
+
     const response = await openai.createChatCompletion(params)
     const data = response.data.choices[0].message
     // console.log(data)
@@ -74,7 +74,7 @@ app.get('/', async (req, res) => {
     'Access-Control-Allow-Headers',
     'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
   )
-  
+
   res.status(200).send(
     `
   REST API Meja Belajar Digital Work!
